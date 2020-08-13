@@ -24,7 +24,7 @@ RAngular = R6Class("RAngular", list(directory="", components =list(),
                                  if (length(components) > 0) {
                                    # generate component as specified by R-user:
                                    for (component in components) {
-
+                                     system(paste0("ng g c components/",component$name))
                                    }
                                  }
                                },
@@ -63,7 +63,7 @@ component2 = Component$new(url="/barchart",
                            view="barchart",
                            methods = list(select = switchSpecies()))
 app = RAngular$new()
-app$buildFrontEnd(scaffold = TRUE, name="frontend", components= list(component1, component2))
+app$buildFrontEnd(scaffold = FALSE, name="frontend", components= list(component1, component2))
 # app$serve()
 
 
