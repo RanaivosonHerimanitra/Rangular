@@ -8,6 +8,17 @@ library("tidyverse")
 library("magrittr")
 library("jsonlite")
 mainDirectory = getwd()
+
+extractMethods = function(listOfMethodsSrc) {
+  vectorRepresentation = c()
+  for (src in listOfMethodsSrc) {
+    vectorRepresentation = c(vectorRepresentation, src)
+  }
+  return (paste0(vectorRepresentation, collapse = ";"))
+}
+
+extractMethods(list(button = giveMeMin, select = switchSpecies ))
+
 RAngular = R6Class("RAngular", list(directory="", components =list(),
                                buildFrontEnd = function(initialize = FALSE, name="frontend", components) {
                                  if (initialize == TRUE) {
@@ -25,9 +36,10 @@ RAngular = R6Class("RAngular", list(directory="", components =list(),
                                  if (length(components) > 0) {
                                    # here we call the schematics
                                    for (component in components) {
-                                     system(paste0("schematics .:rangular-template --debug=false",
+                                     system(paste("schematics .:rangular-template --debug=false",
                                                    "--name=",component$name,
-                                                   "--view=",paste(names(component$methods),collapse = ",")
+                                                   "--view=", component$view,
+                                                   "--methods=", extractMethods(component$methods)
                                                    ))
                                    }
                                  }
@@ -67,8 +79,8 @@ component2 = Component$new(url="/barchart",
                            view="barchart",
                            methods = list(select = switchSpecies()))
 app = RAngular$new()
-app$buildFrontEnd(scaffold = FALSE, name="frontend", components= list(component1, component2))
-# app$serve()
+app$buildFrontEnd(initialize = FALSE, name="frontend", components= list(component1, component2))
+app$serve()
 
 
 
