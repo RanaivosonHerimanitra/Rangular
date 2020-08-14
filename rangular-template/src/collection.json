@@ -3,7 +3,8 @@
   "schematics": {
     "rangular-template": {
       "description": "Where the parameters reside",
-      "factory": "./rangular-template/index#rangularTemplate"
+      "factory": "./rangular-template/index#rangularTemplate",
+      "schema": "./rangular-template/schema.json"
     }
   }
 }

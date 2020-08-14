@@ -16,6 +16,7 @@
   "dependencies": {
     "@angular-devkit/core": "^10.0.6",
     "@angular-devkit/schematics": "^10.0.6",
+    "@schematics/angular": "^10.0.6",
     "typescript": "~3.9.7"
   },
   "devDependencies": {

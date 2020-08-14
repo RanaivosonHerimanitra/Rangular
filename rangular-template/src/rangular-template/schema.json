@@ -1,0 +1,17 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "id": "RangularSchema",
+    "title": "Collection Schema for validating a 'collection.json'.",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string"
+        },
+        "view": {
+            "type": "string"
+        },
+        "methods": {
+            "type": "string"
+        }
+    }
+}
