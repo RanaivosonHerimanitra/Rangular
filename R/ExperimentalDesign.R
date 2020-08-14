@@ -9,8 +9,8 @@ library("magrittr")
 library("jsonlite")
 mainDirectory = getwd()
 RAngular = R6Class("RAngular", list(directory="", components =list(),
-                               buildFrontEnd = function(scaffold = FALSE, name="frontend", components) {
-                                 if (scaffold == TRUE) {
+                               buildFrontEnd = function(initialize = FALSE, name="frontend", components) {
+                                 if (initialize == TRUE) {
                                    system(paste("ng new",name,"--routing=true","--force=true"), TRUE,invisible = FALSE)
                                    setwd(name)
                                    system(paste("ng add @ng-bootstrap/ng-bootstrap"))
@@ -21,10 +21,14 @@ RAngular = R6Class("RAngular", list(directory="", components =list(),
                                    system("npm i", TRUE, invisible = FALSE)
                                    setwd(mainDirectory)
                                  }
+                                 # generate component as specified by R-user:
                                  if (length(components) > 0) {
-                                   # generate component as specified by R-user:
+                                   # here we call the schematics
                                    for (component in components) {
-                                     system(paste0("ng g c components/",component$name))
+                                     system(paste0("schematics .:rangular-template --debug=false",
+                                                   "--name=",component$name,
+                                                   "--view=",paste(names(component$methods),collapse = ",")
+                                                   ))
                                    }
                                  }
                                },
