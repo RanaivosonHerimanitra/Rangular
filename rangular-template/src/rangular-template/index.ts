@@ -7,10 +7,10 @@ export function rangularTemplate(_options: Schema): Rule {
   return (tree: Tree, _context: SchematicContext) => {
     const srcComponentTemplate = url('./files');
     const writeMethods = (element:string) => { 
-    const arr = element.split(";").map (value => {
-        return `${value}\n\n`;
-      })
-    return arr.toString().replace(",function","function");
+    const arr = element.split(";").map ((value,index) => {
+        return value.replace('function',`func${index}`);
+      });
+    return arr.join('\n');
     }
     const srcRulesApplication = apply(srcComponentTemplate, [
     template({
