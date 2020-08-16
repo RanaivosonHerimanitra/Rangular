@@ -6,19 +6,17 @@ import { strings } from '@angular-devkit/core';
 export function rangularTemplate(_options: Schema): Rule {
   return (tree: Tree, _context: SchematicContext) => {
     const srcComponentTemplate = url('./files');
-    const split = (element:string) => { 
+    const writeMethods = (element:string) => { 
     const arr = element.split(";").map (value => {
-        return `${value}(){
-          return 'ok';
-        }`
+        return `${value}\n\n`;
       })
-    return arr.toString().replace(",","\n\n")
+    return arr.toString().replace(",function","function");
     }
     const srcRulesApplication = apply(srcComponentTemplate, [
     template({
       ..._options,
       ...strings,
-      ...{split}
+      ...{writeMethods}
     })
   ]);
   /*tree.create('rangular.ts', `public ${_options.name}(a: string) {

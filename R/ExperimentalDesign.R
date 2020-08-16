@@ -7,6 +7,9 @@ library("dplyr")
 library("tidyverse")
 library("magrittr")
 library("jsonlite")
+library("stringr")
+
+setwd("C:/Users/Admin/Documents/Rangular/")
 mainDirectory = getwd()
 
 extractMethods = function(listOfMethodsSrc) {
@@ -14,7 +17,19 @@ extractMethods = function(listOfMethodsSrc) {
   for (src in listOfMethodsSrc) {
     vectorRepresentation = c(vectorRepresentation, src)
   }
-  return (paste0(vectorRepresentation, collapse = ";"))
+  vectorString = paste0(vectorRepresentation, collapse = ";")
+  vectorString = str_replace_all(vectorString, fixed(" "), "")
+  vectorString = str_replace_all(vectorString, fixed("\n"),"")
+  return(vectorString)
+}
+
+
+giveMeMin = function(data, columnName, bottom) {
+  return(c(data, slice_min(columnName, bottom)))
+}
+
+switchSpecies = function() {
+  return ("test")
 }
 
 extractMethods(list(button = giveMeMin, select = switchSpecies ))
@@ -33,15 +48,21 @@ RAngular = R6Class("RAngular", list(directory="", components =list(),
                                    setwd(mainDirectory)
                                  }
                                  # generate component as specified by R-user:
+                                 setwd(paste0(mainDirectory,"/rangular-template"))
                                  if (length(components) > 0) {
                                    # here we call the schematics
                                    for (component in components) {
-                                     system(paste("schematics .:rangular-template --debug=false",
-                                                   "--name=",component$name,
-                                                   "--view=", component$view,
-                                                   "--methods=", extractMethods(component$methods)
-                                                   ))
+                                     methods = extractMethods(component$methods)
+                                     print(methods)
+                                     system2("schematics",
+                                             c(".:rangular-template","--debug=false",
+                                               paste0("--name=",component$name),
+                                               paste0("--view=",component$view),
+                                               paste0("--methods=",methods),
+                                               "--force"
+                                     ), stderr = TRUE,invisible = FALSE)
                                    }
+                                   setwd(mainDirectory)
                                  }
                                },
                                serve = function() {
@@ -61,23 +82,16 @@ Component = R6Class("Component", list(url="/", name="", view="", methods=list(),
 
 
 # example usage Build 02 components and append then to the application:
-data("iris")
-giveMeMin = function(data, columnName, bottom) {
-  return(data %>% slice_min(columnName, bottom))
-}
 
-switchSpecies = function() {
-  return ("test")
-}
 component1 = Component$new(url="/",
                            name="data-manipulation",
                            view="table",
-                           methods= list(button = giveMeMin(iris,"Sepal.Length",2))
+                           methods= list(button = giveMeMin, select= switchSpecies)
                            )
 component2 = Component$new(url="/barchart",
                            name="data-visualization",
                            view="barchart",
-                           methods = list(select = switchSpecies()))
+                           methods = list(button = giveMeMin, select = switchSpecies))
 app = RAngular$new()
 app$buildFrontEnd(initialize = FALSE, name="frontend", components= list(component1, component2))
 app$serve()

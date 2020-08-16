@@ -12,5 +12,5 @@ export class <%= classify(name) %>Component implements OnInit {
   ngOnInit(): void {
   }
 
-  <%=split(methods)%>
+  <%=writeMethods(methods)%>
 }
