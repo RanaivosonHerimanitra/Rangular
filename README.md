@@ -23,7 +23,7 @@ Hard parts have been carried out by binding `dplyr` syntax with `rxjs` equivalen
 
 # Getting started
 
-# Yechnical Roadmap:
+# Technical Roadmap:
 
 * avoid changing working directory
 * implement binding with angular material or material design (prioritize components widely used in data driven app)
