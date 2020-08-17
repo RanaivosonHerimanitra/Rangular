@@ -14,18 +14,18 @@ We will see.
 
 ## Design and philosophy:
 
-The package allows R user to build **reactive data driven application**, showcases or visualizations in R without touching Javascript. R user describes what they want. 
-Example, a button to filter a data, a dropdown to select a subset of the data, etc.
+The package allows R user to build **reactive data driven application** by leveraging the power of Angular ecosystem and packages. R user describes what they want in R language. Example, a button to filter a data on click, a dropdown to select a subset of the data, etc.
 
 Data are supplied using `Plumber` package. Logic of the application is described in a vector. Let's say `MatButton = c(data, onclick, slice_min,bottom)` will, on click, `slice_min` (remember `dplyr` package) your data based on value of `bottom` variable (a column, more precisely, you can name it whatever you want) .
 
 Hard parts have been carried out by binding `dplyr` syntax with `rxjs` equivalent. All you need to do is:
 
-# Getting started
+# Getting started (API usage):
 
 # Technical Roadmap:
 
-* avoid changing working directory
-* implement binding with angular material or material design (prioritize components widely used in data driven app)
-* implement scaffolding of data offered by plumber API with schematics
-* implement rxjs/dplyr syntax binding with working examples
+* avoid changing working directory in R code ==> ok
+* implement binding with angular material or material design (prioritize components widely used in data driven app).
+* implement component/url binding as can be seen in Angular.
+* implement scaffolding of data supplied by the plumber API with schematics.
+* implement rxjs/dplyr syntax binding with working examples.

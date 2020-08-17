@@ -12,6 +12,9 @@
         },
         "methods": {
             "type": "string"
+        },
+        "metadata": {
+            "type": "string"
         }
     }
 }
