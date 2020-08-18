@@ -29,7 +29,9 @@ Hard parts have been carried out by binding `dplyr` syntax with `rxjs` equivalen
 
 * add angular material dashboard as a default template for displaying data
 
-* add angular navigation (`ng add @angular/material:material-nav --name=main-nav`) as default layout for navigation
+* add angular navigation (`ng add @angular/material:material-nav --name=main-nav`) as default layout for navigation.
+
+* Start scaffolding service for data reception, module (for loading angular material components).
 
 * implement binding with angular material or material design (prioritize components widely used in data driven app). ==> a POC has been written
 
