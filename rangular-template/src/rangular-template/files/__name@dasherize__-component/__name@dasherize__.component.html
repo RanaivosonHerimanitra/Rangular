@@ -1,1 +1,19 @@
-<pre> <%=metadata%></pre>
+<% for ( m of metadata.split(";")) { %>
+    
+    <% const widget = m.split("-")[0] %>
+    <% const domEvent = m.split("-")[2] %>
+    <% const func = m.split("-")[3] %>
+
+    <% if (widget === 'MatButton') { %>
+        <<%= dasherize(widget)%> (<%=domEvent%>)="<%=func%>($event)">
+            Click me I am a button
+        </<%= dasherize(widget)%>>
+    <% } %>
+
+    <% if (widget === 'MatSelect') { %>
+        <<%= dasherize(widget)%> (<%=domEvent%>)="<%=func%>($event)">
+            <mat-option *ngFor="let option of options" [value]="option"> {{ option }} </mat-option>
+        </<%= dasherize(widget)%>>
+    <% } %>
+
+<% } %>

@@ -13,4 +13,5 @@ export class <%= classify(name) %>Component implements OnInit {
   }
 
   <%=writeMethods(methods)%>
+
 }
