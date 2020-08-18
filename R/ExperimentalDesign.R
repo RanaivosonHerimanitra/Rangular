@@ -32,8 +32,16 @@ mergeMethods = function(srcListMethod) {
 }
 
 extractJsonData = function(dataList) {
-  return(paste(names(dataList), collapse = ";"))
+  metadata = c()
+  index = 1
+  for ( element in dataList) {
+    metadata = c(metadata, paste(element$data,element$event,paste0("func",index),sep="-"))
+    index = index + 1
+  }
+  return (paste(metadata,collapse = ";"))
 }
+extractJsonData(list(MatButton = list(data = "data", event = "click", callback = giveMeMin),
+                     MatSelect = list(data = "data", event = "selectionChange", callback = switchSpecies)))
 
 giveMeMin = function(data, columnName, bottom) {
   return(c(data, slice_min(columnName, bottom)))
