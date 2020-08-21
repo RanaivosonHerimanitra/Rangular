@@ -19,9 +19,37 @@ The package allows R user to build **reactive data driven application** by lever
 Data are supplied from a R server using `Plumber` package and retrieved in a reactive manner using `rxjs`. 
 Logic of the application is described in a vector. Let's say `MatButton = c(data, onclick, slice_min,bottom)` will, on click, `slice_min` (remember `dplyr` package) the data based on value of `bottom` variable (a column, more precisely, you can name it whatever you want).
 
-Hard parts have been carried out by binding `dplyr` syntax with `rxjs` equivalent. All you need to do is:
-
 # Getting started (API usage):
+
+```r
+library('RAngular')
+
+# 02 examples function used as a method of a component
+giveMeMin = function(data, columnName, bottom) {
+  return(c(data, slice_min(columnName, bottom)))
+}
+
+switchSpecies = function() {
+  return ("test")
+}
+
+component1 = Component$new(url="/",
+                           name="data-manipulation",
+                           view="table",
+                           methods= list(MatButton = list(data = "data", event = "click", callback = giveMeMin),
+                                         MatSelect = list(data = "data", event = "selectionChange", callback = switchSpecies))
+                           )
+component2 = Component$new(url="/barchart",
+                           name="data-visualization",
+                           view="barchart",
+                           methods= list(MatButton = list(data = "data", event = "click", callback = giveMeMin),
+                                         MatSelect = list(data = "data", event = "selectionChange", callback = switchSpecies))
+
+                           )
+app = RAngular$new()
+app$buildFrontEnd(initialize = FALSE, name="frontend", components= list(component1, component2))
+app$serve()
+```
 
 # Technical Roadmap:
 
@@ -40,3 +68,5 @@ Hard parts have been carried out by binding `dplyr` syntax with `rxjs` equivalen
 * implement scaffolding of data supplied by the plumber API with schematics.
 
 * implement rxjs/dplyr syntax binding with working examples (Not sure It's the best way though).
+
+* Load created schematics template in an isolated folder.
