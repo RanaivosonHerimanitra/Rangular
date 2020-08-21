@@ -5,6 +5,11 @@
       "description": "Where the parameters reside",
       "factory": "./rangular-template/index#rangularTemplate",
       "schema": "./rangular-template/schema.json"
+    },
+    "routing-template": {
+      "description": "Scaffold routing in function of components and route links",
+      "factory": "./routing-template/index#routingTemplate",
+      "schema": "./routing-template/schema.json"
     }
   }
 }

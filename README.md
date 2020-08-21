@@ -25,18 +25,18 @@ Hard parts have been carried out by binding `dplyr` syntax with `rxjs` equivalen
 
 # Technical Roadmap:
 
-* avoid changing working directory in R code ==> ok
+* avoid changing working directory in R code ==> partially done
 
-* add angular material dashboard as a default template for displaying data
+* implement component/url binding as can be seen in Angular. ==> done
 
-* add angular navigation (`ng add @angular/material:material-nav --name=main-nav`) as default layout for navigation.
-
-* Start scaffolding service for data reception, module (for loading angular material components).
+* add angular navigation (`ng add @angular/material:material-nav --name=main-nav`) as default layout for navigation. ==> done
 
 * implement binding with angular material or material design (prioritize components widely used in data driven app). ==> a POC has been written
 
-* implement component/url binding as can be seen in Angular.
+* add angular material dashboard as a default template for displaying data
+
+* Start scaffolding service for data reception, module (for loading angular material components).
 
 * implement scaffolding of data supplied by the plumber API with schematics.
 
-* implement rxjs/dplyr syntax binding with working examples.
+* implement rxjs/dplyr syntax binding with working examples (Not sure It's the best way though).

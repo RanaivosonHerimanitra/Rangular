@@ -31,6 +31,14 @@ mergeMethods = function(srcListMethod) {
   return(vectorString)
 }
 
+extractUrls = function(components) {
+  urls =c()
+  for (component in components) {
+    urls = c(urls, paste0("'",ifelse(component$url == "/","default", component$url),"'"))
+  }
+  return(str_replace_all(paste(urls, collapse=";"),fixed("/"),""))
+}
+
 extractJsonData = function(dataList) {
   widgets = names(dataList)
   metadata = c()
@@ -41,9 +49,12 @@ extractJsonData = function(dataList) {
   }
   return (paste(metadata,collapse = ";"))
 }
+
+stringiFy = function (vecData, sep=";") {
+  return (paste(vecData,collapse = sep))
+}
 #extractJsonData(list(MatButton = list(data = "data", event = "click", callback = giveMeMin),
  #                    MatSelect = list(data = "data", event = "selectionChange", callback = switchSpecies)))
-
 giveMeMin = function(data, columnName, bottom) {
   return(c(data, slice_min(columnName, bottom)))
 }
@@ -68,8 +79,11 @@ RAngular = R6Class("RAngular", list(directory="", components =list(),
                                  # generate component as specified by R-user:
                                  if (length(components) > 0) {
                                    # here we call the schematics
+                                   urls = extractUrls(components)
+                                   componentNames = c()
                                    for (component in components) {
                                      vecMethods = c()
+                                     componentNames = c(componentNames, component$name)
                                      for (widget in c("MatButton","MatSelect")) {
                                        currentWidget = component$methods[[widget]]
                                          if (length(currentWidget[["callback"]]) > 0) {
@@ -78,16 +92,23 @@ RAngular = R6Class("RAngular", list(directory="", components =list(),
                                      }
                                      methods = mergeMethods(vecMethods)
                                      metadata = extractJsonData(component$methods)
-                                     print(metadata)
                                      system2("schematics",
                                              c("./rangular-template:rangular-template","--debug=false",
                                                paste0("--name=",component$name),
                                                paste0("--view=",component$view),
                                                paste0("--methods=",methods),
                                                paste0("--metadata=",metadata),
+                                               paste0("--urls=",urls),
                                                "--force")
                                              , stderr = TRUE,invisible = FALSE)
                                    }
+                                   ## run routing schematics at this point with urls and componentNames:
+                                   system2("schematics",
+                                           c("./rangular-template:routing-template","--debug=false",
+                                             paste0("--components=",stringiFy(componentNames)),
+                                             paste0("--urls=",urls),
+                                             "--force")
+                                           , stderr = TRUE,invisible = FALSE)
                                  }
                                },
                                serve = function() {

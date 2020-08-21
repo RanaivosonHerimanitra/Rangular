@@ -1,19 +1,10 @@
 {
     "$schema": "http://json-schema.org/schema",
-    "id": "RangularSchema",
+    "id": "RoutingSchema",
     "title": "Collection Schema for validating a 'collection.json'.",
     "type": "object",
     "properties": {
-        "name": {
-            "type": "string"
-        },
-        "view": {
-            "type": "string"
-        },
-        "methods": {
-            "type": "string"
-        },
-        "metadata": {
+        "components": {
             "type": "string"
         },
         "urls": {
