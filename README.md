@@ -36,14 +36,18 @@ switchSpecies = function() {
 component1 = Component$new(url="/",
                            name="data-manipulation",
                            view="table",
-                           methods= list(MatButton = list(data = "data", event = "click", callback = giveMeMin),
-                                         MatSelect = list(data = "data", event = "selectionChange", callback = switchSpecies))
+                           methods= list(MatButton = list(data = "data", event = "click", 
+                                                          callback = giveMeMin),
+                                         MatSelect = list(data = "data", event = "selectionChange",
+                                                          callback = switchSpecies))
                            )
 component2 = Component$new(url="/barchart",
                            name="data-visualization",
                            view="barchart",
-                           methods= list(MatButton = list(data = "data", event = "click", callback = giveMeMin),
-                                         MatSelect = list(data = "data", event = "selectionChange", callback = switchSpecies))
+                           methods= list(MatButton = list(data = "data", event = "click", 
+                                                          callback = giveMeMin),
+                                         MatSelect = list(data = "data", event = "selectionChange",
+                                                          callback = switchSpecies))
 
                            )
 app = RAngular$new()
