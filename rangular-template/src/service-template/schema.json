@@ -1,0 +1,11 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "id": "ServiceSchema",
+    "title": "Collection Schema for validating a 'collection.json'.",
+    "type": "object",
+    "properties": {
+        "endpoints": {
+            "type": "string"
+        }
+    }
+}

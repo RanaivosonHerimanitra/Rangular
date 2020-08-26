@@ -23,8 +23,7 @@ export function rangularTemplate(_options: Schema): Rule {
       ...strings,
       ...{writeMethods},
       ...{getUrls}
-    })
-  ]);
+    })]);
   /*
   tree.create('rangular.ts', `public ${_options.name}(a: string) {
     return a + 'b;

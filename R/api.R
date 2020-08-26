@@ -28,3 +28,14 @@ function3 = function(a, b) {
   as.numeric(a) + as.numeric(b)
 }
 
+
+#* @get api/normal/random
+function4 = function() {
+  rnorm(100,0,1)
+}
+
+#* @get api/binomial/random
+function4 = function() {
+ rbinom(100,50,0.3)
+}
+

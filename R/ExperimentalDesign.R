@@ -81,14 +81,19 @@ RAngular = R6Class("RAngular", list(directory="", components =list(),
                                    # here we call the schematics
                                    urls = extractUrls(components)
                                    componentNames = c()
+                                   vecEndpoint = c()
                                    for (component in components) {
                                      vecMethods = c()
+
                                      componentNames = c(componentNames, component$name)
                                      for (widget in c("MatButton","MatSelect")) {
                                        currentWidget = component$methods[[widget]]
-                                         if (length(currentWidget[["callback"]]) > 0) {
+                                       if (length(currentWidget[["callback"]]) > 0) {
                                            vecMethods = c(vecMethods,extractMethods(currentWidget[["callback"]]))
-                                         }
+                                       }
+                                       if (length(currentWidget[["data"]])>0) {
+                                         vecEndpoint = c(vecEndpoint, currentWidget[["data"]])
+                                       }
                                      }
                                      methods = mergeMethods(vecMethods)
                                      metadata = extractJsonData(component$methods)
@@ -109,6 +114,14 @@ RAngular = R6Class("RAngular", list(directory="", components =list(),
                                              paste0("--urls=",urls),
                                              "--force")
                                            , stderr = TRUE,invisible = FALSE)
+                                   ## run service schematics, to bind data to the application
+                                   print(paste(vecEndpoint,collapse = ";"))
+                                   system2("schematics",
+                                           c("./rangular-template:service-template","--debug=false",
+                                             paste0("--endpoints=",paste(vecEndpoint,collapse = ";")),
+                                             "--force")
+                                           , stderr = TRUE,invisible = FALSE)
+                                   ## at the end, copy the data generated at the angular application
                                  }
                                },
                                serve = function() {
@@ -132,15 +145,18 @@ Component = R6Class("Component", list(url="/", name="", view="", methods=list(),
 component1 = Component$new(url="/",
                            name="data-manipulation",
                            view="table",
-                           methods= list(MatButton = list(data = "data", event = "click", callback = giveMeMin),
-                                         MatSelect = list(data = "data", event = "selectionChange", callback = switchSpecies))
+                           methods= list(MatButton = list(data = "api/iris", event = "click",
+                                                          callback = giveMeMin),
+                                         MatSelect = list(data = "echo", event = "selectionChange",
+                                                          callback = switchSpecies))
                            )
 component2 = Component$new(url="/barchart",
                            name="data-visualization",
                            view="barchart",
-                           methods= list(MatButton = list(data = "data", event = "click", callback = giveMeMin),
-                                         MatSelect = list(data = "data", event = "selectionChange", callback = switchSpecies))
-
+                           methods= list(MatButton = list(data = "api/normal/random", event = "click",
+                                                          callback = giveMeMin),
+                                         MatSelect = list(data = "api/binomial/random", event = "selectionChange",
+                                                          callback = switchSpecies))
                            )
 app = RAngular$new()
 app$buildFrontEnd(initialize = FALSE, name="frontend", components= list(component1, component2))

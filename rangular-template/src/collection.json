@@ -10,6 +10,11 @@
       "description": "Scaffold routing in function of components and route links",
       "factory": "./routing-template/index#routingTemplate",
       "schema": "./routing-template/schema.json"
+    },
+    "service-template": {
+      "description": "Scaffold service in function of methods and data handled by methods",
+      "factory": "./service-template/index#serviceTemplate",
+      "schema": "./service-template/schema.json"
     }
   }
 }
