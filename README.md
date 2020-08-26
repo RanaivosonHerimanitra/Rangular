@@ -1,6 +1,6 @@
 # R binding to Angular
-This is an experimental approach to bind rstat to Angular. R loves Angular and that's why I build this project.
-This project allows R users and developers to get access of the full capabilities of Angular framework.
+This is an **early experimental** approach to bind rstats to Angular. R loves Angular and that's why I build this project.
+This project will allow R users and developers to get access of the full capabilities of Angular framework.
 No javascript knowledge is required though but helpful.
 
 # Requirements:
@@ -17,9 +17,13 @@ devtools::install_github('RanaivosonHerimanitra/RAngular')
 
 ## Design and philosophy:
 
-The package allows R user to build **reactive data driven application** by leveraging the power of Angular ecosystem and packages. R user describes what they want in R language. Example, a button to filter a data on click, a dropdown to select a subset of the data, etc.
+The package allows R user to build **reactive data driven application** by leveraging the power of Angular ecosystem and packages. R user describes what they want in R language. Example, a button to filter a data on click, a dropdown to select a subset of the data, etc. Data are supplied from a R server using `Plumber` package and retrieved in a reactive manner using `rxjs`.
 
-Data are supplied from a R server using `Plumber` package and retrieved in a reactive manner using `rxjs`.
+Binding is made possible and easy thanks to the angular schematics ecosystem.  We can generate a `typescript/html` templates using metadata supplied from the R functions we write.
+
+### Why another R framework for building web application ?
+
+Instead of reinventing the wheel, it will take the best in class framework to develop enterprise grade application using R. 
 
 # Getting started (API usage):
 
