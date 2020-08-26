@@ -9,7 +9,10 @@ Nodejs, angular-cli, angular-schematics.
 
 # Installation:
 
-We will see.
+```r
+library('devtools')
+devtools::install_github('RanaivosonHerimanitra/RAngular')
+```
 
 
 ## Design and philosophy:
