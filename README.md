@@ -36,17 +36,17 @@ switchSpecies = function() {
 component1 = Component$new(url="/",
                            name="data-manipulation",
                            view="table",
-                           methods= list(MatButton = list(data = "data", event = "click", 
+                           methods= list(MatButton = list(data = "api/iris", event = "click", 
                                                           callback = giveMeMin),
-                                         MatSelect = list(data = "data", event = "selectionChange",
+                                         MatSelect = list(data = "echo", event = "selectionChange",
                                                           callback = switchSpecies))
                            )
 component2 = Component$new(url="/barchart",
                            name="data-visualization",
                            view="barchart",
-                           methods= list(MatButton = list(data = "data", event = "click", 
+                           methods= list(MatButton = list(data = "api/normal/random", event = "click", 
                                                           callback = giveMeMin),
-                                         MatSelect = list(data = "data", event = "selectionChange",
+                                         MatSelect = list(data = "api/binomial/random", event = "selectionChange",
                                                           callback = switchSpecies))
 
                            )
