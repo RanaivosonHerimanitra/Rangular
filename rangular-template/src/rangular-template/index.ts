@@ -7,7 +7,7 @@ export const writeMethods = (element:string) => {
   const arr = element.split(";").map ((value,index) => {
     return value.replace('function',`func${index}`);
   });
-return arr.join('\n');
+  return arr.join('\n');
 
  /*const params = element.split(";");
  if (params[0] =="min") {

@@ -19,7 +19,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
-  declarations: [<%= getComponentNames(components)%>],
+  declarations: [DataManipulationComponent,DataVisualizationComponent],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
