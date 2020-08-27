@@ -53,14 +53,13 @@ extractJsonData = function(dataList) {
 stringiFy = function (vecData, sep=";") {
   return (paste(vecData,collapse = sep))
 }
-#extractJsonData(list(MatButton = list(data = "data", event = "click", callback = giveMeMin),
- #                    MatSelect = list(data = "data", event = "selectionChange", callback = switchSpecies)))
-giveMeMin = function(data, columnName, bottom) {
-  return(c(data, slice_min(columnName, bottom)))
+
+giveMeMin = function() {
+  return(list("api/iris","min","data","Species.Length"))
 }
 
 switchSpecies = function() {
-  return ("test")
+  return (list("/normal/random"))
 }
 
 RAngular = R6Class("RAngular", list(directory="", components =list(),
@@ -84,14 +83,13 @@ RAngular = R6Class("RAngular", list(directory="", components =list(),
                                    vecEndpoint = c()
                                    for (component in components) {
                                      vecMethods = c()
-
                                      componentNames = c(componentNames, component$name)
                                      for (widget in c("MatButton","MatSelect")) {
                                        currentWidget = component$methods[[widget]]
                                        if (length(currentWidget[["callback"]]) > 0) {
                                            vecMethods = c(vecMethods,extractMethods(currentWidget[["callback"]]))
                                        }
-                                       if (length(currentWidget[["data"]])>0) {
+                                       if (length(currentWidget[["data"]]) > 0) {
                                          vecEndpoint = c(vecEndpoint, currentWidget[["data"]])
                                        }
                                      }
@@ -107,6 +105,12 @@ RAngular = R6Class("RAngular", list(directory="", components =list(),
                                                "--force")
                                              , stderr = TRUE,invisible = FALSE)
                                    }
+                                   ## import components into app-module.ts:
+                                   system2("schematics",
+                                           c("./rangular-template:module-template","--debug=false",
+                                             paste0("--components=",stringiFy(componentNames)),
+                                             "--force")
+                                           , stderr = TRUE,invisible = FALSE)
                                    ## run routing schematics at this point with urls and componentNames:
                                    system2("schematics",
                                            c("./rangular-template:routing-template","--debug=false",
@@ -115,7 +119,6 @@ RAngular = R6Class("RAngular", list(directory="", components =list(),
                                              "--force")
                                            , stderr = TRUE,invisible = FALSE)
                                    ## run service schematics, to bind data to the application
-                                   print(paste(vecEndpoint,collapse = ";"))
                                    system2("schematics",
                                            c("./rangular-template:service-template","--debug=false",
                                              paste0("--endpoints=",paste(vecEndpoint,collapse = ";")),
@@ -126,6 +129,7 @@ RAngular = R6Class("RAngular", list(directory="", components =list(),
                                },
                                serve = function() {
                                  r = plumb(paste0(getwd() , "/R/api.R"))
+                                 system("npm start", wait = TRUE,invisible = FALSE)
                                  r$run()
                                })
                    )

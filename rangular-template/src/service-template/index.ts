@@ -9,9 +9,9 @@ export const getEndPoints = (endpoints: string) => {
 }
 
 export const getServiceMethods = (endpoints: string) => {
-  const arr = endpoints.split(";").map((endpoint, index) => {
-    return `getDataService${index}(): Observable<any> {
-      return this.http.get<any>(BASE_ENDPOINT + "/${endpoint}");
+  const arr = endpoints.split(";").map((_, index) => {
+    return `getDataService${index}(path: string): Observable<any> {
+      return this.http.get<any>(BASE_ENDPOINT + "/" + path);
     }`;
   })
   return arr.join('\n\n');
