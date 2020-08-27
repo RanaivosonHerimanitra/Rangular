@@ -4,6 +4,9 @@
     "title": "Collection Schema for validating a 'collection.json'.",
     "type": "object",
     "properties": {
+        "title": {
+            "type": "string"
+        },
         "name": {
             "type": "string"
         },
