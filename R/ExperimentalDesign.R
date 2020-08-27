@@ -96,7 +96,7 @@ RAngular = R6Class("RAngular", list(directory="", components =list(),
                                      methods = mergeMethods(vecMethods)
                                      metadata = extractJsonData(component$methods)
                                      system2("schematics",
-                                             c("./rangular-template:rangular-template","--debug=false",
+                                             c("./rangular-template:component-template","--debug=false",
                                                paste0("--name=",component$name),
                                                paste0("--view=",component$view),
                                                paste0("--methods=",methods),

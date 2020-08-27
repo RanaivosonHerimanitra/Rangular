@@ -1,4 +1,4 @@
-import { Schema } from './schema.d';
+import { Schema } from './schema';
 import { Rule, SchematicContext, Tree, url, apply, template, mergeWith} from '@angular-devkit/schematics';
 import { strings } from '@angular-devkit/core';
 
@@ -24,7 +24,7 @@ export const getUrls = (urls:string) => {
   return `[${urlArray}]`;
 }
 
-export function rangularTemplate(_options: Schema): Rule {
+export function componentTemplate(_options: Schema): Rule {
   return (tree: Tree, _context: SchematicContext) => {
     
     const srcComponentTemplate = url('./files');

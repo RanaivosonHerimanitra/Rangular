@@ -1,10 +1,10 @@
 {
   "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
   "schematics": {
-    "rangular-template": {
+    "component-template": {
       "description": "Where the parameters reside",
-      "factory": "./rangular-template/index#rangularTemplate",
-      "schema": "./rangular-template/schema.json"
+      "factory": "./component-template/index#componentTemplate",
+      "schema": "./component-template/schema.json"
     },
     "module-template": {
       "description": "Where the parameters reside",
@@ -20,6 +20,11 @@
       "description": "Scaffold service in function of methods and data handled by methods",
       "factory": "./service-template/index#serviceTemplate",
       "schema": "./service-template/schema.json"
+    },
+    "scaffold-template": {
+      "description": "all the rest",
+      "factory": "./scaffold-template/index#scaffoldTemplate",
+      "schema": "./scaffold-template/schema.json"
     }
   }
 }
