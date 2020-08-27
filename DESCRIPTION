@@ -1,11 +1,10 @@
 Package: Rangular
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Rstat binding for Angular
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Author: Herimanitra Ranaivoson
+Maintainer: The package maintainer <airmanitra@gmail.com>
+Description: It allows R user to take control of the Angular Ecosystem for building reactive data drivene application.
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
