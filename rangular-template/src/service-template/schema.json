@@ -6,6 +6,9 @@
     "properties": {
         "endpoints": {
             "type": "string"
+        },
+        "title": {
+            "type": "string"
         }
     }
 }

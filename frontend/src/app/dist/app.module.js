@@ -31,7 +31,7 @@ var AppModule = /** @class */ (function () {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            declarations: [, getComponentNames() %  > ],
+            declarations: [, getComponentNames(components) %  > ],
             imports: [
                 platform_browser_1.BrowserModule,
                 forms_1.ReactiveFormsModule,

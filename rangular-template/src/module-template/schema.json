@@ -6,6 +6,9 @@
     "properties": {
         "components": {
             "type": "string"
+        },
+        "title": {
+            "type": "string"
         }
     }
 }

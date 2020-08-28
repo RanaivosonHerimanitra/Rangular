@@ -11,7 +11,7 @@ import { Router, NavigationStart } from '@angular/router';
   },
 })
 export class AppComponent implements OnInit, AfterViewInit {
-  title = data-visualization;
+  title = 'data-visualization';
 
   constructor(private eref: ElementRef, private router: Router) {
   }

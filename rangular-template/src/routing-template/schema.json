@@ -9,6 +9,9 @@
         },
         "urls": {
             "type": "string"
+        },
+        "title": {
+            "type": "string"
         }
     }
 }

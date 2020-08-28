@@ -11,7 +11,7 @@ import { Router, NavigationStart } from '@angular/router';
   },
 })
 export class AppComponent implements OnInit, AfterViewInit {
-  title = <%=name%>;
+  title = '<%=name%>';
 
   constructor(private eref: ElementRef, private router: Router) {
   }

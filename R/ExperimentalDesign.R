@@ -107,15 +107,18 @@ RAngular = R6Class("RAngular", list(directory="", components =list(),
                                              , stderr = TRUE,invisible = FALSE)
                                    }
                                    ## import components into app-module.ts:
+                                   print(stringiFy(componentNames))
                                    system2("schematics",
                                            c("./rangular-template:module-template","--debug=false",
                                              paste0("--components=",stringiFy(componentNames)),
+                                             paste0("--title=",name),
                                              "--force")
                                            , stderr = TRUE,invisible = FALSE)
                                    ## run routing schematics at this point with urls and componentNames:
                                    system2("schematics",
                                            c("./rangular-template:routing-template","--debug=false",
                                              paste0("--components=",stringiFy(componentNames)),
+                                             paste0("--title=",name),
                                              paste0("--urls=",urls),
                                              "--force")
                                            , stderr = TRUE,invisible = FALSE)
@@ -123,6 +126,7 @@ RAngular = R6Class("RAngular", list(directory="", components =list(),
                                    system2("schematics",
                                            c("./rangular-template:service-template","--debug=false",
                                              paste0("--endpoints=",paste(vecEndpoint,collapse = ";")),
+                                             paste0("--title=",name),
                                              "--force")
                                            , stderr = TRUE,invisible = FALSE)
                                    ## at the end, copy the data generated at the angular application
