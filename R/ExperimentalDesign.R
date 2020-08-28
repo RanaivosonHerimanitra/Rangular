@@ -128,9 +128,16 @@ RAngular = R6Class("RAngular", list(directory="", components =list(),
                                    ## at the end, copy the data generated at the angular application
                                  }
                                },
-                               serve = function() {
+                               serve = function(name) {
                                  r = plumb(paste0(getwd() , "/R/api.R"))
-                                 system("npm start", wait = TRUE,invisible = FALSE)
+                                 setwd(name)
+                                 # if directory node_modules exists, launch directly
+                                 # otherwise install and launch
+                                 if (dir.exists("node_modules")) {
+                                   system("npm start", wait = TRUE,invisible = FALSE)
+                                 } else {
+                                   system(paste("npm i","npm start",sep="&&"), wait = TRUE,invisible = FALSE)
+                                 }
                                  r$run()
                                })
                    )
@@ -165,7 +172,7 @@ component2 = Component$new(url="/barchart",
                            )
 app = RAngular$new()
 app$buildFrontEnd(initialize = FALSE, name="frontend", components= list(component1, component2))
-app$serve()
+app$serve("frontend")
 
 
 
