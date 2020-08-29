@@ -107,7 +107,7 @@ RAngular = R6Class("RAngular", list(directory="", components =list(),
                                              , stderr = TRUE,invisible = FALSE)
                                    }
                                    ## import components into app-module.ts:
-                                   print(stringiFy(componentNames))
+
                                    system2("schematics",
                                            c("./rangular-template:module-template","--debug=false",
                                              paste0("--components=",stringiFy(componentNames)),
@@ -129,7 +129,6 @@ RAngular = R6Class("RAngular", list(directory="", components =list(),
                                              paste0("--title=",name),
                                              "--force")
                                            , stderr = TRUE,invisible = FALSE)
-                                   ## at the end, copy the data generated at the angular application
                                  }
                                },
                                serve = function(name) {

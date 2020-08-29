@@ -1,7 +1,15 @@
 import { Schema } from './schema.d';
 import { Rule, SchematicContext, Tree, url, apply, template, mergeWith} from '@angular-devkit/schematics';
 import { strings } from '@angular-devkit/core';
-import { classify } from '@angular-devkit/core/src/utils/strings';
+import { classify, dasherize } from '@angular-devkit/core/src/utils/strings';
+
+export const handleComponentImportation = (components:string) => {
+  const componentArray: string[] = components.split(";");
+  const arr = componentArray.map(component=> {
+    return `import {${classify(component)}Component} from './${dasherize(component)}-component/${dasherize(component)}.component';`;
+  });
+  return arr.join('\n');
+}
 
 export const generateRoutes = (urls: string, components:string) => {
   const componentArray: string[] = components.split(";");
@@ -17,7 +25,8 @@ export function routingTemplate(_options: Schema): Rule {
     template({
       ..._options,
       ...strings,
-      ...{generateRoutes}
+      ...{generateRoutes},
+      ...{handleComponentImportation}
     })
   ]);
   tree = mergeWith(srcRulesApplication)(tree, _context) as Tree;  
