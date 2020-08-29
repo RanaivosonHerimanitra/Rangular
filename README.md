@@ -11,7 +11,7 @@ No javascript knowledge is required though but helpful.
 
 ```r
 library('devtools')
-devtools::install_github('RanaivosonHerimanitra/RAngular')
+devtools::install_github('RanaivosonHerimanitra/Rangular')
 ```
 
 
@@ -28,7 +28,7 @@ Instead of reinventing the wheel, it will take the best in class framework to de
 # Getting started (API usage):
 
 ```r
-library('RAngular')
+library('Rangular')
 
 # 02 examples function used as a method of a component
 giveMeMin = function() {
