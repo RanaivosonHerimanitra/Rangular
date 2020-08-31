@@ -1,5 +1,11 @@
 ### My API ####
+#* @filter cors
+cors <- function(res) {
+  res$setHeader("Access-Control-Allow-Origin", "*")
+  plumber::forward()
+}
 #* Echo back the input
+#* @preempt cors
 #* @param msg The message to echo
 #* @get /echo
 function0 = function(msg="") {
@@ -7,6 +13,7 @@ function0 = function(msg="") {
 }
 
 #* Plot a histogram
+#* @preempt cors
 #* @png
 #* @get /plot
 function1 = function() {
@@ -15,6 +22,7 @@ function1 = function() {
 }
 
 #* return iris dataset for interactive data manipulation
+#* @preempt cors
 #* @get /api/iris
 function2 = function() {
   data("iris")
@@ -29,15 +37,12 @@ function3 = function(a, b) {
   as.numeric(a) + as.numeric(b)
 }
 
-
-#* @get api/normal/random
+#* @get /api/normal/random
 function4 = function() {
   rnorm(100,0,1)
 }
 
-#* @get api/binomial/random
+#* @get /api/binomial/random
 function4 = function() {
   rbinom(100,50,0.3)
 }
-
-require(plumber)
