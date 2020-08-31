@@ -12,7 +12,7 @@
       >
       <mat-nav-list>
           <div *ngFor="let link of links">
-            <a mat-list-item class="dropdown-item" [routerLink]="['/{{link}}']">
+            <a mat-list-item class="dropdown-item" [routerLink]="['link']">
                 {{link}}
             </a>
           </div>
@@ -29,10 +29,9 @@
         >
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
-        <span><%=name></span>
+        <span>frontend</span>
       </mat-toolbar>
       <!-- Add Content Here -->
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
-  

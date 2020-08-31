@@ -2,6 +2,8 @@ import { Schema } from './schema.d';
 import { Rule, SchematicContext, Tree, url, apply, template, mergeWith} from '@angular-devkit/schematics';
 import { strings } from '@angular-devkit/core';
 import { classify } from '@angular-devkit/core/src/utils/strings';
+import { handleComponentImportation } from '../routing-template/index';
+
 export const getComponentNames = (components:string) => {
     const arr= components.split(";").map(component =>{
         return `${classify(component)}Component`;
@@ -16,13 +18,10 @@ export function moduleTemplate(_options: Schema): Rule {
     template({
       ..._options,
       ...strings,
-      ...{getComponentNames}
+      ...{getComponentNames},
+      ...{handleComponentImportation}
     })
   ]);
-  /*tree.create('../../../frontend/src/rangular.ts', `public ${_options.name}(a: string) {
-    return a + 'b;
-  }`);*/
-  
   tree = mergeWith(srcRulesApplication)(tree, _context) as Tree;  
   return tree;
   };

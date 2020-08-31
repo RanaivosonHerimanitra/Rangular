@@ -8,13 +8,19 @@ export const getEndPoints = (endpoints: string) => {
   });
 }
 
-export const getServiceMethods = (endpoints: string) => {
+/*export const getServiceMethods = (endpoints: string) => {
   const arr = endpoints.split(";").map((_, index) => {
     return `getDataService${index}(path: string): Observable<any> {
       return this.http.get<any>(BASE_ENDPOINT + "/" + path);
     }`;
   })
   return arr.join('\n\n');
+}*/
+
+export const getServiceMethod = () => {
+    return `getDataService(path: string): Observable<any> {
+      return this.http.get<any>(BASE_ENDPOINT + "/" + path);
+    }`;
 }
 
 export function serviceTemplate(_options: Schema): Rule {
@@ -25,7 +31,7 @@ export function serviceTemplate(_options: Schema): Rule {
       ..._options,
       ...strings,
       ...{getEndPoints},
-      ...{getServiceMethods}
+      ...{getServiceMethod}
     })
   ]);
   tree = mergeWith(srcRulesApplication)(tree, _context) as Tree;  

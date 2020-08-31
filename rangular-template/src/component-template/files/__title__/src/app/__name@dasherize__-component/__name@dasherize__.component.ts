@@ -1,14 +1,15 @@
-import { DataMethodsService } from '../../../../../service-template/files/src/app/data-methods.service';
+import { DataMethodsService } from '../data-methods.service';
 import { Component, OnInit } from '@angular/core';
-
+import { pipe } from 'rxjs';
+import { min, filter } from 'rxjs/operators';
 @Component({
-  selector: 'dn-<%=dasherize(name)%>',
+  selector: 'app-<%=dasherize(name)%>',
   templateUrl: './<%=dasherize(name)%>.component.html',
   styleUrls: ['./<%=dasherize(name)%>.component.css'],
 })
 export class <%= classify(name) %>Component implements OnInit {
-
-  constructor(private ds:DataMethodsService) { }
+  public data: any;
+  constructor(private ds: DataMethodsService) { }
 
   ngOnInit(): void {
   }

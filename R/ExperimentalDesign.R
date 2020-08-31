@@ -9,9 +9,6 @@ library("magrittr")
 library("jsonlite")
 library("stringr")
 
-setwd("C:/Users/Admin/Documents/Rangular/")
-mainDirectory = getwd()
-
 extractMethods = function(srcMethod) {
   vectorRepresentation = c(srcMethod)
   vectorString = paste0(vectorRepresentation, collapse = "")
@@ -42,9 +39,9 @@ extractUrls = function(components) {
 extractJsonData = function(dataList) {
   widgets = names(dataList)
   metadata = c()
-  index = 1
+  index = 0
   for ( element in dataList) {
-    metadata = c(metadata, paste(widgets[index],element$data,element$event,paste0("func",index),sep="-"))
+    metadata = c(metadata, paste(widgets[index],element$data,element$event,paste0("func",index, "(",element$arguments,")"),sep="-"))
     index = index + 1
   }
   return (paste(metadata,collapse = ";"))
@@ -55,27 +52,17 @@ stringiFy = function (vecData, sep=";") {
 }
 
 giveMeMin = function() {
-  return(list("api/iris","min","data","Species.Length"))
+  return ("this.ds.getDataService('normal/random').pipe(min<any>( (a: any, b: any) => a['Sepal.Length'] < b['Sepal.Length'] ? -1 : 1)).subscribe((data: any) => this.data = data)")
 }
 
-switchSpecies = function() {
-  return (list("/normal/random"))
+switchSpecies = function(specie) {
+  return("this.ds.getDataService('api/iris').pipe(filter((data: any) => data['Species'] === specie)).subscribe((data: any) => this.data = data)")
 }
 
-RAngular = R6Class("RAngular", list(directory="", components =list(),
-                               buildFrontEnd = function(initialize = FALSE, name="frontend", components) {
-                                 if (initialize == TRUE) {
-                                   system(paste("ng new",name,"--routing=true","--force=true"), TRUE,invisible = FALSE)
-                                   setwd(name)
-                                   system(paste("ng add @ng-bootstrap/ng-bootstrap"))
-                                   system(paste("ng add @angular/material"))
-                                   system(paste("npm i plotly.js-dist"), TRUE, invisible = FALSE)
-                                   system(paste("npm i d3"), TRUE, invisible = FALSE)
-                                   system(paste("npm i d3-array"), TRUE, invisible = FALSE)
-                                   system("npm i", TRUE, invisible = FALSE)
-                                   setwd(mainDirectory)
-                                 }
+RAngular = R6Class("RAngular", list( components =list(),
+                               buildFrontEnd = function(directory="C:/Users/Admin/Documents/Rangular/", name="frontend", components) {
                                  # generate component as specified by R-user:
+                                 setwd(directory)
                                  if (length(components) > 0) {
                                    # here we call the schematics
                                    urls = extractUrls(components)
@@ -161,20 +148,20 @@ component1 = Component$new(url="/",
                            name="data-manipulation",
                            view="table",
                            methods= list(MatButton = list(data = "api/iris", event = "click",
-                                                          callback = giveMeMin),
+                                                          callback = giveMeMin, arguments=""),
                                          MatSelect = list(data = "echo", event = "selectionChange",
-                                                          callback = switchSpecies))
+                                                          callback = switchSpecies, arguments="$event"))
                            )
 component2 = Component$new(url="/barchart",
                            name="data-visualization",
                            view="barchart",
                            methods= list(MatButton = list(data = "api/normal/random", event = "click",
-                                                          callback = giveMeMin),
+                                                          callback = giveMeMin, arguments=""),
                                          MatSelect = list(data = "api/binomial/random", event = "selectionChange",
-                                                          callback = switchSpecies))
+                                                          callback = switchSpecies, arguments="$event"))
                            )
 app = RAngular$new()
-app$buildFrontEnd(initialize = FALSE, name="frontend", components= list(component1, component2))
+app$buildFrontEnd(directory="C:/Users/Admin/Documents/Rangular/", name="frontend", components= list(component1, component2))
 app$serve("frontend")
 
 

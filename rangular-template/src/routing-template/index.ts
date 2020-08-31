@@ -14,7 +14,7 @@ export const handleComponentImportation = (components:string) => {
 export const generateRoutes = (urls: string, components:string) => {
   const componentArray: string[] = components.split(";");
   return urls.split(";").map((route,index) => {
-    return `{path:${route}, component: ${classify(componentArray[index])}}`;
+    return `{path:${route}, component: ${ classify(componentArray[index])}Component}`;
   });
 }
 

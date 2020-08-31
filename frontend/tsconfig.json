@@ -28,7 +28,7 @@
       "es2018",
       "dom"
     ],
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noFallthroughCasesInSwitch": true,

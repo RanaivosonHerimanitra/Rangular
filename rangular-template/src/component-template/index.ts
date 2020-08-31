@@ -8,15 +8,6 @@ export const writeMethods = (element:string) => {
     return value.replace('function',`func${index}`);
   });
   return arr.join('\n');
-
- /*const params = element.split(";");
- if (params[0] =="min") {
-  return `this.getDataService('${params[0]}').pipe(
-    ${params[1]}<any>( (a: any, b: any) => a[${params[3]}] < b[${params[3]}] ? -1 : 1)
-   ).subscribe();`
- } else {
-  return `this.getDataService('${params[0]}').subscribe();`
- }*/
 }
 
 export const getUrls = (urls:string) => {
@@ -36,9 +27,6 @@ export function componentTemplate(_options: Schema): Rule {
       ...{getUrls}
     })
   ]);
-  /*tree.create('../../../frontend/src/rangular.ts', `public ${_options.name}(a: string) {
-    return a + 'b;
-  }`);*/
   
   tree = mergeWith(srcRulesApplication)(tree, _context) as Tree;  
   return tree;

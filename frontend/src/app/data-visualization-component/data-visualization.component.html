@@ -1,19 +1,5 @@
 
-    
-    
-    
-    
 
-    
-        <mat-button (click)="func1($event)">
-            Click me I am a button
-        </mat-button>
-    
-
-    
-
-
-    
     
     
     
@@ -21,8 +7,19 @@
     
 
     
-        <mat-select (selectionChange)="func2($event)">
-            <mat-option *ngFor="let option of options" [value]="option"> {{ option }} </mat-option>
-        </mat-select>
+
+
+
     
+    
+    
+
+    
+      <button mat-button (selectionChange)="func1($event)">
+        Click me I am a button
+      </button>
+    
+
+    
+
 

@@ -20,10 +20,7 @@ var AppComponent = /** @class */ (function () {
         core_1.Component({
             selector: 'app-root',
             templateUrl: './app.component.html',
-            styleUrls: ['./app.component.css'],
-            host: {
-                '(document:click)': 'closeDropdownItem($event)'
-            }
+            styleUrls: ['./app.component.css']
         })
     ], AppComponent);
     return AppComponent;
