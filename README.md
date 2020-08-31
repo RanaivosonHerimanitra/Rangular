@@ -17,7 +17,7 @@ devtools::install_github('RanaivosonHerimanitra/Rangular')
 
 ## Design and philosophy:
 
-The package allows R user to build **reactive data driven application** by leveraging the power of Angular ecosystem and packages. R user describes what they want in R language. Example, a button to filter a data on click, a dropdown to select a subset of the data, etc. Data are supplied from a R server using `Plumber` package and retrieved in a reactive manner using `rxjs`.
+The package allows R user to build **reactive data driven application** by leveraging the power of Angular ecosystem and packages. R user describe what they want in R language. Example, a button to filter a data on click, a dropdown to select a subset of the data, etc. Data are supplied from a R server using `Plumber` package and retrieved in a reactive manner using `rxjs`.
 
 Binding is made possible and easy thanks to the angular schematics ecosystem.  We can generate a `typescript/html` templates using metadata supplied from the R functions we write.
 
@@ -26,6 +26,8 @@ Binding is made possible and easy thanks to the angular schematics ecosystem.  W
 Instead of reinventing the wheel, it will take the best in class framework to develop enterprise grade application using R. 
 
 # Getting started (API usage):
+
+Currently, you have to launch a plumber server, in a separate R session. See [plumber page](https://www.rplumber.io/) for documentation. Once, a plumber server is launched, you can run the following code:
 
 ```r
 library('Rangular')
