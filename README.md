@@ -1,5 +1,5 @@
 # R binding to Angular
-This is an **early experimental** approach to bind rstats to Angular. R loves Angular and that's why I build this project.
+This is an **Proof Of Concept** to bind rstats to Angular. R loves Angular and that's why I build this project.
 This project will allow R users and developers to get access of the full capabilities of Angular framework.
 No javascript knowledge is required though but helpful.
 
@@ -30,51 +30,41 @@ Instead of reinventing the wheel, it will take the best in class framework to de
 ```r
 library('Rangular')
 
-# 02 examples function used as a method of a component
+# 02 examples function used as a method of a component, currently, a vanilla string representing rxjs way of handling stream:
+
 giveMeMin = function() {
-  return(list("api/iris","min","data","Species.Length"))
+  return ("this.ds.getDataService('normal/random').pipe(min<any>( (a: any, b: any) => a['Sepal.Length'] < b['Sepal.Length'] ? -1 : 1)).subscribe((data: any) => this.data = data)")
 }
 
-switchSpecies = function() {
-  return (list("normal/random"))
+switchSpecies = function(specie) {
+  return("this.ds.getDataService('api/iris').pipe(filter((data: any) => data['Species'] === specie)).subscribe((data: any) => this.data = data)")
 }
 
 component1 = Component$new(url="/",
                            name="data-manipulation",
                            view="table",
                            methods= list(MatButton = list(data = "api/iris", 
-                                                          event = "click", 
-                                                          callback = giveMeMin),
+                                                          event = "click",
+                                                          callback = giveMeMin, 
+                                                          arguments=""),
                                          MatSelect = list(data = "echo", 
                                                           event = "selectionChange",
-                                                          callback = switchSpecies)
-                                                          )
+                                                          callback = switchSpecies, 
+                                                          arguments="$event"))
                            )
 component2 = Component$new(url="/barchart",
                            name="data-visualization",
                            view="barchart",
                            methods= list(MatButton = list(data = "api/normal/random", 
-                                                          event = "click", 
-                                                          callback = giveMeMin),
+                                                          event = "click",
+                                                          callback = giveMeMin, 
+                                                          arguments=""),
                                          MatSelect = list(data = "api/binomial/random", 
                                                           event = "selectionChange",
-                                                          callback = switchSpecies)
-                                                          )
-
+                                                          callback = switchSpecies, 
+                                                          arguments="$event"))
                            )
 app = RAngular$new()
 app$buildFrontEnd(initialize = FALSE, name="frontend", components= list(component1, component2))
 app$serve()
 ```
-
-# Todos:
-
-* avoid changing working directory in R code ==> partially done
-
-* implement binding with angular material or material design (prioritize components widely used in data driven app). ==> a POC has been written
-
-* add angular material dashboard as a default template for displaying data
-
-* implement scaffolding of data supplied by the plumber API with schematics.
-
-* Load created schematics template in an isolated folder.
