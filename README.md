@@ -1,7 +1,6 @@
 # R binding to Angular
-This is an **Proof Of Concept** to bind rstats to Angular. R loves Angular and that's why I build this project.
-This project will allow R users and developers to get access of the full capabilities of Angular framework.
-No javascript knowledge is required though but helpful.
+This is an **Proof Of Concept** to bind rstats with Angular. R loves Angular and that's why I build this project.
+This project will allow R users and developers to get access of the full capabilities of Angular framework. Minimal javascript knowledge is required.
 
 # Requirements:
 
@@ -19,7 +18,7 @@ devtools::install_github('RanaivosonHerimanitra/Rangular')
 
 The package allows R user to build **reactive data driven application** by using the power of Angular ecosystem and packages. R user describe what they want in R language. Example, a button to filter a data on click, a dropdown to select a subset of the data, etc. Data are supplied from a R server using `Plumber` package and retrieved in a reactive manner using `rxjs`.
 
-Binding is made possible and easy thanks to the angular schematics.  We can generate a `typescript/html` templates using metadata supplied from the R functions we write.
+Binding is made possible thanks to the angular schematics.  We can generate a `typescript/html` templates using metadata supplied from the R functions we write.
 
 ### Why another R framework for building web application ?
 
@@ -44,7 +43,8 @@ giveMeMin = function() {
   .subscribe((data: any) => this.data = data)")
 }
 
-## switchSpecies, will switch species based on the user chosen option. For that, we can choose
+## switchSpecies, will switch species based on the user chosen option. 
+##For that, we use:
 ## filter operator from rxjs, to filter out species.
 switchSpecies = function(specie) {
   return("this.ds.getDataService('api/iris')
