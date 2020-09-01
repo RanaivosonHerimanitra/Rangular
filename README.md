@@ -17,30 +17,41 @@ devtools::install_github('RanaivosonHerimanitra/Rangular')
 
 ## Design and philosophy:
 
-The package allows R user to build **reactive data driven application** by leveraging the power of Angular ecosystem and packages. R user describe what they want in R language. Example, a button to filter a data on click, a dropdown to select a subset of the data, etc. Data are supplied from a R server using `Plumber` package and retrieved in a reactive manner using `rxjs`.
+The package allows R user to build **reactive data driven application** by using the power of Angular ecosystem and packages. R user describe what they want in R language. Example, a button to filter a data on click, a dropdown to select a subset of the data, etc. Data are supplied from a R server using `Plumber` package and retrieved in a reactive manner using `rxjs`.
 
-Binding is made possible and easy thanks to the angular schematics ecosystem.  We can generate a `typescript/html` templates using metadata supplied from the R functions we write.
+Binding is made possible and easy thanks to the angular schematics.  We can generate a `typescript/html` templates using metadata supplied from the R functions we write.
 
 ### Why another R framework for building web application ?
 
 Instead of reinventing the wheel, it will take the best in class framework to develop enterprise grade application using R. 
+This is not just another framework, it will expose, R, to real world web based software development.
 
 # Getting started (API usage):
 
-Currently, you have to launch a plumber server, in a separate R session. See [plumber page](https://www.rplumber.io/) for documentation. Once, a plumber server is launched, you can run the following code:
+Currently, you have to launch a plumber server, in a separate R session with CORS enabled. See [plumber page](https://www.rplumber.io/) for documentation. Once, a plumber server is launched, you can run the following code in a 2nd R session:
 
 ```r
 library('Rangular')
 
 # 02 examples function used as a method of a component, currently, a vanilla string representing rxjs way of handling stream:
 
+## giveMeMin retrieves data exposed in the normal/random endpoint and operates a min transformation to the data
+## min will take the object with minimum value of field 'Sepal.Length'.
+
 giveMeMin = function() {
-  return ("this.ds.getDataService('normal/random').pipe(min<any>( (a: any, b: any) => a['Sepal.Length'] < b['Sepal.Length'] ? -1 : 1)).subscribe((data: any) => this.data = data)")
+  return ("this.ds.getDataService('normal/random')
+  .pipe(min<any>( (a: any, b: any) => a['Sepal.Length'] < b['Sepal.Length'] ? -1 : 1))
+  .subscribe((data: any) => this.data = data)")
 }
 
+## switchSpecies, will switch species based on the user chosen option. For that, we can choose
+## filter operator from rxjs, to filter out species.
 switchSpecies = function(specie) {
-  return("this.ds.getDataService('api/iris').pipe(filter((data: any) => data['Species'] === specie)).subscribe((data: any) => this.data = data)")
+  return("this.ds.getDataService('api/iris')
+         .pipe(filter((data: any) => data['Species'] === specie))
+         .subscribe((data: any) => this.data = data)")
 }
+## For a complete list of possible operators, see rxjs: https://rxjs.dev/api/operators
 
 component1 = Component$new(url="/",
                            name="data-manipulation",
