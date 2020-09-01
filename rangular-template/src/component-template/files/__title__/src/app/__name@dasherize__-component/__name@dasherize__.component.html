@@ -1,19 +1,41 @@
-<% for ( m of metadata.split(";")) { %>
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+      <mat-list>
+        <% for ( m of metadata.split(";")) { %>
+        <% const widget = m.split("-")[0] %>
+        <% const domEvent = m.split("-")[2] %>
+        <% const func = m.split("-")[3] %>
 
-    <% const widget = m.split("-")[0] %>
-    <% const domEvent = m.split("-")[2] %>
-    <% const func = m.split("-")[3] %>
+        <% if (widget === 'MatButton') { %>
+        <mat-list-item>
+          <button <%= dasherize(widget)%> (<%=domEvent%>)="<%=func%>">
+            Click me I am a button
+          </button>
+        </mat-list-item>
+        <% } %>
 
-    <% if (widget === 'MatButton') { %>
-      <button <%= dasherize(widget)%> (<%=domEvent%>)="<%=func%>">
-        Click me I am a button
-      </button>
-    <% } %>
-
-    <% if (widget === 'MatSelect') { %>
-        <<%= dasherize(widget)%> (<%=domEvent%>)="<%=func%>($event)">
-            <mat-option *ngFor="let option of ['A','B','C']" [value]="option"> {{ option }} </mat-option>
-        </<%= dasherize(widget)%>>
-    <% } %>
-
-<% } %>
+        <mat-divider></mat-divider>
+        <% if (widget === 'MatSelect') { %>
+        <mat-list-item>
+          <mat-form-field appearance="fill">
+            <mat-label>I am a select box</mat-label>
+            <<%= dasherize(widget)%> (<%=domEvent%>)="<%=func%>">
+              <mat-option *ngFor="let option of ['A','B','C']" [value]="option"> {{ option }} </mat-option>
+            </<%= dasherize(widget)%>>
+          </mat-form-field>
+        </mat-list-item>
+        <% } %>
+        <% } %>
+      </mat-list>
+    </div>
+    <div class="col-8">
+      <% if (view === 'table') { %>
+         <h1>I am a table</h1>
+      <% } %>
+      <% if (view === 'barchart') { %>
+        <h1>I am a bar chart</h1>
+     <% } %>
+    </div>
+  </div>
+</div>

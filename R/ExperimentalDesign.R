@@ -39,9 +39,9 @@ extractUrls = function(components) {
 extractJsonData = function(dataList) {
   widgets = names(dataList)
   metadata = c()
-  index = 0
+  index = 1
   for ( element in dataList) {
-    metadata = c(metadata, paste(widgets[index],element$data,element$event,paste0("func",index, "(",element$arguments,")"),sep="-"))
+    metadata = c(metadata, paste(widgets[index],element$data,element$event,paste0("func",index-1, "(",element$arguments,")"),sep="-"))
     index = index + 1
   }
   return (paste(metadata,collapse = ";"))
@@ -121,6 +121,7 @@ RAngular = R6Class("RAngular", list( components =list(),
                                serve = function(name) {
                                  # if directory node_modules exists, launch directly
                                  # otherwise install and launch
+                                 setwd(name)
                                  if (dir.exists("node_modules")) {
                                    system("npm start", wait = TRUE,invisible = FALSE)
                                  } else {
