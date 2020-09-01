@@ -32,9 +32,11 @@ Currently, you have to launch a plumber server, in a separate R session with COR
 ```r
 library('Rangular')
 
-# 02 examples function used as a method of a component, currently, a vanilla string representing rxjs way of handling stream:
+# 02 examples function used as a method of a component, currently, 
+## a vanilla string representing rxjs way of handling stream:
 
-## giveMeMin retrieves data exposed in the normal/random endpoint and operates a min transformation to the data
+## giveMeMin retrieves data exposed in the normal/random 
+## endpoint and operates a min transformation to the data
 ## min will take the object with minimum value of field 'Sepal.Length'.
 
 giveMeMin = function() {
