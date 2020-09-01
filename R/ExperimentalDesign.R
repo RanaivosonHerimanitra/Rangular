@@ -119,8 +119,6 @@ RAngular = R6Class("RAngular", list( components =list(),
                                  }
                                },
                                serve = function(name) {
-                                 r = plumb(paste0(getwd() , "/R/api.R"))
-                                 setwd(name)
                                  # if directory node_modules exists, launch directly
                                  # otherwise install and launch
                                  if (dir.exists("node_modules")) {
@@ -128,7 +126,6 @@ RAngular = R6Class("RAngular", list( components =list(),
                                  } else {
                                    system(paste("npm i","npm start",sep="&&"), wait = TRUE,invisible = FALSE)
                                  }
-                                 r$run()
                                })
                    )
 
