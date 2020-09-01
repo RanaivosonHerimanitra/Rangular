@@ -81,7 +81,9 @@ component2 = Component$new(url="/barchart",
                            )
 app = RAngular$new()
 ## directory must be the directory of your Rangular package:
-app$buildFrontEnd(directory="C:/Users/Admin/Documents/Rangular/", name="frontend", components= list(component1, component2))
+app$buildFrontEnd(directory="C:/Users/Admin/Documents/Rangular/", 
+                  name="frontend", 
+                  components= list(component1, component2))
 app$serve("frontend")
 ```
 
