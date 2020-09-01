@@ -30,7 +30,7 @@
           <mat-form-field appearance="fill">
             <mat-label>I am a select box</mat-label>
             <mat-select (selectionChange)="func1($event)">
-              <mat-option *ngFor="let option of ['A','B','C']" [value]="option"> {{ option }} </mat-option>
+              <mat-option *ngFor="let option of ['setosa','versicolor','virginica']" [value]="option"> {{ option }} </mat-option>
             </mat-select>
           </mat-form-field>
         </mat-list-item>

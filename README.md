@@ -77,7 +77,8 @@ component2 = Component$new(url="/barchart",
                                          MatSelect = list(data = "api/binomial/random", 
                                                           event = "selectionChange",
                                                           callback = switchSpecies, 
-                                                          arguments="$event"))
+                                                          arguments="$event",
+                                                          options=c("setosa","versicolor","virginica")))
                            )
 app = RAngular$new()
 ## directory must be the directory of your Rangular package:

@@ -10,6 +10,13 @@ export const writeMethods = (element:string) => {
   return arr.join('\n');
 }
 
+export const getSelectOptions = (options:string) => {
+  if (options ===';') return '';
+  return options.split(";").map(element => {
+    return `'${element}'`
+  });
+}
+
 export const getUrls = (urls:string) => {
   const urlArray: string[] = urls.split(";");
   return `[${urlArray}]`;
@@ -24,7 +31,8 @@ export function componentTemplate(_options: Schema): Rule {
       ..._options,
       ...strings,
       ...{writeMethods},
-      ...{getUrls}
+      ...{getUrls},
+      ...{getSelectOptions}
     })
   ]);
   

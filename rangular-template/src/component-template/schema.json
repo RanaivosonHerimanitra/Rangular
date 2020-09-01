@@ -21,6 +21,10 @@
         },
         "urls": {
             "type": "string"
+        },
+        "options": {
+            "type": "string"
         }
-    }
+    },
+    "required": ["title","name","view","methods","metadata","urls"]
 }

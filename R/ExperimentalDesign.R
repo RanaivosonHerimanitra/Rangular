@@ -70,14 +70,19 @@ RAngular = R6Class("RAngular", list( components =list(),
                                    vecEndpoint = c()
                                    for (component in components) {
                                      vecMethods = c()
+
                                      componentNames = c(componentNames, component$name)
+                                     vecOptions = ";"
                                      for (widget in c("MatButton","MatSelect")) {
                                        currentWidget = component$methods[[widget]]
                                        if (length(currentWidget[["callback"]]) > 0) {
                                            vecMethods = c(vecMethods,extractMethods(currentWidget[["callback"]]))
                                        }
                                        if (length(currentWidget[["data"]]) > 0) {
-                                         vecEndpoint = c(vecEndpoint, currentWidget[["data"]])
+                                          vecEndpoint = c(vecEndpoint, currentWidget[["data"]])
+                                       }
+                                       if (widget == "MatSelect" && length(currentWidget[["options"]]) > 0) {
+                                          vecOptions = paste(currentWidget[["options"]],collapse = ";")
                                        }
                                      }
                                      methods = mergeMethods(vecMethods)
@@ -90,6 +95,7 @@ RAngular = R6Class("RAngular", list( components =list(),
                                                paste0("--methods=",methods),
                                                paste0("--metadata=",metadata),
                                                paste0("--urls=",urls),
+                                               paste0("--options=",vecOptions),
                                                "--force")
                                              , stderr = TRUE,invisible = FALSE)
                                    }
@@ -156,7 +162,8 @@ component2 = Component$new(url="/barchart",
                            methods= list(MatButton = list(data = "api/normal/random", event = "click",
                                                           callback = giveMeMin, arguments=""),
                                          MatSelect = list(data = "api/binomial/random", event = "selectionChange",
-                                                          callback = switchSpecies, arguments="$event"))
+                                                          callback = switchSpecies, arguments="$event",
+                                                          options=c("setosa","versicolor","virginica")))
                            )
 app = RAngular$new()
 app$buildFrontEnd(directory="C:/Users/Admin/Documents/Rangular/", name="frontend", components= list(component1, component2))
