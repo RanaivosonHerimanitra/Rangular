@@ -60,7 +60,7 @@ giveMeMin = function() {
 }
 
 switchSpecies = function(event) {
-  return("this.ds.getDataService('api/iris').pipe(filter((data: any) => data['Species'] === event.target.value)).subscribe((data: any) => this.data = data)")
+  return("this.ds.getDataService('api/iris').pipe(map(data => data.filter(x => x['Species'] === event.value))).subscribe((data: any) => this.data = data)")
 }
 
 RAngular = R6Class("RAngular", list( components =list(),
@@ -160,7 +160,8 @@ component1 = Component$new(url="/",
                            methods= list(MatButton = list(data = "api/iris", event = "click",
                                                           callback = orderBySepalLength, arguments=""),
                                          MatSelect = list(data = "api/iris", event = "selectionChange",
-                                                          callback = switchSpecies, arguments="$event"))
+                                                          callback = switchSpecies, arguments="$event",
+                                                          options=c("setosa","versicolor","virginica")))
                            )
 component2 = Component$new(url="/cardtable",
                            name="data-visualization",

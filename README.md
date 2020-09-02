@@ -50,9 +50,10 @@ giveMeMin = function() {
 ## switchSpecies, will switch species based on the user chosen option. 
 ##For that, we use:
 ## filter operator from rxjs, to filter out species.
-switchSpecies = function(specie) {
-  return("this.ds.getDataService('api/iris').pipe(filter((data: any) => data['Species'] === specie)).subscribe((data: any) => this.data = data)")
+switchSpecies = function(event) {
+  return("this.ds.getDataService('api/iris').pipe(map(data => data.filter(x => x['Species'] === event.value))).subscribe((data: any) => this.data = data)")
 }
+
 ## For a complete list of possible operators, see rxjs: https://rxjs.dev/api/operators
 
 # example usage Build 02 components and append then to the application:
@@ -63,8 +64,9 @@ component1 = Component$new(url="/",
                            methods= list(MatButton = list(data = "api/iris", event = "click",
                                                           callback = orderBySepalLength, arguments=""),
                                          MatSelect = list(data = "api/iris", event = "selectionChange",
-                                                          callback = switchSpecies, arguments="$event"))
-                           )
+                                                          callback = switchSpecies, arguments="$event",
+                                                          options=c("setosa","versicolor","virginica"))
+                                                          )
 component2 = Component$new(url="/cardtable",
                            name="data-visualization",
                            view=list(view="mat-card",columns=c("Sepal.Length","Petal.Length","Species")),
