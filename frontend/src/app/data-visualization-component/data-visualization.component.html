@@ -41,7 +41,21 @@
     <div class="col-8">
       
       
-        <h1>I am a bar chart</h1>
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Title</mat-card-title>
+            <mat-card-subtitle>subtitle</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div *ngIf="data">
+              <div *ngFor="let col of ['Sepal.Length','Petal.Length','Species']">
+                <p>
+                  {{col}} : {{data[0][col]}}
+                 </p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
      
     </div>
   </div>

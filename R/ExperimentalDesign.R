@@ -51,8 +51,12 @@ stringiFy = function (vecData, sep=";") {
   return (paste(vecData,collapse = sep))
 }
 
-giveMeMin = function() {
+orderBySepalLength = function() {
   return ("this.ds.getDataService('api/iris').pipe(min<any>( (a: any, b: any) => a['Sepal.Length'] < b['Sepal.Length'] ? -1 : 1)).subscribe((data: any) => this.data = data)")
+}
+
+giveMeMin = function() {
+  return ("this.ds.getDataService('api/iris').pipe(min<any>( (a: any, b: any) => a['Sepal.Length'] < b['Sepal.Length'] ? -1 : 1), take(1)).subscribe((data: any) => this.data = data)")
 }
 
 switchSpecies = function(specie) {
@@ -154,14 +158,14 @@ component1 = Component$new(url="/",
                            name="data-manipulation",
                            view=list(view="table",columns=c("Sepal.Length","Petal.Length","Species")),
                            methods= list(MatButton = list(data = "api/iris", event = "click",
-                                                          callback = giveMeMin, arguments=""),
+                                                          callback = orderBySepalLength, arguments=""),
                                          MatSelect = list(data = "echo", event = "selectionChange",
                                                           callback = switchSpecies, arguments="$event"))
                            )
-component2 = Component$new(url="/barchart",
+component2 = Component$new(url="/cardtable",
                            name="data-visualization",
-                           view=list(view="barchart"),
-                           methods= list(MatButton = list(data = "api/normal/random", event = "click",
+                           view=list(view="mat-card",columns=c("Sepal.Length","Petal.Length","Species")),
+                           methods= list(MatButton = list(data = "api/iris", event = "click",
                                                           callback = giveMeMin, arguments=""),
                                          MatSelect = list(data = "api/binomial/random", event = "selectionChange",
                                                           callback = switchSpecies, arguments="$event",

@@ -1,7 +1,7 @@
 import { DataMethodsService } from '../data-methods.service';
 import { Component, OnInit } from '@angular/core';
 import { pipe } from 'rxjs';
-import { min, filter } from 'rxjs/operators';
+import { min, filter, take } from 'rxjs/operators';
 @Component({
   selector: 'app-<%=dasherize(name)%>',
   templateUrl: './<%=dasherize(name)%>.component.html',

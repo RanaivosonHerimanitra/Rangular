@@ -2,6 +2,7 @@ import { MatTableModule } from '@angular/material/table';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import {MatCardModule} from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -27,6 +28,7 @@ import {DataVisualizationComponent} from './data-visualization-component/data-vi
   declarations: [AppComponent, MainNavComponent, DataManipulationComponent,DataVisualizationComponent],
   imports: [
     BrowserModule,
+    MatCardModule,
     HttpClientModule,
     ReactiveFormsModule,
     AppRoutingModule,

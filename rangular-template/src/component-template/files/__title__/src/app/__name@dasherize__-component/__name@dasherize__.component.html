@@ -42,8 +42,22 @@
           <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
         <% } %>
-      <% if (view === 'barchart') { %>
-        <h1>I am a bar chart</h1>
+      <% if (view === 'mat-card') { %>
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Title</mat-card-title>
+            <mat-card-subtitle>subtitle</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div *ngIf="data">
+              <div *ngFor="let col of [<%=getTableColumns(columns)%>]">
+                <p>
+                  {{col}} : {{data[0][col]}}
+                 </p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
      <% } %>
     </div>
   </div>
