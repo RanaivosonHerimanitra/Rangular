@@ -10,6 +10,7 @@ export const getComponentNames = (components:string) => {
     });
     return arr.join(',');
 }
+
 export function moduleTemplate(_options: Schema): Rule {
   return (tree: Tree, _context: SchematicContext) => {
     

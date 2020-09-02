@@ -22,6 +22,12 @@ export const getUrls = (urls:string) => {
   return `[${urlArray}]`;
 }
 
+export const getTableColumns = (columns:string) => {
+  return columns.split(";").map(col => {
+    return `'${col}'`
+  });
+}
+
 export function componentTemplate(_options: Schema): Rule {
   return (tree: Tree, _context: SchematicContext) => {
     
@@ -32,7 +38,8 @@ export function componentTemplate(_options: Schema): Rule {
       ...strings,
       ...{writeMethods},
       ...{getUrls},
-      ...{getSelectOptions}
+      ...{getSelectOptions},
+      ...{getTableColumns}
     })
   ]);
   
