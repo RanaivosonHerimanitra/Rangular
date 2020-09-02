@@ -39,8 +39,12 @@ library('Rangular')
 ## endpoint and operates a min transformation to the data
 ## min will take the object with minimum value of field 'Sepal.Length'.
 
+orderBySepalLength = function() {
+  return ("this.ds.getDataService('api/iris').pipe(min<any>( (a: any, b: any) => a['Sepal.Length'] < b['Sepal.Length'] ? -1 : 1)).subscribe((data: any) => this.data = data)")
+}
+
 giveMeMin = function() {
-  return ("this.ds.getDataService('normal/random').pipe(min<any>( (a: any, b: any) => a['Sepal.Length'] < b['Sepal.Length'] ? -1 : 1)).subscribe((data: any) => this.data = data)")
+  return ("this.ds.getDataService('api/iris').pipe(min<any>( (a: any, b: any) => a['Sepal.Length'] < b['Sepal.Length'] ? -1 : 1), take(1)).subscribe((data: any) => this.data = data)")
 }
 
 ## switchSpecies, will switch species based on the user chosen option. 
@@ -56,9 +60,9 @@ component1 = Component$new(url="/",
                            view="table",
                            methods= list(MatButton = list(data = "api/iris", 
                                                           event = "click",
-                                                          callback = giveMeMin, 
+                                                          callback = orderBySepalLength, 
                                                           arguments=""),
-                                         MatSelect = list(data = "echo", 
+                                         MatSelect = list(data = "api/iris", 
                                                           event = "selectionChange",
                                                           callback = switchSpecies, 
                                                           arguments="$event"))
@@ -66,11 +70,11 @@ component1 = Component$new(url="/",
 component2 = Component$new(url="/barchart",
                            name="data-visualization",
                            view="barchart",
-                           methods= list(MatButton = list(data = "api/normal/random", 
+                           methods= list(MatButton = list(data = "api/iris", 
                                                           event = "click",
                                                           callback = giveMeMin, 
                                                           arguments=""),
-                                         MatSelect = list(data = "api/binomial/random", 
+                                         MatSelect = list(data = "api/iris", 
                                                           event = "selectionChange",
                                                           callback = switchSpecies, 
                                                           arguments="$event",
@@ -78,10 +82,11 @@ component2 = Component$new(url="/barchart",
                            )
 app = RAngular$new()
 ## directory must be the directory of your Rangular package:
-app$buildFrontEnd(directory="C:/Users/Admin/Documents/Rangular/", 
-                  name="frontend", 
+app$buildFrontEnd(directory="C:/Users/Admin/Documents/Rangular/",
+                  servicePort="{YOUR_BACKEND_SERVICE_PORT_NUMBER}",
+                  name="example", 
                   components= list(component1, component2))
-app$serve("frontend")
+app$serve("example")
 ```
 
 ## Application structure:
