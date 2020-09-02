@@ -65,8 +65,8 @@ component1 = Component$new(url="/",
                                                           callback = orderBySepalLength, arguments=""),
                                          MatSelect = list(data = "api/iris", event = "selectionChange",
                                                           callback = switchSpecies, arguments="$event",
-                                                          options=c("setosa","versicolor","virginica"))
-                                                          )
+                                                          options=c("setosa","versicolor","virginica")))
+                           )
 component2 = Component$new(url="/cardtable",
                            name="data-visualization",
                            view=list(view="mat-card",columns=c("Sepal.Length","Petal.Length","Species")),
@@ -76,6 +76,7 @@ component2 = Component$new(url="/cardtable",
                                                           callback = switchSpecies, arguments="$event",
                                                           options=c("setosa","versicolor","virginica")))
                            )
+
 app = RAngular$new()
 ## directory must be the directory of your Rangular package:
 app$buildFrontEnd(directory="C:/Users/Admin/Documents/Rangular/",
