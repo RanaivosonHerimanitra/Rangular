@@ -17,6 +17,6 @@ export class DataVisualizationComponent implements OnInit {
   }
 
   func0(){return(this.ds.getDataService('api/iris').pipe(min<any>((a:any,b:any)=>a['Sepal.Length']<b['Sepal.Length']?-1:1),take(1)).subscribe((data:any)=>this.data=data))}
-func1(specie){return(this.ds.getDataService('api/iris').pipe(filter((data:any)=>data['Species']===specie)).subscribe((data:any)=>this.data=data))}
+func1(event){return(this.ds.getDataService('api/iris').pipe(filter((data:any)=>data['Species']===event.target.value)).subscribe((data:any)=>this.data=data))}
 
 }

@@ -59,8 +59,8 @@ giveMeMin = function() {
   return ("this.ds.getDataService('api/iris').pipe(min<any>( (a: any, b: any) => a['Sepal.Length'] < b['Sepal.Length'] ? -1 : 1), take(1)).subscribe((data: any) => this.data = data)")
 }
 
-switchSpecies = function(specie) {
-  return("this.ds.getDataService('api/iris').pipe(filter((data: any) => data['Species'] === specie)).subscribe((data: any) => this.data = data)")
+switchSpecies = function(event) {
+  return("this.ds.getDataService('api/iris').pipe(filter((data: any) => data['Species'] === event.target.value)).subscribe((data: any) => this.data = data)")
 }
 
 RAngular = R6Class("RAngular", list( components =list(),
@@ -159,7 +159,7 @@ component1 = Component$new(url="/",
                            view=list(view="table",columns=c("Sepal.Length","Petal.Length","Species")),
                            methods= list(MatButton = list(data = "api/iris", event = "click",
                                                           callback = orderBySepalLength, arguments=""),
-                                         MatSelect = list(data = "echo", event = "selectionChange",
+                                         MatSelect = list(data = "api/iris", event = "selectionChange",
                                                           callback = switchSpecies, arguments="$event"))
                            )
 component2 = Component$new(url="/cardtable",
@@ -167,7 +167,7 @@ component2 = Component$new(url="/cardtable",
                            view=list(view="mat-card",columns=c("Sepal.Length","Petal.Length","Species")),
                            methods= list(MatButton = list(data = "api/iris", event = "click",
                                                           callback = giveMeMin, arguments=""),
-                                         MatSelect = list(data = "api/binomial/random", event = "selectionChange",
+                                         MatSelect = list(data = "api/iris", event = "selectionChange",
                                                           callback = switchSpecies, arguments="$event",
                                                           options=c("setosa","versicolor","virginica")))
                            )
