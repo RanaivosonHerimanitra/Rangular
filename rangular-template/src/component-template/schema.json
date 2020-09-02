@@ -24,6 +24,9 @@
         },
         "options": {
             "type": "string"
+        },
+        "columns": {
+            "type": "string"
         }
     },
     "required": ["title","name","view","methods","metadata","urls"]

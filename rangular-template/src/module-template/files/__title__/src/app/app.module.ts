@@ -1,3 +1,4 @@
+import { MatTableModule } from '@angular/material/table';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -30,6 +31,7 @@ import { MainNavComponent } from './main-nav.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatSidenavModule,
+    MatTableModule,
     MatListModule,
     MatToolbarModule,
     MatFormFieldModule,

@@ -9,6 +9,8 @@ import { min, filter } from 'rxjs/operators';
 })
 export class DataVisualizationComponent implements OnInit {
   public data: any;
+
+  public displayedColumns = ['Sepal.Length','Petal.Length','Species'];
   constructor(private ds: DataMethodsService) { }
 
   ngOnInit(): void {
