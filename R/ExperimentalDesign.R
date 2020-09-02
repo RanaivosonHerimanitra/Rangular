@@ -52,7 +52,7 @@ stringiFy = function (vecData, sep=";") {
 }
 
 giveMeMin = function() {
-  return ("this.ds.getDataService('normal/random').pipe(min<any>( (a: any, b: any) => a['Sepal.Length'] < b['Sepal.Length'] ? -1 : 1)).subscribe((data: any) => this.data = data)")
+  return ("this.ds.getDataService('api/iris').pipe(min<any>( (a: any, b: any) => a['Sepal.Length'] < b['Sepal.Length'] ? -1 : 1)).subscribe((data: any) => this.data = data)")
 }
 
 switchSpecies = function(specie) {
@@ -60,7 +60,7 @@ switchSpecies = function(specie) {
 }
 
 RAngular = R6Class("RAngular", list( components =list(),
-                               buildFrontEnd = function(directory="C:/Users/Admin/Documents/Rangular/", name="frontend", components) {
+                               buildFrontEnd = function(directory="C:/Users/Admin/Documents/Rangular/", servicePort, name="frontend", components) {
                                  # generate component as specified by R-user:
                                  setwd(directory)
                                  if (length(components) > 0) {
@@ -119,6 +119,7 @@ RAngular = R6Class("RAngular", list( components =list(),
                                    ## run service schematics, to bind data to the application
                                    system2("schematics",
                                            c("./rangular-template:service-template","--debug=false",
+                                             paste0("--port=",servicePort),
                                              paste0("--endpoints=",paste(vecEndpoint,collapse = ";")),
                                              paste0("--title=",name),
                                              "--force")
@@ -167,7 +168,9 @@ component2 = Component$new(url="/barchart",
                                                           options=c("setosa","versicolor","virginica")))
                            )
 app = RAngular$new()
-app$buildFrontEnd(directory="C:/Users/Admin/Documents/Rangular/", name="frontend", components= list(component1, component2))
+app$buildFrontEnd(directory="C:/Users/Admin/Documents/Rangular/",
+                  servicePort ="7999",
+                  name="frontend", components= list(component1, component2))
 app$serve("frontend")
 
 

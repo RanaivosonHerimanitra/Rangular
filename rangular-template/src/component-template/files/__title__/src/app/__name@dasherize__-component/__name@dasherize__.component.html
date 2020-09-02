@@ -31,7 +31,7 @@
     </div>
     <div class="col-8">
       <% if (view === 'table') { %>
-        <mat-table [dataSource]="data | async" class="mat-elevation-z8">
+        <mat-table [dataSource]="data" class="mat-elevation-z8">
           <div *ngFor="let column of displayedColumns">
             <ng-container matColumnDef={{column}}>
               <mat-header-cell *matHeaderCellDef> {{column}} </mat-header-cell>

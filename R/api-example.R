@@ -5,7 +5,6 @@ cors <- function(res) {
   plumber::forward()
 }
 #* Echo back the input
-#* @preempt cors
 #* @param msg The message to echo
 #* @get /echo
 function0 = function(msg="") {
@@ -13,7 +12,6 @@ function0 = function(msg="") {
 }
 
 #* Plot a histogram
-#* @preempt cors
 #* @png
 #* @get /plot
 function1 = function() {
@@ -22,7 +20,6 @@ function1 = function() {
 }
 
 #* return iris dataset for interactive data manipulation
-#* @preempt cors
 #* @get /api/iris
 function2 = function() {
   data("iris")

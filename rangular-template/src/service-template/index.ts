@@ -19,7 +19,7 @@ export const getEndPoints = (endpoints: string) => {
 
 export const getServiceMethod = () => {
     return `getDataService(path: string): Observable<any> {
-      return this.http.get<any>(BASE_ENDPOINT + "/" + path);
+      return this.http.get<any>(BASE_ENDPOINT + path);
     }`;
 }
 

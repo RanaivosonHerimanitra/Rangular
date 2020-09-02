@@ -16,7 +16,7 @@ export class DataVisualizationComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  func0(){return(this.ds.getDataService('normal/random').pipe(min<any>((a:any,b:any)=>a['Sepal.Length']<b['Sepal.Length']?-1:1)).subscribe((data:any)=>this.data=data))}
+  func0(){return(this.ds.getDataService('api/iris').pipe(min<any>((a:any,b:any)=>a['Sepal.Length']<b['Sepal.Length']?-1:1)).subscribe((data:any)=>this.data=data))}
 func1(specie){return(this.ds.getDataService('api/iris').pipe(filter((data:any)=>data['Species']===specie)).subscribe((data:any)=>this.data=data))}
 
 }
