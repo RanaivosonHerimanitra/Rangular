@@ -27,7 +27,7 @@ This is not just another framework, it will expose, R, to real world web based s
 
 # Getting started (API usage):
 
-Currently, you have to launch a plumber server, in a separate R session with CORS enabled. See [plumber page](https://www.rplumber.io/) for documentation. Once, a plumber server is launched, you can run the following code in a 2nd R session and visit url: http://localhost:4200
+Currently, you have to launch a plumber server, in a separate R session with CORS enabled. See [plumber page](https://www.rplumber.io/) for documentation. Once, a plumber server is launched, you can run the following code in a 2nd R session then visit url: http://localhost:4200
 
 ```r
 library('Rangular')
@@ -86,4 +86,4 @@ app$serve("frontend")
 
 ## Application structure:
 
-A modern javascript application is divided in components. In the above example, we defined 02 components in 02 different urls (http://localhost:4200/default, http://localhost:4200/barchart). Each component holds its own logic. First component has 02 widgets (button and dropdown). They are used to control the data coming from api endpoint defined by `data`.
+A modern javascript application is divided into components. In the above example, we defined 02 components in 02 different urls (http://localhost:4200/default, http://localhost:4200/barchart). Each component holds its own logic. First component has 02 widgets (button and dropdown). They are used to control the data coming from api endpoint defined by `data`.

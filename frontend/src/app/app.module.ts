@@ -1,3 +1,4 @@
+import { MatTableModule } from '@angular/material/table';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -31,6 +32,7 @@ import {DataVisualizationComponent} from './data-visualization-component/data-vi
     AppRoutingModule,
     BrowserAnimationsModule,
     MatSidenavModule,
+    MatTableModule,
     MatListModule,
     MatToolbarModule,
     MatFormFieldModule,
