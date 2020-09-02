@@ -40,18 +40,14 @@ library('Rangular')
 ## min will take the object with minimum value of field 'Sepal.Length'.
 
 giveMeMin = function() {
-  return ("this.ds.getDataService('normal/random')
-  .pipe(min<any>( (a: any, b: any) => a['Sepal.Length'] < b['Sepal.Length'] ? -1 : 1))
-  .subscribe((data: any) => this.data = data)")
+  return ("this.ds.getDataService('normal/random').pipe(min<any>( (a: any, b: any) => a['Sepal.Length'] < b['Sepal.Length'] ? -1 : 1)).subscribe((data: any) => this.data = data)")
 }
 
 ## switchSpecies, will switch species based on the user chosen option. 
 ##For that, we use:
 ## filter operator from rxjs, to filter out species.
 switchSpecies = function(specie) {
-  return("this.ds.getDataService('api/iris')
-         .pipe(filter((data: any) => data['Species'] === specie))
-         .subscribe((data: any) => this.data = data)")
+  return("this.ds.getDataService('api/iris').pipe(filter((data: any) => data['Species'] === specie)).subscribe((data: any) => this.data = data)")
 }
 ## For a complete list of possible operators, see rxjs: https://rxjs.dev/api/operators
 
