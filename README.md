@@ -96,3 +96,5 @@ app$serve("example")
 
 A modern javascript application is divided into components. In the above example, we defined 02 components in 02 different urls (http://localhost:4200/default, http://localhost:4200/barchart). Each component holds its own logic surrounded by methods which control the data. Components have widgets (we aim to support all angular material components). They are used to display the data coming from api endpoint defined by `data`.
 Views are predefined angular components that are used to display the data.
+
+![alt text](EarlyPreview.PNG "preview")
