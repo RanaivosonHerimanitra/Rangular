@@ -55,33 +55,24 @@ switchSpecies = function(specie) {
 }
 ## For a complete list of possible operators, see rxjs: https://rxjs.dev/api/operators
 
+# example usage Build 02 components and append then to the application:
+
 component1 = Component$new(url="/",
                            name="data-manipulation",
-                           view="table",
-                           methods= list(MatButton = list(data = "api/iris", 
-                                                          event = "click",
-                                                          callback = orderBySepalLength, 
-                                                          arguments=""),
-                                         MatSelect = list(data = "api/iris", 
-                                                          event = "selectionChange",
-                                                          callback = switchSpecies, 
-                                                          arguments="$event",
-                                                          options=c("setosa","versicolor","virginica"))
-                                                          )
+                           view=list(view="table",columns=c("Sepal.Length","Petal.Length","Species")),
+                           methods= list(MatButton = list(data = "api/iris", event = "click",
+                                                          callback = orderBySepalLength, arguments=""),
+                                         MatSelect = list(data = "api/iris", event = "selectionChange",
+                                                          callback = switchSpecies, arguments="$event"))
                            )
-component2 = Component$new(url="/barchart",
+component2 = Component$new(url="/cardtable",
                            name="data-visualization",
-                           view="barchart",
-                           methods= list(MatButton = list(data = "api/iris", 
-                                                          event = "click",
-                                                          callback = giveMeMin, 
-                                                          arguments=""),
-                                         MatSelect = list(data = "api/iris", 
-                                                          event = "selectionChange",
-                                                          callback = switchSpecies, 
-                                                          arguments="$event",
-                                                          options=c("setosa","versicolor","virginica"))
-                                                          )
+                           view=list(view="mat-card",columns=c("Sepal.Length","Petal.Length","Species")),
+                           methods= list(MatButton = list(data = "api/iris", event = "click",
+                                                          callback = giveMeMin, arguments=""),
+                                         MatSelect = list(data = "api/iris", event = "selectionChange",
+                                                          callback = switchSpecies, arguments="$event",
+                                                          options=c("setosa","versicolor","virginica")))
                            )
 app = RAngular$new()
 ## directory must be the directory of your Rangular package:
