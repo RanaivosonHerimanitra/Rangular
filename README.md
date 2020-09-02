@@ -16,14 +16,14 @@ devtools::install_github('RanaivosonHerimanitra/Rangular')
 
 ## Design and philosophy:
 
-The package allows R user to build **reactive data driven application** by using the power of Angular ecosystem and packages. R user describe what they want in R language. Example, a button to filter a data on click, a dropdown to select a subset of the data, etc. Data are supplied from a R server using `Plumber` package and retrieved in a reactive manner using `rxjs`.
+The package will allow R user to build **reactive data driven application** by using the amazing power of Angular ecosystem such as [angular material](https://material.angular.io/components/categories) and [rxjs](https://rxjs-dev.firebaseapp.com/). 
+R user describe what they want in R language. Example, a button to filter data on click, a dropdown to select a subset of the data, etc. Data are supplied from a R server using `Plumber` package and retrieved in a reactive manner using `rxjs`. Currently, vanilla rxjs string operations is supplied from within R, but one could easily construct wrappers around them.
 
-Binding is made possible thanks to the angular schematics.  We can generate a `typescript/html` templates using metadata supplied from the R functions we write.
+Binding is made possible thanks to the [angular schematics](https://angular.io/guide/schematics).  We can generate a `typescript/html/css/json` templates using metadata supplied from the R functions we write.
 
 ### Why another R framework for building web application ?
 
-Instead of reinventing the wheel, it will take the best in class framework to develop enterprise grade application using R. 
-This is not just another framework, it will expose, R, to real world web based software development.
+This is not just another framework, it is an entire javascript ecosystem that will be binded using R syntax. Instead of reinventing the wheel, it will take the best in class framework to develop enterprise grade application using R. 
 
 # Getting started (API usage):
 
@@ -65,7 +65,9 @@ component1 = Component$new(url="/",
                                          MatSelect = list(data = "api/iris", 
                                                           event = "selectionChange",
                                                           callback = switchSpecies, 
-                                                          arguments="$event"))
+                                                          arguments="$event",
+                                                          options=c("setosa","versicolor","virginica"))
+                                                          )
                            )
 component2 = Component$new(url="/barchart",
                            name="data-visualization",
@@ -78,7 +80,8 @@ component2 = Component$new(url="/barchart",
                                                           event = "selectionChange",
                                                           callback = switchSpecies, 
                                                           arguments="$event",
-                                                          options=c("setosa","versicolor","virginica")))
+                                                          options=c("setosa","versicolor","virginica"))
+                                                          )
                            )
 app = RAngular$new()
 ## directory must be the directory of your Rangular package:
@@ -89,6 +92,7 @@ app$buildFrontEnd(directory="C:/Users/Admin/Documents/Rangular/",
 app$serve("example")
 ```
 
-## Application structure:
+## Overview of a modern application structure:
 
-A modern javascript application is divided into components. In the above example, we defined 02 components in 02 different urls (http://localhost:4200/default, http://localhost:4200/barchart). Each component holds its own logic. First component has 02 widgets (button and dropdown). They are used to control the data coming from api endpoint defined by `data`.
+A modern javascript application is divided into components. In the above example, we defined 02 components in 02 different urls (http://localhost:4200/default, http://localhost:4200/barchart). Each component holds its own logic surrounded by methods which control the data. Components have widgets (we aim to support all angular material components). They are used to display the data coming from api endpoint defined by `data`.
+Views are predefined angular components that are used to display the data.
