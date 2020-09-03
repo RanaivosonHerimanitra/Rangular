@@ -57,37 +57,44 @@ switchSpecies = function(event) {
   return("this.ds.getDataService('api/iris').pipe(map(data => data.filter(x => x['Species'] === event.value))).subscribe((data: any) => this.data = data)")
 }
 
+filterSepalLength = function(event) {
+  return("this.ds.getDataService('api/iris').pipe(map(data => data.filter(x => x['Sepal.Length'] >= event.value))).subscribe((data: any) => this.data = data)")
+}
+
 ## For a complete list of possible operators, see rxjs: https://rxjs.dev/api/operators
 
 # example usage Build 02 components and append then to the application:
-
-component1 = Component$new(url="/",
+ component1 = Component$new(url="/",
                            name="data-manipulation",
                            view=list(view="table",columns=c("Sepal.Length","Petal.Length","Species")),
-                           methods= list(MatButton = list(data = "api/iris", 
+                           methods= list(MatButton = list(data = "api/iris",
                                                           event = "click",
-                                                          callback = orderBySepalLength, 
+                                                          callback = orderBySepalLength,
                                                           arguments=""),
-                                         MatSelect = list(data = "api/iris", 
+                                         MatSelect = list(data = "api/iris",
                                                           event = "selectionChange",
-                                                          callback = switchSpecies, 
+                                                          callback = switchSpecies,
                                                           arguments="$event",
-                                                          options=c("setosa","versicolor","virginica")))
-                           )
+                                                          options=c("setosa","versicolor","virginica")),
+                                         MatSlider = list(data="api/iris",
+                                                          event ="change",
+                                                          callback= filterSepalLength,
+                                                          arguments="$event",
+                                                          options =c(3, 10,0.5))
+                                         ))
 component2 = Component$new(url="/cardtable",
                            name="data-visualization",
                            view=list(view="mat-card",columns=c("Sepal.Length","Petal.Length","Species")),
-                           methods= list(MatButton = list(data = "api/iris", 
+                           methods= list(MatButton = list(data = "api/iris",
                                                           event = "click",
                                                           callback = giveMeMin,
                                                           arguments=""),
-                                         MatSelect = list(data = "api/iris", 
+                                         MatSelect = list(data = "api/iris",
                                                           event = "selectionChange",
-                                                          callback = switchSpecies, 
+                                                          callback = switchSpecies,
                                                           arguments="$event",
-                                                          options=c("setosa","versicolor","virginica")))
-                           )
-
+                                                          options=c("setosa","versicolor","virginica"))
+                                         ))
 app = RAngular$new()
 ## directory must be the directory of your Rangular package:
 app$buildFrontEnd(directory="C:/Users/Admin/Documents/Rangular/",
