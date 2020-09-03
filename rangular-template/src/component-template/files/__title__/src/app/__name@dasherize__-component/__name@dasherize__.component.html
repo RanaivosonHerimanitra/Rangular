@@ -20,10 +20,19 @@
           <mat-form-field appearance="fill">
             <mat-label>I am a select box</mat-label>
             <<%= dasherize(widget)%> (<%=domEvent%>)="<%=func%>">
-              <mat-option *ngFor="let option of [<%=getSelectOptions(options)%>]" [value]="option"> {{ option }} </mat-option>
+              <mat-option *ngFor="let option of [<%=getSelectOptions(selectoptions)%>]" [value]="option"> {{ option }}
+              </mat-option>
             </<%= dasherize(widget)%>>
           </mat-form-field>
         </mat-list-item>
+        <% } %>
+        <% if (widget === 'MatSlider') { %>
+          <mat-list-item>
+            <mat-slider [max]="<%=getSliderOptions(slideroptions)[1]%>" [min]="<%=getSliderOptions(slideroptions)[0]%>"
+              [step]="<%=getSliderOptions(slideroptions)[2]%>">
+            </mat-slider>
+          </mat-list-item>
+
         <% } %>
 
         <% } %>
@@ -31,34 +40,34 @@
     </div>
     <div class="col-8">
       <% if (view === 'table') { %>
-        <mat-table [dataSource]="data" class="mat-elevation-z8">
-          <div *ngFor="let column of displayedColumns">
-            <ng-container matColumnDef={{column}}>
-              <mat-header-cell *matHeaderCellDef> {{column}} </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element[column]}} </mat-cell>
-            </ng-container>
-          </div>
-          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-        </mat-table>
-        <% } %>
+      <mat-table [dataSource]="data" class="mat-elevation-z8">
+        <div *ngFor="let column of displayedColumns">
+          <ng-container matColumnDef={{column}}>
+            <mat-header-cell *matHeaderCellDef> {{column}} </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element[column]}} </mat-cell>
+          </ng-container>
+        </div>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+      <% } %>
       <% if (view === 'mat-card') { %>
-        <mat-card>
-          <mat-card-header>
-            <mat-card-title>Title</mat-card-title>
-            <mat-card-subtitle>subtitle</mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content>
-            <div *ngIf="data">
-              <div *ngFor="let col of [<%=getTableColumns(columns)%>]">
-                <p>
-                  {{col}} : {{data[0][col]}}
-                 </p>
-              </div>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Title</mat-card-title>
+          <mat-card-subtitle>subtitle</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div *ngIf="data">
+            <div *ngFor="let col of [<%=getTableColumns(columns)%>]">
+              <p>
+                {{col}} : {{data[0][col]}}
+              </p>
             </div>
-          </mat-card-content>
-        </mat-card>
-     <% } %>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <% } %>
     </div>
   </div>
 </div>

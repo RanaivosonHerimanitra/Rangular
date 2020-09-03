@@ -22,7 +22,10 @@
         "urls": {
             "type": "string"
         },
-        "options": {
+        "selectoptions": {
+            "type": "string"
+        },
+        "slideroptions": {
             "type": "string"
         },
         "columns": {
