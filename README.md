@@ -35,9 +35,12 @@ library('Rangular')
 # 02 examples function used as a method of a component, currently, 
 ## a vanilla string representing rxjs way of handling stream:
 
-## giveMeMin retrieves data exposed in the normal/random 
+## orderBySepalLength will order data descending 
+
+## giveMeMin retrieves iris data exposed in the api/iris
 ## endpoint and operates a min transformation to the data
-## min will take the object with minimum value of field 'Sepal.Length'.
+## min will order iris object dataset with minimum value of field 'Sepal.Length'.
+## and takes first value which corresponds to minimum Sepal.Length
 
 orderBySepalLength = function() {
   return ("this.ds.getDataService('api/iris').pipe(min<any>( (a: any, b: any) => a['Sepal.Length'] < b['Sepal.Length'] ? -1 : 1)).subscribe((data: any) => this.data = data)")
