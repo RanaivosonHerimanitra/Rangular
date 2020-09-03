@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import {MatCardModule} from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
+import { MatSliderModule } from '@angular/material/slider';
+
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -35,6 +37,7 @@ import {DataVisualizationComponent} from './data-visualization-component/data-vi
     BrowserAnimationsModule,
     MatSidenavModule,
     MatTableModule,
+    MatSliderModule,
     MatListModule,
     MatToolbarModule,
     MatFormFieldModule,

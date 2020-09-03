@@ -63,6 +63,10 @@ switchSpecies = function(event) {
   return("this.ds.getDataService('api/iris').pipe(map(data => data.filter(x => x['Species'] === event.value))).subscribe((data: any) => this.data = data)")
 }
 
+filterSepalLength = function(event) {
+  return("this.ds.getDataService('api/iris').pipe(map(data => data.filter(x => x['Sepal.Length'] >= event.value))).subscribe((data: any) => this.data = data)")
+}
+
 RAngular = R6Class("RAngular", list( components =list(),
                                buildFrontEnd = function(directory="C:/Users/Admin/Documents/Rangular/", servicePort, name="frontend", components) {
                                  # generate component as specified by R-user:
@@ -76,8 +80,9 @@ RAngular = R6Class("RAngular", list( components =list(),
                                      vecMethods = c()
 
                                      componentNames = c(componentNames, component$name)
-                                     vecOptions = ";"
-                                     for (widget in c("MatButton","MatSelect")) {
+                                     selectOptions = ";"
+                                     sliderOptions = ";"
+                                     for (widget in c("MatButton","MatSelect","MatSlider")) {
                                        currentWidget = component$methods[[widget]]
                                        if (length(currentWidget[["callback"]]) > 0) {
                                            vecMethods = c(vecMethods,extractMethods(currentWidget[["callback"]]))
@@ -85,8 +90,13 @@ RAngular = R6Class("RAngular", list( components =list(),
                                        if (length(currentWidget[["data"]]) > 0) {
                                           vecEndpoint = c(vecEndpoint, currentWidget[["data"]])
                                        }
+                                       # MatSelect
                                        if (widget == "MatSelect" && length(currentWidget[["options"]]) > 0) {
-                                          vecOptions = paste(currentWidget[["options"]],collapse = ";")
+                                          selectOptions = paste(currentWidget[["options"]],collapse = ";")
+                                       }
+                                       # MatSlider: min-max-step:
+                                       if (widget == "MatSlider") {
+                                          sliderOptions = paste(currentWidget[["options"]],collapse = ";")
                                        }
                                      }
                                      methods = mergeMethods(vecMethods)
@@ -100,7 +110,8 @@ RAngular = R6Class("RAngular", list( components =list(),
                                                paste0("--methods=",methods),
                                                paste0("--metadata=",metadata),
                                                paste0("--urls=",urls),
-                                               paste0("--options=",vecOptions),
+                                               paste0("--selectoptions=",selectOptions),
+                                               paste0("--slideroptions=",sliderOptions),
                                                "--force")
                                              , stderr = TRUE,invisible = FALSE)
                                    }
@@ -157,21 +168,34 @@ Component = R6Class("Component", list(url="/", name="", view="", methods=list(),
 component1 = Component$new(url="/",
                            name="data-manipulation",
                            view=list(view="table",columns=c("Sepal.Length","Petal.Length","Species")),
-                           methods= list(MatButton = list(data = "api/iris", event = "click",
-                                                          callback = orderBySepalLength, arguments=""),
-                                         MatSelect = list(data = "api/iris", event = "selectionChange",
-                                                          callback = switchSpecies, arguments="$event",
-                                                          options=c("setosa","versicolor","virginica")))
-                           )
+                           methods= list(MatButton = list(data = "api/iris",
+                                                          event = "click",
+                                                          callback = orderBySepalLength,
+                                                          arguments=""),
+                                         MatSelect = list(data = "api/iris",
+                                                          event = "selectionChange",
+                                                          callback = switchSpecies,
+                                                          arguments="$event",
+                                                          options=c("setosa","versicolor","virginica")),
+                                         MatSlider = list(data="api/iris",
+                                                          event ="change",
+                                                          callback= filterSepalLength,
+                                                          arguments="$event",
+                                                          options =c(3, 10,0.5))
+                                         ))
 component2 = Component$new(url="/cardtable",
                            name="data-visualization",
                            view=list(view="mat-card",columns=c("Sepal.Length","Petal.Length","Species")),
-                           methods= list(MatButton = list(data = "api/iris", event = "click",
-                                                          callback = giveMeMin, arguments=""),
-                                         MatSelect = list(data = "api/iris", event = "selectionChange",
-                                                          callback = switchSpecies, arguments="$event",
-                                                          options=c("setosa","versicolor","virginica")))
-                           )
+                           methods= list(MatButton = list(data = "api/iris",
+                                                          event = "click",
+                                                          callback = giveMeMin,
+                                                          arguments=""),
+                                         MatSelect = list(data = "api/iris",
+                                                          event = "selectionChange",
+                                                          callback = switchSpecies,
+                                                          arguments="$event",
+                                                          options=c("setosa","versicolor","virginica"))
+                                         ))
 app = RAngular$new()
 app$buildFrontEnd(directory="C:/Users/Admin/Documents/Rangular/",
                   servicePort ="7999",

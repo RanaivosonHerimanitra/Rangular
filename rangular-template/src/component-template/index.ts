@@ -17,6 +17,16 @@ export const getSelectOptions = (options:string) => {
   });
 }
 
+/**
+ * First index is minimum
+ * 2nd index is maximum
+ * 3rd index is step
+ */
+export const getSliderOptions = (options:string) => {
+  if (options ===';') return '';
+  return options.split(";");
+}
+
 export const getUrls = (urls:string) => {
   const urlArray: string[] = urls.split(";");
   return `[${urlArray}]`;
@@ -39,7 +49,8 @@ export function componentTemplate(_options: Schema): Rule {
       ...{writeMethods},
       ...{getUrls},
       ...{getSelectOptions},
-      ...{getTableColumns}
+      ...{getTableColumns},
+      ...{getSliderOptions}
     })
   ]);
   
