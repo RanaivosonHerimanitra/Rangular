@@ -28,7 +28,7 @@
         <% } %>
         <% if (widget === 'MatSlider') { %>
           <mat-list-item>
-            <mat-slider [max]="<%=getSliderOptions(slideroptions)[1]%>" [min]="<%=getSliderOptions(slideroptions)[0]%>"
+            <mat-slider (<%=domEvent%>)="<%=func%>" [max]="<%=getSliderOptions(slideroptions)[1]%>" [min]="<%=getSliderOptions(slideroptions)[0]%>"
               [step]="<%=getSliderOptions(slideroptions)[2]%>">
             </mat-slider>
           </mat-list-item>

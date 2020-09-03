@@ -24,9 +24,7 @@ export const getSelectOptions = (options:string) => {
  */
 export const getSliderOptions = (options:string) => {
   if (options ===';') return '';
-  return options.split(";").map(element => {
-    return `'${element}'`
-  });
+  return options.split(";");
 }
 
 export const getUrls = (urls:string) => {

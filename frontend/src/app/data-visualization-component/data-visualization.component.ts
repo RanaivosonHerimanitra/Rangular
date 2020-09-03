@@ -1,6 +1,7 @@
 import { DataMethodsService } from '../data-methods.service';
 import { Component, OnInit } from '@angular/core';
 import { pipe } from 'rxjs';
+import { fromEvent } from 'rxjs';
 import { map, min, filter, take } from 'rxjs/operators';
 @Component({
   selector: 'app-data-visualization',

@@ -16,6 +16,7 @@
         
 
         
+        
 
         
         
@@ -29,10 +30,29 @@
           <mat-form-field appearance="fill">
             <mat-label>I am a select box</mat-label>
             <mat-select (selectionChange)="func1($event)">
-              <mat-option *ngFor="let option of ['setosa','versicolor','virginica']" [value]="option"> {{ option }} </mat-option>
+              <mat-option *ngFor="let option of ['setosa','versicolor','virginica']" [value]="option"> {{ option }}
+              </mat-option>
             </mat-select>
           </mat-form-field>
         </mat-list-item>
+        
+        
+
+        
+        
+        
+        
+
+        
+
+        
+        
+          <mat-list-item>
+            <mat-slider (change)="func2($event)" [max]="10" [min]="3"
+              [step]="0.5">
+            </mat-slider>
+          </mat-list-item>
+
         
 
         
@@ -40,17 +60,17 @@
     </div>
     <div class="col-8">
       
-        <mat-table [dataSource]="data" class="mat-elevation-z8">
-          <div *ngFor="let column of displayedColumns">
-            <ng-container matColumnDef={{column}}>
-              <mat-header-cell *matHeaderCellDef> {{column}} </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element[column]}} </mat-cell>
-            </ng-container>
-          </div>
-          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-        </mat-table>
-        
+      <mat-table [dataSource]="data" class="mat-elevation-z8">
+        <div *ngFor="let column of displayedColumns">
+          <ng-container matColumnDef={{column}}>
+            <mat-header-cell *matHeaderCellDef> {{column}} </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element[column]}} </mat-cell>
+          </ng-container>
+        </div>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+      
       
     </div>
   </div>

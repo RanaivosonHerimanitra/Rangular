@@ -64,7 +64,7 @@ switchSpecies = function(event) {
 }
 
 filterSepalLength = function(event) {
-  return("fromEvent(document, 'MatSliderChange').pipe(map(data => data.filter(x => x['Sepal.Length'] >= event.value) ).subscribe((data: any) => this.data = data)")
+  return("this.ds.getDataService('api/iris').pipe(map(data => data.filter(x => x['Sepal.Length'] >= event.value))).subscribe((data: any) => this.data = data)")
 }
 
 RAngular = R6Class("RAngular", list( components =list(),
@@ -178,8 +178,10 @@ component1 = Component$new(url="/",
                                                           arguments="$event",
                                                           options=c("setosa","versicolor","virginica")),
                                          MatSlider = list(data="api/iris",
+                                                          event ="change",
                                                           callback= filterSepalLength,
-                                                          options =c(1, 5,0.5))
+                                                          arguments="$event",
+                                                          options =c(3, 10,0.5))
                                          ))
 component2 = Component$new(url="/cardtable",
                            name="data-visualization",
