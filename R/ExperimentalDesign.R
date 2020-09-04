@@ -36,19 +36,32 @@ extractUrls = function(components) {
   return(str_replace_all(paste(urls, collapse=";"),fixed("/"),""))
 }
 
-extractJsonData = function(dataList) {
+extractJsonMetaData = function(dataList) {
   widgets = names(dataList)
   metadata = c()
   index = 1
   for ( element in dataList) {
-    metadata = c(metadata, paste(widgets[index],element$data,element$event,paste0("func",index-1, "(",element$arguments,")"),sep="-"))
+    metadata = c(metadata,
+                 paste(widgets[index],
+                       element$data,
+                       element$event,
+                       paste0("func",index-1, "(",element$arguments,")"),
+                       formatLabel(element$label),
+                       sep="-")
+
+                 )
     index = index + 1
   }
+  print((paste(metadata,collapse = ";")))
   return (paste(metadata,collapse = ";"))
 }
 
 stringiFy = function (vecData, sep=";") {
   return (paste(vecData,collapse = sep))
+}
+
+formatLabel = function (label) {
+  return(str_replace_all(label, fixed(" "),"%"))
 }
 
 orderBySepalLength = function() {
@@ -99,8 +112,10 @@ RAngular = R6Class("RAngular", list( components =list(),
                                           sliderOptions = paste(currentWidget[["options"]],collapse = ";")
                                        }
                                      }
+
                                      methods = mergeMethods(vecMethods)
-                                     metadata = extractJsonData(component$methods)
+                                     metadata = extractJsonMetaData(component$methods)
+
                                      system2("schematics",
                                              c("./rangular-template:component-template","--debug=false",
                                                paste0("--title=",name),
@@ -170,14 +185,17 @@ component1 = Component$new(url="/",
                            view=list(view="table",columns=c("Sepal.Length","Petal.Length","Species")),
                            methods= list(MatButton = list(data = "api/iris",
                                                           event = "click",
+                                                          label="order by sepal length",
                                                           callback = orderBySepalLength,
                                                           arguments=""),
                                          MatSelect = list(data = "api/iris",
                                                           event = "selectionChange",
+                                                          label = "change specy",
                                                           callback = switchSpecies,
                                                           arguments="$event",
                                                           options=c("setosa","versicolor","virginica")),
                                          MatSlider = list(data="api/iris",
+                                                          label = "filter by sepal length",
                                                           event ="change",
                                                           callback= filterSepalLength,
                                                           arguments="$event",
@@ -188,9 +206,11 @@ component2 = Component$new(url="/cardtable",
                            view=list(view="mat-card",columns=c("Sepal.Length","Petal.Length","Species")),
                            methods= list(MatButton = list(data = "api/iris",
                                                           event = "click",
+                                                          label = "click me for minimum",
                                                           callback = giveMeMin,
                                                           arguments=""),
                                          MatSelect = list(data = "api/iris",
+                                                          label ="Select a specy",
                                                           event = "selectionChange",
                                                           callback = switchSpecies,
                                                           arguments="$event",
