@@ -199,7 +199,7 @@ component1 = Component$new(url="/",
                                                           event ="change",
                                                           callback= filterSepalLength,
                                                           arguments="$event",
-                                                          options =c(3, 10,0.5))
+                                                          options =c(3,10,0.5))
                                          ))
 component2 = Component$new(url="/cardtable",
                            name="data-visualization",
