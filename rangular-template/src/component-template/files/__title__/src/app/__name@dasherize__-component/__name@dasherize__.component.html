@@ -6,11 +6,12 @@
         <% const widget = m.split("-")[0] %>
         <% const domEvent = m.split("-")[2] %>
         <% const func = m.split("-")[3] %>
+        <% const label = m.split("-")[4].split("%").join(" ") %>
 
         <% if (widget === 'MatButton') { %>
         <mat-list-item>
           <button <%= dasherize(widget)%> (<%=domEvent%>)="<%=func%>">
-            Click me I am a button
+            <%=label%>
           </button>
         </mat-list-item>
         <% } %>
@@ -18,7 +19,7 @@
         <% if (widget === 'MatSelect') { %>
         <mat-list-item>
           <mat-form-field appearance="fill">
-            <mat-label>I am a select box</mat-label>
+            <mat-label><%=label%></mat-label>
             <<%= dasherize(widget)%> (<%=domEvent%>)="<%=func%>">
               <mat-option *ngFor="let option of [<%=getSelectOptions(selectoptions)%>]" [value]="option"> {{ option }}
               </mat-option>
@@ -28,8 +29,10 @@
         <% } %>
         <% if (widget === 'MatSlider') { %>
           <mat-list-item>
+            <mat-label><%=label%></mat-label>
             <mat-slider (<%=domEvent%>)="<%=func%>" [max]="<%=getSliderOptions(slideroptions)[1]%>" [min]="<%=getSliderOptions(slideroptions)[0]%>"
               [step]="<%=getSliderOptions(slideroptions)[2]%>">
+
             </mat-slider>
           </mat-list-item>
 
