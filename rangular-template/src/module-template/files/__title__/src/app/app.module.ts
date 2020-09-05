@@ -23,11 +23,19 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatButtonModule } from '@angular/material/button';
 import { AppComponent } from './app.component';
 import { MainNavComponent } from './main-nav.component';
+import { CommonModule } from '@angular/common';
+
+import * as PlotlyJS from 'plotly.js/dist/plotly.js';
+import { PlotlyModule } from 'angular-plotly.js';
+
+PlotlyModule.plotlyjs = PlotlyJS;
 <%=handleComponentImportation(components)%>
 
 @NgModule({
   declarations: [AppComponent, MainNavComponent, <%= getComponentNames(components)%>],
   imports: [
+    CommonModule,
+    PlotlyModule,
     BrowserModule,
     MatCardModule,
     HttpClientModule,

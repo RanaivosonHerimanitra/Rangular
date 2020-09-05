@@ -160,11 +160,7 @@ RAngular = R6Class("RAngular", list( components =list(),
                                  # if directory node_modules exists, launch directly
                                  # otherwise install and launch
                                  setwd(name)
-                                 if (dir.exists("node_modules")) {
-                                   system("npm start", wait = TRUE,invisible = FALSE)
-                                 } else {
-                                   system(paste("npm i","npm start",sep="&&"), wait = TRUE,invisible = FALSE)
-                                 }
+                                 system(paste("npm i","npm start",sep="&&"), wait = TRUE,invisible = FALSE)
                                })
                    )
 

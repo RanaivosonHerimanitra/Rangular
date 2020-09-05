@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "node --max_old_space_size=5048 ./node_modules/@angular/cli/bin/ng serve",
+    "build": "node --max_old_space_size=5048 ./node_modules/@angular/cli/bin/ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -29,9 +29,11 @@
     "@ngx-formly/core": "^5.0.0",
     "@ngx-formly/material": "^5.0.0",
     "@ngx-formly/schematics": "^5.9.0",
+    "angular-plotly.js": "^3.0.0",
     "bootstrap": "^4.4.0",
     "eslint": "^7.4.0",
     "material-components-web": "^7.0.0",
+    "plotly.js": "^1.55.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "typescript-tslint-plugin": "^0.5.5",
