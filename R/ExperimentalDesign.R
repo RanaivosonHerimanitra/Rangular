@@ -64,6 +64,14 @@ formatLabel = function (label) {
   return(str_replace_all(label, fixed(" "),"%"))
 }
 
+handlePlotly = function(data) {
+  result = c()
+  for (param in params) {
+    result = c(result, param)
+  }
+  return (paste(result, collapse = ";"))
+}
+
 orderBySepalLength = function() {
   return ("this.ds.getDataService('api/iris').pipe(min<any>( (a: any, b: any) => a['Sepal.Length'] < b['Sepal.Length'] ? -1 : 1)).subscribe((data: any) => this.data = data)")
 }
@@ -121,6 +129,8 @@ RAngular = R6Class("RAngular", list( components =list(),
                                                paste0("--title=",name),
                                                paste0("--name=",component$name),
                                                paste0("--view=",component$view$view),
+                                               paste0("--viewdata=", handlePlotly(component$view$data)),
+                                               paste0("--viewlayout=", handlePlotly(component$view$layout)),
                                                paste0("--columns=",paste(component$view$columns,collapse = ";")),
                                                paste0("--methods=",methods),
                                                paste0("--metadata=",metadata),
@@ -214,9 +224,10 @@ component2 = Component$new(url="/cardtable",
 plotlyComponent = Component$new(url="/visualization",
                            name="data-visualization",
                            view=list(view="plotly", data=list(x = "Sepal.Length",
-                                                             y = "Petal.Width",
-                                                             type = "line",
-                                                             marker = ""),
+                                                              y = "Petal.Width",
+                                                              type = "scatter",
+                                                              mode="lines",
+                                                              marker = ""),
                                                    layout= list(width = 320,
                                                                 height = 240,
                                                                 title = 'Evolution')),

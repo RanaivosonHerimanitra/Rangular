@@ -38,6 +38,25 @@ export const getTableColumns = (columns:string) => {
   });
 }
 
+export const handlePlotlyGraphDataSource = (view:string, viewdata:string, viewlayout:string) => {
+  const data = viewdata.split(";");
+  const layout = viewlayout.split(";");
+  if (view  === 'plotly') {
+
+    return `
+    private x: any[] = [];
+    private y: any[] = [];
+    graph = {
+      data: [
+          { x: x, y: y, type: '${data[2]}', mode: '${data[3]}', marker: {color: '${data[4]}'} },
+      ],
+      layout: {width:${layout[0]} , height:${layout[1]} , title:${layout[2]} }
+    };`;
+  } else {
+    return undefined;
+  }
+}
+
 export function componentTemplate(_options: Schema): Rule {
   return (tree: Tree, _context: SchematicContext) => {
     
@@ -50,7 +69,8 @@ export function componentTemplate(_options: Schema): Rule {
       ...{getUrls},
       ...{getSelectOptions},
       ...{getTableColumns},
-      ...{getSliderOptions}
+      ...{getSliderOptions},
+      ...{handlePlotlyGraphDataSource}
     })
   ]);
   

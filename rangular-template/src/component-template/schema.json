@@ -13,6 +13,12 @@
         "view": {
             "type": "string"
         },
+        "viewdata": {
+            "type": "string"
+        },
+        "viewlayout": {
+            "type": "string"
+        },
         "methods": {
             "type": "string"
         },

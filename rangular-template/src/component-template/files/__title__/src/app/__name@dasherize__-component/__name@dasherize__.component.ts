@@ -11,6 +11,7 @@ import { map, min, filter, take } from 'rxjs/operators';
 export class <%= classify(name) %>Component implements OnInit {
   public data: any;
   public displayedColumns = [<%=getTableColumns(columns)%>];
+  <%=handlePlotlyGraphDataSource(view, viewdata, viewlayout)%>
 
   constructor(private ds: DataMethodsService) { }
 

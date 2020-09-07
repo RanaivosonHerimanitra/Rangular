@@ -71,6 +71,10 @@
         </mat-card-content>
       </mat-card>
       <% } %>
+      <% if (view === 'plotly') { %>
+        <plotly-plot [data]="graph.data" [layout]="graph.layout" [useResizeHandler]="true" [style]="{position: 'relative', width: '100%', height: '100%'}">
+        </plotly-plot>
+      <% } %>
     </div>
   </div>
 </div>
