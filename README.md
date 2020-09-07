@@ -65,7 +65,7 @@ filterSepalLength = function(event) {
 
 # example usage Build 02 components and append then to the application:
  component1 = Component$new(url="/",
-                           name="data-manipulation",
+                           name="table-manipulation",
                            view=list(view="table",columns=c("Sepal.Length","Petal.Length","Species")),
                            methods= list(MatButton = list(data = "api/iris",
                                                           event = "click",
@@ -86,7 +86,7 @@ filterSepalLength = function(event) {
                                                           options =c(3,10,0.5))
                                          ))
 component2 = Component$new(url="/cardtable",
-                           name="data-visualization",
+                           name="summary",
                            view=list(view="mat-card",columns=c("Sepal.Length","Petal.Length","Species")),
                            methods= list(MatButton = list(data = "api/iris",
                                                           event = "click",
@@ -100,6 +100,30 @@ component2 = Component$new(url="/cardtable",
                                                           arguments="$event",
                                                           options=c("setosa","versicolor","virginica"))
                                          ))
+plotlyComponent = Component$new(url="/visualization",
+                           name="data-visualization",
+                           view=list(view="plotly", data = list(x = "Sepal.Length",
+                                                              y = "Petal.Width",
+                                                              type = "line",
+                                                              marker = ""),
+                                                   layout = list(width = 320,
+                                                                height = 240,
+                                                                title = 'Evolution')),
+                           methods= list(MatSelect = list(data = "api/iris",
+                                                          label = "Select x-axis",
+                                                          event = "selectionChange",
+                                                          callback = switchSepal,
+                                                          arguments = "$event",
+                                                          options = c("Sepal.Length","Sepal.Width")
+                                                          ),
+                                         MatSelect = list(data = "api/iris",
+                                                          label = "Select y-axis",
+                                                          event = "selectionChange",
+                                                          callback = switchPetal,
+                                                          arguments = "$event",
+                                                          options = c("Petal.Length","Petal.Width")
+                                         )
+                           ))
 app = RAngular$new()
 ## directory must be the directory of your Rangular package:
 app$buildFrontEnd(directory="C:/Users/Admin/Documents/Rangular/",
