@@ -61,11 +61,19 @@ filterSepalLength = function(event) {
   return("this.ds.getDataService('api/iris').pipe(map(data => data.filter(x => x['Sepal.Length'] >= event.value))).subscribe((data: any) => this.data = data)")
 }
 
+switchSepal = function(event) {
+  return("this.ds.getDataService('api/iris').subscribe((data: any) => this.graph.data[0].x = data.map(x=> x[event.value] ))")
+}
+
+switchPetal = function(event) {
+  return("this.ds.getDataService('api/iris').subscribe((data: any) => this.graph.data[0].y = data.map(x=> x[event.value] ))")
+}
+
 ## For a complete list of possible operators, see rxjs: https://rxjs.dev/api/operators
 
 # example usage Build 02 components and append then to the application:
- component1 = Component$new(url="/",
-                           name="data-manipulation",
+  = Component$new(url="/",
+                           name="table-manipulation",
                            view=list(view="table",columns=c("Sepal.Length","Petal.Length","Species")),
                            methods= list(MatButton = list(data = "api/iris",
                                                           event = "click",
@@ -86,7 +94,7 @@ filterSepalLength = function(event) {
                                                           options =c(3,10,0.5))
                                          ))
 component2 = Component$new(url="/cardtable",
-                           name="data-visualization",
+                           name="summary",
                            view=list(view="mat-card",columns=c("Sepal.Length","Petal.Length","Species")),
                            methods= list(MatButton = list(data = "api/iris",
                                                           event = "click",
@@ -100,6 +108,32 @@ component2 = Component$new(url="/cardtable",
                                                           arguments="$event",
                                                           options=c("setosa","versicolor","virginica"))
                                          ))
+plotlyComponent = Component$new(url="/visualization",
+                           name = "data-visualization",
+                           view = list(view="plotly", data = list(x = "Sepal.Length",
+                                                              y = "Petal.Width",
+                                                              type = "scatter",
+                                                              mode="markers",
+                                                              marker = "+"),
+                                                   layout = list(width = 640,
+                                                                 height = 640,
+                                                                title = 'Scatter plot with mode markers')),
+                           methods = list(MatSelect = list(data = "api/iris",
+                                                          label = "Select xaxis",
+                                                          event = "selectionChange",
+                                                          callback = switchSepal,
+                                                          arguments = "$event",
+                                                          options = c("Sepal.Length","Sepal.Width")
+                                                          ),
+                                         MatSelect = list(data = "api/iris",
+                                                          label = "Select yaxis",
+                                                          event = "selectionChange",
+                                                          callback = switchPetal,
+                                                          arguments = "$event",
+                                                          options = c("Petal.Length","Petal.Width")
+                                         )
+                           ))
+
 app = RAngular$new()
 ## directory must be the directory of your Rangular package:
 app$buildFrontEnd(directory="C:/Users/Admin/Documents/Rangular/",
@@ -111,7 +145,9 @@ app$serve("example")
 
 ## Overview of a modern application structure:
 
-A modern javascript application is divided into components. In the above example, we defined 02 components in 02 different urls (http://localhost:4200/default, http://localhost:4200/cardtable). Each component holds its own logic surrounded by methods which control the data. Components have widgets (we aim to support all angular material components). They are used to display the data coming from api endpoint defined by `data`.
+A modern javascript application is divided into components. A component defines a way to display its content or view and its controller to handle logic applied to the view. Currently, supported views are `mat-table` (alias table), `mat-card` and `plotly` (via [angular-plotly](https://github.com/plotly/angular-plotly.js)). In the above example, we defined 02 components in 02 different urls (http://localhost:4200/default, http://localhost:4200/cardtable). Each component holds its own logic surrounded by methods which control the data. Components have widgets (we aim to support all angular material components). They are used to display the data coming from api endpoint defined by `data`.
 Views are predefined angular components that are used to display the data.
 
 ![alt text](EarlyPreview.PNG "preview")
+
+![alt text](EarlyPreview2.PNG "preview")

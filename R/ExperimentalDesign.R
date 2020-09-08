@@ -40,19 +40,32 @@ extractJsonMetaData = function(dataList) {
   widgets = names(dataList)
   metadata = c()
   index = 1
-  for ( element in dataList) {
-    metadata = c(metadata,
-                 paste(widgets[index],
-                       element$data,
-                       element$event,
-                       paste0("func",index-1, "(",element$arguments,")"),
-                       formatLabel(element$label),
-                       sep="-")
+  for (element in dataList) {
+    if(length(element$options)>0) {
+      metadata = c(metadata,
+                   paste(widgets[index],
+                         element$data,
+                         element$event,
+                         paste0("func",index-1, "(",element$arguments,")"),
+                         formatLabel(element$label),
+                         paste(element$options,collapse="%"),
+                         sep="-")
 
-                 )
+      )
+    } else {
+      metadata = c(metadata,
+                   paste(widgets[index],
+                         element$data,
+                         element$event,
+                         paste0("func",index-1, "(",element$arguments,")"),
+                         formatLabel(element$label),
+                         sep="-")
+
+      )
+    }
+
     index = index + 1
   }
-  print((paste(metadata,collapse = ";")))
   return (paste(metadata,collapse = ";"))
 }
 
@@ -62,6 +75,14 @@ stringiFy = function (vecData, sep=";") {
 
 formatLabel = function (label) {
   return(str_replace_all(label, fixed(" "),"%"))
+}
+
+handlePlotly = function(data) {
+  result = c()
+  for (param in names(data)) {
+    result = c(result, data[param])
+  }
+  return (paste(result, collapse = ";"))
 }
 
 orderBySepalLength = function() {
@@ -80,6 +101,14 @@ filterSepalLength = function(event) {
   return("this.ds.getDataService('api/iris').pipe(map(data => data.filter(x => x['Sepal.Length'] >= event.value))).subscribe((data: any) => this.data = data)")
 }
 
+switchSepal = function(event) {
+  return("this.ds.getDataService('api/iris').subscribe((data: any) => this.graph.data[0].x = data.map(x=> x[event.value] ))")
+}
+
+switchPetal = function(event) {
+  return("this.ds.getDataService('api/iris').subscribe((data: any) => this.graph.data[0].y = data.map(x=> x[event.value] ))")
+}
+
 RAngular = R6Class("RAngular", list( components =list(),
                                buildFrontEnd = function(directory="C:/Users/Admin/Documents/Rangular/", servicePort, name="frontend", components) {
                                  # generate component as specified by R-user:
@@ -93,9 +122,9 @@ RAngular = R6Class("RAngular", list( components =list(),
                                      vecMethods = c()
 
                                      componentNames = c(componentNames, component$name)
-                                     selectOptions = ";"
                                      sliderOptions = ";"
-                                     for (widget in c("MatButton","MatSelect","MatSlider")) {
+
+                                     for (widget in c(1:length(names(component$methods))) ) {
                                        currentWidget = component$methods[[widget]]
                                        if (length(currentWidget[["callback"]]) > 0) {
                                            vecMethods = c(vecMethods,extractMethods(currentWidget[["callback"]]))
@@ -103,12 +132,9 @@ RAngular = R6Class("RAngular", list( components =list(),
                                        if (length(currentWidget[["data"]]) > 0) {
                                           vecEndpoint = c(vecEndpoint, currentWidget[["data"]])
                                        }
-                                       # MatSelect
-                                       if (widget == "MatSelect" && length(currentWidget[["options"]]) > 0) {
-                                          selectOptions = paste(currentWidget[["options"]],collapse = ";")
-                                       }
+
                                        # MatSlider: min-max-step:
-                                       if (widget == "MatSlider") {
+                                       if (names(component$methods)[widget] == "MatSlider") {
                                           sliderOptions = paste(currentWidget[["options"]],collapse = ";")
                                        }
                                      }
@@ -121,11 +147,12 @@ RAngular = R6Class("RAngular", list( components =list(),
                                                paste0("--title=",name),
                                                paste0("--name=",component$name),
                                                paste0("--view=",component$view$view),
+                                               paste0("--viewdata=", handlePlotly(component$view$data)),
+                                               paste0("--viewlayout=", handlePlotly(component$view$layout)),
                                                paste0("--columns=",paste(component$view$columns,collapse = ";")),
                                                paste0("--methods=",methods),
                                                paste0("--metadata=",metadata),
                                                paste0("--urls=",urls),
-                                               paste0("--selectoptions=",selectOptions),
                                                paste0("--slideroptions=",sliderOptions),
                                                "--force")
                                              , stderr = TRUE,invisible = FALSE)
@@ -157,14 +184,9 @@ RAngular = R6Class("RAngular", list( components =list(),
                                  }
                                },
                                serve = function(name) {
-                                 # if directory node_modules exists, launch directly
-                                 # otherwise install and launch
+                                 # always install/update
                                  setwd(name)
-                                 if (dir.exists("node_modules")) {
-                                   system("npm start", wait = TRUE,invisible = FALSE)
-                                 } else {
-                                   system(paste("npm i","npm start",sep="&&"), wait = TRUE,invisible = FALSE)
-                                 }
+                                 system(paste("npm i", "npm start", sep="&&"), wait = TRUE, invisible = FALSE)
                                })
                    )
 
@@ -181,7 +203,7 @@ Component = R6Class("Component", list(url="/", name="", view="", methods=list(),
 # example usage Build 02 components and append then to the application:
 
 component1 = Component$new(url="/",
-                           name="data-manipulation",
+                           name="table-manipulation",
                            view=list(view="table",columns=c("Sepal.Length","Petal.Length","Species")),
                            methods= list(MatButton = list(data = "api/iris",
                                                           event = "click",
@@ -202,7 +224,7 @@ component1 = Component$new(url="/",
                                                           options =c(3,10,0.5))
                                          ))
 component2 = Component$new(url="/cardtable",
-                           name="data-visualization",
+                           name="summary",
                            view=list(view="mat-card",columns=c("Sepal.Length","Petal.Length","Species")),
                            methods= list(MatButton = list(data = "api/iris",
                                                           event = "click",
@@ -216,10 +238,35 @@ component2 = Component$new(url="/cardtable",
                                                           arguments="$event",
                                                           options=c("setosa","versicolor","virginica"))
                                          ))
+plotlyComponent = Component$new(url="/visualization",
+                           name = "data-visualization",
+                           view = list(view="plotly", data = list(x = "Sepal.Length",
+                                                              y = "Petal.Width",
+                                                              type = "scatter",
+                                                              mode="markers",
+                                                              marker = "+"),
+                                                   layout = list(width = 640,
+                                                                 height = 640,
+                                                                title = 'Scatter plot with mode markers')),
+                           methods = list(MatSelect = list(data = "api/iris",
+                                                          label = "Select xaxis",
+                                                          event = "selectionChange",
+                                                          callback = switchSepal,
+                                                          arguments = "$event",
+                                                          options = c("Sepal.Length","Sepal.Width")
+                                                          ),
+                                         MatSelect = list(data = "api/iris",
+                                                          label = "Select yaxis",
+                                                          event = "selectionChange",
+                                                          callback = switchPetal,
+                                                          arguments = "$event",
+                                                          options = c("Petal.Length","Petal.Width")
+                                         )
+                           ))
 app = RAngular$new()
 app$buildFrontEnd(directory="C:/Users/Admin/Documents/Rangular/",
                   servicePort ="7999",
-                  name="frontend", components= list(component1, component2))
+                  name="frontend", components= list(component1, component2, plotlyComponent))
 app$serve("frontend")
 
 

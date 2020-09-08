@@ -13,6 +13,12 @@
         "view": {
             "type": "string"
         },
+        "viewdata": {
+            "type": "string"
+        },
+        "viewlayout": {
+            "type": "string"
+        },
         "methods": {
             "type": "string"
         },
@@ -23,9 +29,6 @@
             "type": "string"
         },
         "selectoptions": {
-            "type": "string"
-        },
-        "slideroptions": {
             "type": "string"
         },
         "columns": {
