@@ -61,10 +61,18 @@ filterSepalLength = function(event) {
   return("this.ds.getDataService('api/iris').pipe(map(data => data.filter(x => x['Sepal.Length'] >= event.value))).subscribe((data: any) => this.data = data)")
 }
 
+switchSepal = function(event) {
+  return("this.ds.getDataService('api/iris').subscribe((data: any) => this.graph.data[0].x = data.map(x=> x[event.value] ))")
+}
+
+switchPetal = function(event) {
+  return("this.ds.getDataService('api/iris').subscribe((data: any) => this.graph.data[0].y = data.map(x=> x[event.value] ))")
+}
+
 ## For a complete list of possible operators, see rxjs: https://rxjs.dev/api/operators
 
 # example usage Build 02 components and append then to the application:
- component1 = Component$new(url="/",
+  = Component$new(url="/",
                            name="table-manipulation",
                            view=list(view="table",columns=c("Sepal.Length","Petal.Length","Species")),
                            methods= list(MatButton = list(data = "api/iris",
@@ -101,29 +109,31 @@ component2 = Component$new(url="/cardtable",
                                                           options=c("setosa","versicolor","virginica"))
                                          ))
 plotlyComponent = Component$new(url="/visualization",
-                           name="data-visualization",
-                           view=list(view="plotly", data = list(x = "Sepal.Length",
+                           name = "data-visualization",
+                           view = list(view="plotly", data = list(x = "Sepal.Length",
                                                               y = "Petal.Width",
-                                                              type = "line",
-                                                              marker = ""),
-                                                   layout = list(width = 320,
-                                                                height = 240,
-                                                                title = 'Evolution')),
-                           methods= list(MatSelect = list(data = "api/iris",
-                                                          label = "Select x-axis",
+                                                              type = "scatter",
+                                                              mode="markers",
+                                                              marker = "+"),
+                                                   layout = list(width = 640,
+                                                                 height = 640,
+                                                                title = 'Scatter plot with mode markers')),
+                           methods = list(MatSelect = list(data = "api/iris",
+                                                          label = "Select xaxis",
                                                           event = "selectionChange",
                                                           callback = switchSepal,
                                                           arguments = "$event",
                                                           options = c("Sepal.Length","Sepal.Width")
                                                           ),
                                          MatSelect = list(data = "api/iris",
-                                                          label = "Select y-axis",
+                                                          label = "Select yaxis",
                                                           event = "selectionChange",
                                                           callback = switchPetal,
                                                           arguments = "$event",
                                                           options = c("Petal.Length","Petal.Width")
                                          )
                            ))
+
 app = RAngular$new()
 ## directory must be the directory of your Rangular package:
 app$buildFrontEnd(directory="C:/Users/Admin/Documents/Rangular/",
@@ -139,3 +149,5 @@ A modern javascript application is divided into components. A component defines 
 Views are predefined angular components that are used to display the data.
 
 ![alt text](EarlyPreview.PNG "preview")
+
+![alt text](EarlyPreview2.PNG "preview")
