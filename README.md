@@ -139,7 +139,7 @@ app = RAngular$new()
 app$buildFrontEnd(directory="C:/Users/Admin/Documents/Rangular/",
                   servicePort="{YOUR_BACKEND_SERVICE_PORT_NUMBER}",
                   name="example", 
-                  components= list(component1, component2))
+                  components= list(component1, component2, plotlyComponent))
 app$serve("example")
 ```
 
