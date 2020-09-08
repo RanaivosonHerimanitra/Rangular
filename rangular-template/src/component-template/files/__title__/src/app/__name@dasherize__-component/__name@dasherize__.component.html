@@ -11,7 +11,7 @@
 
         <% if (widget === 'MatButton') { %>
         <mat-list-item>
-          <button <%= dasherize(widget)%> (<%=domEvent%>)="<%=func%>">
+          <button mat-flat-button color="primary" (<%=domEvent%>)="<%=func%>">
             <%=label%>
           </button>
         </mat-list-item>
