@@ -71,8 +71,8 @@ switchPetal = function(event) {
 
 ## For a complete list of possible operators, see rxjs: https://rxjs.dev/api/operators
 
-# example usage Build 02 components and append then to the application:
-  = Component$new(url="/",
+# example usage Build components and append then to the application:
+ component1 = Component$new(url="/",
                            name="table-manipulation",
                            view=list(view="table",columns=c("Sepal.Length","Petal.Length","Species")),
                            methods= list(MatButton = list(data = "api/iris",
@@ -145,7 +145,7 @@ app$serve("example")
 
 ## Overview of a modern application structure:
 
-A modern javascript application is divided into components. A component defines a way to display its content or view and its controller to handle logic applied to the view. Currently, supported views are `mat-table` (alias table), `mat-card` and `plotly` (via [angular-plotly](https://github.com/plotly/angular-plotly.js)). In the above example, we defined 02 components in 02 different urls (http://localhost:4200/default, http://localhost:4200/cardtable). Each component holds its own logic surrounded by methods which control the data. Components have widgets (we aim to support all angular material components). They are used to display the data coming from api endpoint defined by `data`.
+A modern javascript application is divided into components. A component defines a way to display its content or view and its controller to handle logic applied to the view. Currently, supported views are `mat-table` (alias table), `mat-card` and `plotly` (via [angular-plotly](https://github.com/plotly/angular-plotly.js)). In the above example, we defined 03 components in 03 different urls. Each component holds its own logic surrounded by methods which control the data. Components have widgets (we aim to support all angular material components). They are used to display the data coming from api endpoint defined by `data`.
 Views are predefined angular components that are used to display the data.
 
 ![alt text](EarlyPreview.PNG "preview")
