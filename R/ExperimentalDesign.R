@@ -52,7 +52,6 @@ extractJsonMetaData = function(dataList) {
                  )
     index = index + 1
   }
-  print((paste(metadata,collapse = ";")))
   return (paste(metadata,collapse = ";"))
 }
 
@@ -66,8 +65,8 @@ formatLabel = function (label) {
 
 handlePlotly = function(data) {
   result = c()
-  for (param in params) {
-    result = c(result, param)
+  for (param in names(data)) {
+    result = c(result, data[param])
   }
   return (paste(result, collapse = ";"))
 }
@@ -88,6 +87,14 @@ filterSepalLength = function(event) {
   return("this.ds.getDataService('api/iris').pipe(map(data => data.filter(x => x['Sepal.Length'] >= event.value))).subscribe((data: any) => this.data = data)")
 }
 
+switchSepal = function(event) {
+  return("this.ds.getDataService('api/iris').subscribe((data: any) => this.graph.data[0].x = data.map(x=> x[event.value] ))")
+}
+
+switchPetal = function(event) {
+  return("this.ds.getDataService('api/iris').subscribe((data: any) => this.graph.data[0].y = data.map(x=> x[event.value] ))")
+}
+
 RAngular = R6Class("RAngular", list( components =list(),
                                buildFrontEnd = function(directory="C:/Users/Admin/Documents/Rangular/", servicePort, name="frontend", components) {
                                  # generate component as specified by R-user:
@@ -101,9 +108,10 @@ RAngular = R6Class("RAngular", list( components =list(),
                                      vecMethods = c()
 
                                      componentNames = c(componentNames, component$name)
-                                     selectOptions = ";"
+                                     selectOptions = c()
                                      sliderOptions = ";"
-                                     for (widget in c("MatButton","MatSelect","MatSlider")) {
+
+                                     for (widget in c(1:length(names(component$methods))) ) {
                                        currentWidget = component$methods[[widget]]
                                        if (length(currentWidget[["callback"]]) > 0) {
                                            vecMethods = c(vecMethods,extractMethods(currentWidget[["callback"]]))
@@ -112,18 +120,25 @@ RAngular = R6Class("RAngular", list( components =list(),
                                           vecEndpoint = c(vecEndpoint, currentWidget[["data"]])
                                        }
                                        # MatSelect
-                                       if (widget == "MatSelect" && length(currentWidget[["options"]]) > 0) {
-                                          selectOptions = paste(currentWidget[["options"]],collapse = ";")
+
+                                       if (names(component$methods)[widget] == "MatSelect" && length(currentWidget[["options"]]) > 0) {
+
+                                         selectOptions = c(selectOptions, paste(currentWidget[["options"]],collapse = "-"))
                                        }
                                        # MatSlider: min-max-step:
-                                       if (widget == "MatSlider") {
+                                       if (names(component$methods)[widget] == "MatSlider") {
                                           sliderOptions = paste(currentWidget[["options"]],collapse = ";")
                                        }
                                      }
 
                                      methods = mergeMethods(vecMethods)
                                      metadata = extractJsonMetaData(component$methods)
-
+                                     if (length(selectOptions) == 1) {
+                                       selectOptions = paste0(selectOptions,";", collapse = ";")
+                                     } else {
+                                       selectOptions= paste(selectOptions,collapse = ";")
+                                     }
+                                     print(selectOptions)
                                      system2("schematics",
                                              c("./rangular-template:component-template","--debug=false",
                                                paste0("--title=",name),
@@ -167,7 +182,7 @@ RAngular = R6Class("RAngular", list( components =list(),
                                  }
                                },
                                serve = function(name) {
-                                 # always intall/update
+                                 # always install/update
                                  setwd(name)
                                  system(paste("npm i", "npm start", sep="&&"), wait = TRUE, invisible = FALSE)
                                })
@@ -222,16 +237,16 @@ component2 = Component$new(url="/cardtable",
                                                           options=c("setosa","versicolor","virginica"))
                                          ))
 plotlyComponent = Component$new(url="/visualization",
-                           name="data-visualization",
-                           view=list(view="plotly", data=list(x = "Sepal.Length",
+                           name = "data-visualization",
+                           view = list(view="plotly", data = list(x = "Sepal.Length",
                                                               y = "Petal.Width",
                                                               type = "scatter",
-                                                              mode="lines",
-                                                              marker = ""),
-                                                   layout= list(width = 320,
-                                                                height = 240,
-                                                                title = 'Evolution')),
-                           methods= list(MatSelect = list(data = "api/iris",
+                                                              mode="markers",
+                                                              marker = "+"),
+                                                   layout = list(width = 640,
+                                                                height = 640,
+                                                                title = 'Scatter plot with mode markers')),
+                           methods = list(MatSelect = list(data = "api/iris",
                                                           label = "Select x-axis",
                                                           event = "selectionChange",
                                                           callback = switchSepal,

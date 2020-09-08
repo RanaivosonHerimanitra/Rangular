@@ -10,14 +10,22 @@ import { map, min, filter, take } from 'rxjs/operators';
 })
 export class DataVisualizationComponent implements OnInit {
   public data: any;
-  public displayedColumns = ['Sepal.Length','Petal.Length','Species'];
+  public displayedColumns = [''];
+  
+    private x: any[] = [];
+    private y: any[] = [];
+    private content = { x: this.x, y: this.y, type: 'scatter', mode: 'markers', marker: {color: '+'} }
+    graph = {
+      data: [this.content],
+      layout: {width:640 , height:640 , title:'Scatter' }
+    };
 
   constructor(private ds: DataMethodsService) { }
 
   ngOnInit(): void {
   }
 
-  func0(){return(this.ds.getDataService('api/iris').pipe(min<any>((a:any,b:any)=>a['Sepal.Length']<b['Sepal.Length']?-1:1),take(1)).subscribe((data:any)=>this.data=data))}
-func1(event){return(this.ds.getDataService('api/iris').pipe(map(data=>data.filter(x=>x['Species']===event.value))).subscribe((data:any)=>this.data=data))}
+  func0(event){return(this.ds.getDataService('api/iris').subscribe((data:any)=>this.graph.data[0].x=data.map(x=>x[event.value])))}
+func1(event){return(this.ds.getDataService('api/iris').subscribe((data:any)=>this.graph.data[0].y=data.map(x=>x[event.value])))}
 
 }

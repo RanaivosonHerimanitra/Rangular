@@ -14,9 +14,9 @@ var default_1 = /** @class */ (function () {
     }
     default_1 = __decorate([
         core_1.Component({
-            selector: 'dn-data-manipulation',
-            templateUrl: './data-manipulation.component.html',
-            styleUrls: ['./data-manipulation.component.css']
+            selector: 'dn-summary',
+            templateUrl: './summary.component.html',
+            styleUrls: ['./summary.component.css']
         })
     ], default_1);
     return default_1;

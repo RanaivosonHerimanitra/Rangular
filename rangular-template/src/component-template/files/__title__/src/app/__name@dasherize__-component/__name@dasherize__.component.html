@@ -2,11 +2,12 @@
   <div class="row">
     <div class="col-4">
       <mat-list>
-        <% for ( m of metadata.split(";")) { %>
-        <% const widget = m.split("-")[0] %>
-        <% const domEvent = m.split("-")[2] %>
-        <% const func = m.split("-")[3] %>
-        <% const label = m.split("-")[4].split("%").join(" ") %>
+        <% const value = metadata.split(";") %>
+        <% for ( let i = 0; i < value.length; i++) { %>
+        <% const widget = value[i].split("-")[0] %>
+        <% const domEvent = value[i].split("-")[2] %>
+        <% const func = value[i].split("-")[3] %>
+        <% const label = value[i].split("-")[4].split("%").join(" ") %>
 
         <% if (widget === 'MatButton') { %>
         <mat-list-item>
@@ -21,7 +22,7 @@
           <mat-form-field appearance="fill">
             <mat-label><%=label%></mat-label>
             <<%= dasherize(widget)%> (<%=domEvent%>)="<%=func%>">
-              <mat-option *ngFor="let option of [<%=getSelectOptions(selectoptions)%>]" [value]="option"> {{ option }}
+              <mat-option *ngFor="let option of [<%=getSelectOptions(i, selectoptions)%>]" [value]="option"> {{ option }}
               </mat-option>
             </<%= dasherize(widget)%>>
           </mat-form-field>
@@ -32,7 +33,6 @@
             <mat-label><%=label%></mat-label>
             <mat-slider (<%=domEvent%>)="<%=func%>" [max]="<%=getSliderOptions(slideroptions)[1]%>" [min]="<%=getSliderOptions(slideroptions)[0]%>"
               [step]="<%=getSliderOptions(slideroptions)[2]%>">
-
             </mat-slider>
           </mat-list-item>
 

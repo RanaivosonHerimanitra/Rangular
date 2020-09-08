@@ -31,11 +31,12 @@ import * as PlotlyJS from 'plotly.js/dist/plotly.js';
 import { PlotlyModule } from 'angular-plotly.js';
 
 PlotlyModule.plotlyjs = PlotlyJS;
-import {DataManipulationComponent} from './data-manipulation-component/data-manipulation.component';
+import {TableManipulationComponent} from './table-manipulation-component/table-manipulation.component';
+import {SummaryComponent} from './summary-component/summary.component';
 import {DataVisualizationComponent} from './data-visualization-component/data-visualization.component';
 
 @NgModule({
-  declarations: [AppComponent, MainNavComponent, DataManipulationComponent,DataVisualizationComponent],
+  declarations: [AppComponent, MainNavComponent, TableManipulationComponent,SummaryComponent,DataVisualizationComponent],
   imports: [
     AppRoutingModule,
     BrowserModule,

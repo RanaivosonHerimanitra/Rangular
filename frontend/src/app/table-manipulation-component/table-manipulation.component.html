@@ -7,6 +7,7 @@
         
         
         
+        
 
         
         <mat-list-item>
@@ -32,7 +33,7 @@
           <mat-form-field appearance="fill">
             <mat-label>change specy</mat-label>
             <mat-select (selectionChange)="func1($event)">
-              <mat-option *ngFor="let option of ['setosa','versicolor','virginica']" [value]="option"> {{ option }}
+              <mat-option *ngFor="let option of ['']" [value]="option"> {{ option }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -54,7 +55,6 @@
             <mat-label>filter by sepal length</mat-label>
             <mat-slider (change)="func2($event)" [max]="10" [min]="3"
               [step]="0.5">
-
             </mat-slider>
           </mat-list-item>
 
@@ -75,6 +75,7 @@
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
       </mat-table>
+      
       
       
     </div>

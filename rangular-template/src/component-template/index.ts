@@ -10,11 +10,11 @@ export const writeMethods = (element:string) => {
   return arr.join('\n');
 }
 
-export const getSelectOptions = (options:string) => {
-  if (options ===';') return '';
-  return options.split(";").map(element => {
-    return `'${element}'`
-  });
+export const getSelectOptions = (index:number, options:string) => {
+  if (options.split(";").length<=0) return '';
+  return options.split(";")[index].split("-").map(val =>{
+    return `'${val}'`;
+  })
 }
 
 /**
@@ -46,11 +46,10 @@ export const handlePlotlyGraphDataSource = (view:string, viewdata:string, viewla
     return `
     private x: any[] = [];
     private y: any[] = [];
+    private content = { x: this.x, y: this.y, type: '${data[2]}', mode: '${data[3]}', marker: {color: '${data[4]}'} }
     graph = {
-      data: [
-          { x: x, y: y, type: '${data[2]}', mode: '${data[3]}', marker: {color: '${data[4]}'} },
-      ],
-      layout: {width:${layout[0]} , height:${layout[1]} , title:${layout[2]} }
+      data: [this.content],
+      layout: {width:${layout[0]} , height:${layout[1]} , title:'${layout[2]}' }
     };`;
   } else {
     return undefined;

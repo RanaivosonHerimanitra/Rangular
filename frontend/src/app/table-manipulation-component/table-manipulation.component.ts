@@ -4,13 +4,14 @@ import { pipe } from 'rxjs';
 import { fromEvent } from 'rxjs';
 import { map, min, filter, take } from 'rxjs/operators';
 @Component({
-  selector: 'app-data-manipulation',
-  templateUrl: './data-manipulation.component.html',
-  styleUrls: ['./data-manipulation.component.css'],
+  selector: 'app-table-manipulation',
+  templateUrl: './table-manipulation.component.html',
+  styleUrls: ['./table-manipulation.component.css'],
 })
-export class DataManipulationComponent implements OnInit {
+export class TableManipulationComponent implements OnInit {
   public data: any;
   public displayedColumns = ['Sepal.Length','Petal.Length','Species'];
+  
 
   constructor(private ds: DataMethodsService) { }
 
