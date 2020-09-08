@@ -31,9 +31,6 @@
         "selectoptions": {
             "type": "string"
         },
-        "slideroptions": {
-            "type": "string"
-        },
         "columns": {
             "type": "string"
         }

@@ -12,9 +12,10 @@
         
 
         
+          
         <mat-list-item>
           <mat-form-field appearance="fill">
-            <mat-label>Select x</mat-label>
+            <mat-label>Select xaxis</mat-label>
             <mat-select (selectionChange)="func0($event)">
               <mat-option *ngFor="let option of ['Sepal.Length','Sepal.Width']" [value]="option"> {{ option }}
               </mat-option>
@@ -33,9 +34,10 @@
         
 
         
+          
         <mat-list-item>
           <mat-form-field appearance="fill">
-            <mat-label>Select y</mat-label>
+            <mat-label>Select yaxis</mat-label>
             <mat-select (selectionChange)="func1($event)">
               <mat-option *ngFor="let option of ['Petal.Length','Petal.Width']" [value]="option"> {{ option }}
               </mat-option>

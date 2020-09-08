@@ -18,11 +18,12 @@
         <% } %>
 
         <% if (widget === 'MatSelect') { %>
+          <% const formatedOptions =value[i].split("-")[5].split("%").map(val => `'${val}'`)%>
         <mat-list-item>
           <mat-form-field appearance="fill">
             <mat-label><%=label%></mat-label>
             <<%= dasherize(widget)%> (<%=domEvent%>)="<%=func%>">
-              <mat-option *ngFor="let option of [<%=getSelectOptions(i, selectoptions)%>]" [value]="option"> {{ option }}
+              <mat-option *ngFor="let option of [<%=formatedOptions%>]" [value]="option"> {{ option }}
               </mat-option>
             </<%= dasherize(widget)%>>
           </mat-form-field>

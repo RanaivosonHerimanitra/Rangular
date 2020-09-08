@@ -40,16 +40,30 @@ extractJsonMetaData = function(dataList) {
   widgets = names(dataList)
   metadata = c()
   index = 1
-  for ( element in dataList) {
-    metadata = c(metadata,
-                 paste(widgets[index],
-                       element$data,
-                       element$event,
-                       paste0("func",index-1, "(",element$arguments,")"),
-                       formatLabel(element$label),
-                       sep="-")
+  for (element in dataList) {
+    if(length(element$options)>0) {
+      metadata = c(metadata,
+                   paste(widgets[index],
+                         element$data,
+                         element$event,
+                         paste0("func",index-1, "(",element$arguments,")"),
+                         formatLabel(element$label),
+                         paste(element$options,collapse="%"),
+                         sep="-")
 
-                 )
+      )
+    } else {
+      metadata = c(metadata,
+                   paste(widgets[index],
+                         element$data,
+                         element$event,
+                         paste0("func",index-1, "(",element$arguments,")"),
+                         formatLabel(element$label),
+                         sep="-")
+
+      )
+    }
+
     index = index + 1
   }
   return (paste(metadata,collapse = ";"))
@@ -108,7 +122,6 @@ RAngular = R6Class("RAngular", list( components =list(),
                                      vecMethods = c()
 
                                      componentNames = c(componentNames, component$name)
-                                     selectOptions = c()
                                      sliderOptions = ";"
 
                                      for (widget in c(1:length(names(component$methods))) ) {
@@ -119,12 +132,7 @@ RAngular = R6Class("RAngular", list( components =list(),
                                        if (length(currentWidget[["data"]]) > 0) {
                                           vecEndpoint = c(vecEndpoint, currentWidget[["data"]])
                                        }
-                                       # MatSelect
 
-                                       if (names(component$methods)[widget] == "MatSelect" && length(currentWidget[["options"]]) > 0) {
-
-                                         selectOptions = c(selectOptions, paste(currentWidget[["options"]],collapse = "-"))
-                                       }
                                        # MatSlider: min-max-step:
                                        if (names(component$methods)[widget] == "MatSlider") {
                                           sliderOptions = paste(currentWidget[["options"]],collapse = ";")
@@ -133,12 +141,7 @@ RAngular = R6Class("RAngular", list( components =list(),
 
                                      methods = mergeMethods(vecMethods)
                                      metadata = extractJsonMetaData(component$methods)
-                                     if (length(selectOptions) == 1) {
-                                       selectOptions = paste0(selectOptions,";", collapse = ";")
-                                     } else {
-                                       selectOptions= paste(selectOptions,collapse = ";")
-                                     }
-                                     print(selectOptions)
+
                                      system2("schematics",
                                              c("./rangular-template:component-template","--debug=false",
                                                paste0("--title=",name),
@@ -150,7 +153,6 @@ RAngular = R6Class("RAngular", list( components =list(),
                                                paste0("--methods=",methods),
                                                paste0("--metadata=",metadata),
                                                paste0("--urls=",urls),
-                                               paste0("--selectoptions=",selectOptions),
                                                paste0("--slideroptions=",sliderOptions),
                                                "--force")
                                              , stderr = TRUE,invisible = FALSE)
@@ -244,17 +246,17 @@ plotlyComponent = Component$new(url="/visualization",
                                                               mode="markers",
                                                               marker = "+"),
                                                    layout = list(width = 640,
-                                                                height = 640,
+                                                                 height = 640,
                                                                 title = 'Scatter plot with mode markers')),
                            methods = list(MatSelect = list(data = "api/iris",
-                                                          label = "Select x-axis",
+                                                          label = "Select xaxis",
                                                           event = "selectionChange",
                                                           callback = switchSepal,
                                                           arguments = "$event",
                                                           options = c("Sepal.Length","Sepal.Width")
                                                           ),
                                          MatSelect = list(data = "api/iris",
-                                                          label = "Select y-axis",
+                                                          label = "Select yaxis",
                                                           event = "selectionChange",
                                                           callback = switchPetal,
                                                           arguments = "$event",
