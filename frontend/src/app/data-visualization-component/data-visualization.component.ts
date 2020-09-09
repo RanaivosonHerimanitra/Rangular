@@ -17,7 +17,7 @@ export class DataVisualizationComponent implements OnInit {
     private content = { x: this.x, y: this.y, type: 'scatter', mode: 'markers', marker: {color: '+'} }
     graph = {
       data: [this.content],
-      layout: {width:640 , height:640 , title:'Scatter' }
+      layout: {width:640 , height:640 , title:'Scatter plot with mode markers' }
     };
 
   constructor(private ds: DataMethodsService) { }

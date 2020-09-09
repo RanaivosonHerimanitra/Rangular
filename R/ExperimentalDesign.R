@@ -80,7 +80,11 @@ formatLabel = function (label) {
 handlePlotly = function(data) {
   result = c()
   for (param in names(data)) {
-    result = c(result, data[param])
+    if (param == "title") {
+      result = c(result, formatLabel(data[param]))
+    } else {
+      result = c(result, data[param])
+    }
   }
   return (paste(result, collapse = ";"))
 }

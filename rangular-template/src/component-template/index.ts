@@ -49,7 +49,7 @@ export const handlePlotlyGraphDataSource = (view:string, viewdata:string, viewla
     private content = { x: this.x, y: this.y, type: '${data[2]}', mode: '${data[3]}', marker: {color: '${data[4]}'} }
     graph = {
       data: [this.content],
-      layout: {width:${layout[0]} , height:${layout[1]} , title:'${layout[2]}' }
+      layout: {width:${layout[0]} , height:${layout[1]} , title:'${layout[2].split("%").join(" ")}' }
     };`;
   } else {
     return undefined;
