@@ -113,6 +113,18 @@ switchPetal = function(event) {
   return("this.ds.getDataService('api/iris').subscribe((data: any) => this.graph.data[0].y = data.map(x=> x[event.value] ))")
 }
 
+removeManufacturerColumn = function(event) {
+
+}
+
+removeTransmissionColumn = function(event) {
+
+}
+
+removeColumn = function(event, columnName) {
+
+}
+
 RAngular = R6Class("RAngular", list( components =list(),
                                buildFrontEnd = function(directory="C:/Users/Admin/Documents/Rangular/", servicePort, name="frontend", components) {
                                  # generate component as specified by R-user:
@@ -206,7 +218,7 @@ Component = R6Class("Component", list(url="/", name="", view="", methods=list(),
 
 # example usage Build 02 components and append then to the application:
 
-component1 = Component$new(url="/",
+irisTableComponent = Component$new(url="/",
                            name="table-manipulation",
                            view=list(view="table",columns=c("Sepal.Length","Petal.Length","Species")),
                            methods= list(MatButton = list(data = "api/iris",
@@ -227,6 +239,28 @@ component1 = Component$new(url="/",
                                                           arguments="$event",
                                                           options =c(3,10,0.5))
                                          ))
+data("mpg")
+ToggleColumnComponent =  Component$new(url="/mpg-dataset",
+                                       name="mpg-data",
+                                       view=list(view="table",columns=names(mpg)),
+                                       MatSelect = list(data = "api/mpg",
+                                                        reference = "columnToBeRemoved",
+                                                        label = "Select a column to remove",
+                                                        options = names(mpg)),
+                                       MatButton = list(data = "api/mpg",
+                                                        event = "click",
+                                                        label="Remove selected column",
+                                                        callback = removeColumn,
+                                                        arguments="columnToBeRemoved"),
+                                       Toggle = list(data ="api/mpg",
+                                                     label="Remove manufacturer column",
+                                                     callback = removeManufacturerColumn,
+                                                     arguments="$event"),
+                                       Toggle = list(data ="api/mpg",
+                                                     label="Remove transmission column",
+                                                     callback = removeTransmissionColumn,
+                                                     arguments="$event"))
+
 component2 = Component$new(url="/cardtable",
                            name="summary",
                            view=list(view="mat-card",columns=c("Sepal.Length","Petal.Length","Species")),
@@ -270,7 +304,7 @@ plotlyComponent = Component$new(url="/visualization",
 app = RAngular$new()
 app$buildFrontEnd(directory="C:/Users/Admin/Documents/Rangular/",
                   servicePort ="7999",
-                  name="frontend", components= list(component1, component2, plotlyComponent))
+                  name="frontend", components= list(irisTableComponent, component2, plotlyComponent))
 app$serve("frontend")
 
 

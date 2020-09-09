@@ -1,49 +1,46 @@
 <div class="container">
   <div class="row">
     <div class="col-4">
-      <mat-list>
-        
-        
-        
-        
-        
-        
-
-        
-        <mat-list-item>
-          <button mat-flat-button color="primary" (click)="func0()">
-            click me for minimum
-          </button>
-        </mat-list-item>
-        
-
-        
-        
 
         
         
         
         
         
-
         
-
+        
+          <mat-list>
+            <mat-list-item>
+              <button mat-flat-button color="primary" (click)="func0()">
+                click me for minimum
+              </button>
+            </mat-list-item>
+          </mat-list>
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
           
-        <mat-list-item>
-          <mat-form-field appearance="fill">
-            <mat-label>Select a specy</mat-label>
-            <mat-select (selectionChange)="func1($event)">
-              <mat-option *ngFor="let option of ['setosa','versicolor','virginica']" [value]="option"> {{ option }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </mat-list-item>
+          <mat-list>
+            <mat-list-item>
+              <mat-form-field appearance="fill">
+                <mat-label>Select a specy</mat-label>
+                <mat-select (selectionChange)="func1($event)">
+                  <mat-option *ngFor="let option of ['setosa','versicolor','virginica']" [value]="option"> {{ option }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </mat-list-item>
+          </mat-list>
         
         
-
         
-      </mat-list>
     </div>
     <div class="col-8">
       
