@@ -14,6 +14,7 @@ extractMethods = function(srcMethod) {
   vectorString = paste0(vectorRepresentation, collapse = "")
   vectorString = str_replace_all(vectorString, fixed(" "), "")
   vectorString = str_replace_all(vectorString, fixed("\n"),"")
+  if (vectorString == "") return ("function() {return (undefined)}")
   return(vectorString)
 }
 
@@ -49,6 +50,7 @@ extractJsonMetaData = function(dataList) {
                          paste0("func",index-1, "(",element$arguments,")"),
                          formatLabel(element$label),
                          paste(element$options,collapse="%"),
+                         element$reference,
                          sep="-")
 
       )
@@ -59,6 +61,7 @@ extractJsonMetaData = function(dataList) {
                          element$event,
                          paste0("func",index-1, "(",element$arguments,")"),
                          formatLabel(element$label),
+                         element$reference,
                          sep="-")
 
       )
@@ -113,16 +116,16 @@ switchPetal = function(event) {
   return("this.ds.getDataService('api/iris').subscribe((data: any) => this.graph.data[0].y = data.map(x=> x[event.value] ))")
 }
 
-removeManufacturerColumn = function(event) {
-
+removeManufacturerColumn = function() {
+  return("this.ds.getDataService('api/mpg').subscribe((data: any) => { this.data = data.map(item => { delete(item['manufacturer'])%return(item)% })% this.displayedColumns = Object.keys(this.data[0])% })")
 }
 
-removeTransmissionColumn = function(event) {
-
+removeTransmissionColumn = function() {
+  return("this.ds.getDataService('api/mpg').subscribe((data: any) => { this.data = data.map(item => { delete(item['transmission'])%return(item)% })% this.displayedColumns = Object.keys(this.data[0])% })")
 }
 
-removeColumn = function(event, columnName) {
-
+removeColumn = function() {
+  return("this.ds.getDataService('api/mpg').subscribe((data: any) => { this.data = data.map(item => { delete(item[this.columnToBeRemoved])% return(item)% })% this.displayedColumns = Object.keys(this.data[0])% })")
 }
 
 RAngular = R6Class("RAngular", list( components =list(),
@@ -240,41 +243,47 @@ irisTableComponent = Component$new(url="/",
                                                           options =c(3,10,0.5))
                                          ))
 data("mpg")
-ToggleColumnComponent =  Component$new(url="/mpg-dataset",
+toggleColumnComponent =  Component$new(url="/mpg-dataset",
                                        name="mpg-data",
-                                       view=list(view="table",columns=names(mpg)),
-                                       MatSelect = list(data = "api/mpg",
-                                                        reference = "columnToBeRemoved",
-                                                        label = "Select a column to remove",
-                                                        options = names(mpg)),
-                                       MatButton = list(data = "api/mpg",
-                                                        event = "click",
-                                                        label="Remove selected column",
-                                                        callback = removeColumn,
-                                                        arguments="columnToBeRemoved"),
-                                       Toggle = list(data ="api/mpg",
-                                                     label="Remove manufacturer column",
-                                                     callback = removeManufacturerColumn,
-                                                     arguments="$event"),
-                                       Toggle = list(data ="api/mpg",
-                                                     label="Remove transmission column",
-                                                     callback = removeTransmissionColumn,
-                                                     arguments="$event"))
+                                       view=list(view="table", columns=names(mpg)),
+                                       methods = list(
+                                         MatSelect = list(data = "api/mpg",
+                                                          event = "",
+                                                          reference = "columnToBeRemoved:string",
+                                                          label = "Select a column to remove",
+                                                          callback ="",
+                                                          options = names(mpg)),
+                                         MatButton = list(data = "api/mpg",
+                                                          event = "click",
+                                                          label="Remove selected column",
+                                                          callback = removeColumn,
+                                                          arguments = ""),
+                                         Toggle = list(data ="api/mpg",
+                                                       label="Remove manufacturer column",
+                                                       event ="change",
+                                                       callback = removeManufacturerColumn,
+                                                       arguments=""),
+                                         Toggle = list(data ="api/mpg",
+                                                       event ="change",
+                                                       label="Remove transmission column",
+                                                       callback = removeTransmissionColumn,
+                                                       arguments=""))
+                                       )
 
 component2 = Component$new(url="/cardtable",
                            name="summary",
-                           view=list(view="mat-card",columns=c("Sepal.Length","Petal.Length","Species")),
+                           view=list(view="mat-card", columns = c("Sepal.Length","Petal.Length","Species")),
                            methods= list(MatButton = list(data = "api/iris",
                                                           event = "click",
                                                           label = "click me for minimum",
                                                           callback = giveMeMin,
-                                                          arguments=""),
+                                                          arguments = ""),
                                          MatSelect = list(data = "api/iris",
                                                           label ="Select a specy",
                                                           event = "selectionChange",
                                                           callback = switchSpecies,
-                                                          arguments="$event",
-                                                          options=c("setosa","versicolor","virginica"))
+                                                          arguments = "$event",
+                                                          options = c("setosa","versicolor","virginica"))
                                          ))
 plotlyComponent = Component$new(url="/visualization",
                            name = "data-visualization",
@@ -304,7 +313,10 @@ plotlyComponent = Component$new(url="/visualization",
 app = RAngular$new()
 app$buildFrontEnd(directory="C:/Users/Admin/Documents/Rangular/",
                   servicePort ="7999",
-                  name="frontend", components= list(irisTableComponent, component2, plotlyComponent))
+                  name="frontend", components= list(irisTableComponent,
+                                                    component2,
+                                                    plotlyComponent,
+                                                    toggleColumnComponent))
 app$serve("frontend")
 
 

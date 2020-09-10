@@ -12,6 +12,12 @@ export class SummaryComponent implements OnInit {
   public data: any;
   public displayedColumns = ['Sepal.Length','Petal.Length','Species'];
   
+  
+    
+  
+    
+  
+  
 
   constructor(private ds: DataMethodsService) { }
 

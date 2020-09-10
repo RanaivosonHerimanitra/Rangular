@@ -17,9 +17,9 @@ devtools::install_github('RanaivosonHerimanitra/Rangular')
 ## Design and philosophy:
 
 The package will allow R user to build **reactive data driven application** by using the amazing power of Angular ecosystem such as [angular material](https://material.angular.io/components/categories) and [rxjs](https://rxjs-dev.firebaseapp.com/). 
-R user describe what they want in R language. Example, a button to filter data on click, a dropdown to select a subset of the data, etc. Data are supplied from a R server using `Plumber` package and retrieved in a reactive manner using `rxjs`. Currently, vanilla rxjs string operations is supplied from within R, but one could easily construct wrappers around them.
+R user describe what they want in R language. Example, a button to filter data on click, a dropdown to select a subset of the data, etc. Data are supplied from a R server using `Plumber` package (but it can be any backend that speaks http protocol) and retrieved in a reactive manner using `rxjs`. Currently, vanilla rxjs string operations is supplied from within R, but one could easily construct wrappers around them.
 
-Binding is made possible thanks to the [angular schematics](https://angular.io/guide/schematics).  We can generate a `typescript/html/css/json` templates using metadata supplied from the R functions we write.
+Binding is made possible thanks to [angular schematics](https://angular.io/guide/schematics).  We can generate a `typescript/html/css/json` templates using metadata supplied from the R functions we write.
 
 ### Why another R framework for building web application ?
 
@@ -84,29 +84,29 @@ switchPetal = function(event) {
                                                           event = "selectionChange",
                                                           label = "change specy",
                                                           callback = switchSpecies,
-                                                          arguments="$event",
-                                                          options=c("setosa","versicolor","virginica")),
-                                         MatSlider = list(data="api/iris",
+                                                          arguments = "$event",
+                                                          options = c("setosa","versicolor","virginica")),
+                                         MatSlider = list(data = "api/iris",
                                                           label = "filter by sepal length",
-                                                          event ="change",
-                                                          callback= filterSepalLength,
-                                                          arguments="$event",
-                                                          options =c(3,10,0.5))
+                                                          event = "change",
+                                                          callback = filterSepalLength,
+                                                          arguments = "$event",
+                                                          options = c(3,10,0.5))
                                          ))
 component2 = Component$new(url="/cardtable",
                            name="summary",
-                           view=list(view="mat-card",columns=c("Sepal.Length","Petal.Length","Species")),
+                           view=list(view="mat-card",columns = c("Sepal.Length","Petal.Length","Species")),
                            methods= list(MatButton = list(data = "api/iris",
                                                           event = "click",
                                                           label = "click me for minimum",
                                                           callback = giveMeMin,
-                                                          arguments=""),
+                                                          arguments = ""),
                                          MatSelect = list(data = "api/iris",
-                                                          label ="Select a specy",
+                                                          label = "Select a specy",
                                                           event = "selectionChange",
                                                           callback = switchSpecies,
-                                                          arguments="$event",
-                                                          options=c("setosa","versicolor","virginica"))
+                                                          arguments = "$event",
+                                                          options = c("setosa","versicolor","virginica"))
                                          ))
 plotlyComponent = Component$new(url="/visualization",
                            name = "data-visualization",

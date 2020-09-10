@@ -5,7 +5,8 @@ import { strings } from '@angular-devkit/core';
 
 export const writeMethods = (element:string) => {
   const arr = element.split(";").map ((value,index) => {
-    return value.replace('function',`func${index}`);
+    let out = value.replace('function',`func${index}`)
+    return out.split('%').join(';');
   });
   return arr.join('\n');
 }
