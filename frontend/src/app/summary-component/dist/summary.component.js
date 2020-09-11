@@ -29,6 +29,7 @@ core_1.OnInit;
     displayedColumns = [, getTableColumns(columns) %  > ];
      % ;
     var value = metadata.split(";") %  >
+        // [6] => reference data for value binding
          % ;
     for (var i = 0; i < value.length; i++) {
          %  >

@@ -12,7 +12,7 @@ var AppComponent = /** @class */ (function () {
     function AppComponent(eref, router) {
         this.eref = eref;
         this.router = router;
-        this.title = 'mpg-data';
+        this.title = 'mtcars-data';
     }
     AppComponent.prototype.ngOnInit = function () { };
     AppComponent.prototype.ngAfterViewInit = function () { };

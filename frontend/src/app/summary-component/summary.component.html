@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
-    <div class="col-4">
-
+    <div class="col-3">
+        
         
         
         
@@ -27,12 +27,13 @@
         
         
         
+        
           
           <mat-list>
             <mat-list-item>
               <mat-form-field appearance="fill">
                 <mat-label>Select a specy</mat-label>
-                <mat-select  (selectionChange)="func1($event)">
+                <mat-select    (selectionChange)="func1($event)">
                   <mat-option *ngFor="let option of ['setosa','versicolor','virginica']" [value]="option"> {{ option }}
                   </mat-option>
                 </mat-select>
@@ -44,7 +45,7 @@
         
         
     </div>
-    <div class="col-8">
+    <div class="col-9">
       
       
       <mat-card>

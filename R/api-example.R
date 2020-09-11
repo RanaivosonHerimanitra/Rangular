@@ -27,10 +27,10 @@ function2 = function() {
 }
 
 #* return iris dataset for interactive data manipulation
-#* @get /api/mpg
+#* @get /api/mtcars
 function2 = function() {
-  data("mpg")
-  return (mpg)
+  data("mtcars")
+  return (mtcars)
 }
 
 

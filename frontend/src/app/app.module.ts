@@ -34,10 +34,10 @@ PlotlyModule.plotlyjs = PlotlyJS;
 import {TableManipulationComponent} from './table-manipulation-component/table-manipulation.component';
 import {SummaryComponent} from './summary-component/summary.component';
 import {DataVisualizationComponent} from './data-visualization-component/data-visualization.component';
-import {MpgDataComponent} from './mpg-data-component/mpg-data.component';
+import {MtcarsDataComponent} from './mtcars-data-component/mtcars-data.component';
 
 @NgModule({
-  declarations: [AppComponent, MainNavComponent, TableManipulationComponent,SummaryComponent,DataVisualizationComponent,MpgDataComponent],
+  declarations: [AppComponent, MainNavComponent, TableManipulationComponent,SummaryComponent,DataVisualizationComponent,MtcarsDataComponent],
   imports: [
     AppRoutingModule,
     BrowserModule,

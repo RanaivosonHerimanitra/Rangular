@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
-    <div class="col-4">
-
+    <div class="col-3">
+        
         
         
         
@@ -15,7 +15,7 @@
             <mat-list-item>
               <mat-form-field appearance="fill">
                 <mat-label>Select xaxis</mat-label>
-                <mat-select  (selectionChange)="func0($event)">
+                <mat-select    (selectionChange)="func0($event)">
                   <mat-option *ngFor="let option of ['Sepal.Length','Sepal.Width']" [value]="option"> {{ option }}
                   </mat-option>
                 </mat-select>
@@ -32,12 +32,13 @@
         
         
         
+        
           
           <mat-list>
             <mat-list-item>
               <mat-form-field appearance="fill">
                 <mat-label>Select yaxis</mat-label>
-                <mat-select  (selectionChange)="func1($event)">
+                <mat-select    (selectionChange)="func1($event)">
                   <mat-option *ngFor="let option of ['Petal.Length','Petal.Width']" [value]="option"> {{ option }}
                   </mat-option>
                 </mat-select>
@@ -49,7 +50,7 @@
         
         
     </div>
-    <div class="col-8">
+    <div class="col-9">
       
       
       

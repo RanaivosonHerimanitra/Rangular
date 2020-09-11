@@ -12,6 +12,7 @@ export class DataVisualizationComponent implements OnInit {
   public data: any;
   public displayedColumns = [''];
   
+  // [6] => reference data for value binding
   
     
   

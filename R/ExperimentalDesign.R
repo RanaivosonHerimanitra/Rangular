@@ -116,16 +116,19 @@ switchPetal = function(event) {
   return("this.ds.getDataService('api/iris').subscribe((data: any) => this.graph.data[0].y = data.map(x=> x[event.value] ))")
 }
 
-removeManufacturerColumn = function() {
-  return("this.ds.getDataService('api/mpg').subscribe((data: any) => { this.data = data.map(item => { delete(item['manufacturer'])%return(item)% })% this.displayedColumns = Object.keys(this.data[0])% })")
+removeMpgColumn = function() {
+  return("this.ds.getDataService('api/mtcars').subscribe((data: any)=>{ this.data = data.map(obj => Object.entries(obj).filter(keyValue => keyValue[0] !== 'mpg')) % this.data = this.data.map(obj => Object.fromEntries(obj)  )%})"
+  )
 }
 
-removeTransmissionColumn = function() {
-  return("this.ds.getDataService('api/mpg').subscribe((data: any) => { this.data = data.map(item => { delete(item['transmission'])%return(item)% })% this.displayedColumns = Object.keys(this.data[0])% })")
+removeHpColumn = function() {
+  return("this.ds.getDataService('api/mtcars').subscribe((data: any)=>{ this.data = data.map(obj => Object.entries(obj).filter(keyValue => keyValue[0] !== 'hp')) % this.data = this.data.map(obj => Object.fromEntries(obj)  )%})"
+  )
 }
 
 removeColumn = function() {
-  return("this.ds.getDataService('api/mpg').subscribe((data: any) => { this.data = data.map(item => { delete(item[this.columnToBeRemoved])% return(item)% })% this.displayedColumns = Object.keys(this.data[0])% })")
+  return("this.ds.getDataService('api/mtcars').subscribe((data: any)=>{ this.data = data.map(obj => Object.entries(obj).filter(keyValue => keyValue[0] !== this.columnToBeRemoved)) % this.data = this.data.map(obj => Object.fromEntries(obj)  )%})"
+  )
 }
 
 RAngular = R6Class("RAngular", list( components =list(),
@@ -242,31 +245,31 @@ irisTableComponent = Component$new(url="/",
                                                           arguments="$event",
                                                           options =c(3,10,0.5))
                                          ))
-data("mpg")
-toggleColumnComponent =  Component$new(url="/mpg-dataset",
-                                       name="mpg-data",
-                                       view=list(view="table", columns=names(mpg)),
+data("mtcars")
+toggleColumnComponent =  Component$new(url="/mtcars-dataset",
+                                       name="mtcars-data",
+                                       view=list(view="table", columns=names(mtcars)),
                                        methods = list(
-                                         MatSelect = list(data = "api/mpg",
+                                         MatSelect = list(data = "api/mtcars",
                                                           event = "",
-                                                          reference = "columnToBeRemoved:string",
+                                                          reference = "columnToBeRemoved:string", #[(value)] = "columnToBeRemoved"
                                                           label = "Select a column to remove",
                                                           callback ="",
-                                                          options = names(mpg)),
-                                         MatButton = list(data = "api/mpg",
+                                                          options = names(mtcars)),
+                                         MatButton = list(data = "api/mtcars",
                                                           event = "click",
                                                           label="Remove selected column",
                                                           callback = removeColumn,
                                                           arguments = ""),
-                                         Toggle = list(data ="api/mpg",
-                                                       label="Remove manufacturer column",
+                                         Toggle = list(data ="api/mtcars",
+                                                       label="Remove mpg column",
                                                        event ="change",
-                                                       callback = removeManufacturerColumn,
+                                                       callback = removeMpgColumn,
                                                        arguments=""),
                                          Toggle = list(data ="api/mpg",
                                                        event ="change",
-                                                       label="Remove transmission column",
-                                                       callback = removeTransmissionColumn,
+                                                       label="Remove Hp column",
+                                                       callback = removeHpColumn,
                                                        arguments=""))
                                        )
 

@@ -31,8 +31,10 @@ export class MpgDataComponent implements OnInit {
   }
 
   func0(){return(undefined)}
-func1(){return(this.ds.getDataService('api/mpg').subscribe((data:any)=>{this.data=data.map(item=>{delete(item[this.columnToBeRemoved]);return(item);});this.displayedColumns=Object.keys(this.data[0]);}))}
-func2(){return(this.ds.getDataService('api/mpg').subscribe((data:any)=>{this.data=data.map(item=>{delete(item['manufacturer']);return(item);});this.displayedColumns=Object.keys(this.data[0]);}))}
-func3(){return(this.ds.getDataService('api/mpg').subscribe((data:any)=>{this.data=data.map(item=>{delete(item['transmission']);return(item);});this.displayedColumns=Object.keys(this.data[0]);}))}
+func1(){return(this.ds.getDataService('api/mtcars').subscribe((data:any)=>{\nthis.data=data.map(obj=>Object.entries(obj).filter(keyValue=>keyValue[0]!==this.columnToBeRemoved))
+\nthis.data.map(obj=>console.log(Object.fromEntries(obj)))
+\n}))}
+func4(){return(this.ds.getDataService('api/mpg').subscribe((data:any)=>{this.data=data.map(item=>{delete(item['manufacturer']);return(item);});this.displayedColumns=Object.keys(this.data[0]);}))}
+func5(){return(this.ds.getDataService('api/mpg').subscribe((data:any)=>{this.data=data.map(item=>{delete(item['transmission']);return(item);});this.displayedColumns=Object.keys(this.data[0]);}))}
 
 }
