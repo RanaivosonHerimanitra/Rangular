@@ -10,7 +10,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCardModule} from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatSliderModule } from '@angular/material/slider';
-
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -48,6 +48,7 @@ PlotlyModule.plotlyjs = PlotlyJS;
     MatSidenavModule,
     MatTableModule,
     MatSliderModule,
+    MatSlideToggleModule,
     MatListModule,
     MatToolbarModule,
     MatFormFieldModule,

@@ -9,32 +9,14 @@
         
         
         
-          <mat-list>
-            <mat-list-item>
-              <button mat-flat-button color="primary" (click)="func0()">
-                order by sepal length
-              </button>
-            </mat-list-item>
-          </mat-list>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
           
           <mat-list>
             <mat-list-item>
               <mat-form-field appearance="fill">
-                <mat-label>change specy</mat-label>
-                <mat-select    (selectionChange)="func1($event)">
-                  <mat-option *ngFor="let option of ['setosa','versicolor','virginica']" [value]="option"> {{ option }}
+                <mat-label>Select a column to remove</mat-label>
+                <mat-select  [(value)]="columnToBeRemoved"   >
+                  <mat-option *ngFor="let option of ['mpg','cyl','disp','hp','drat','wt','qsec','vs','am','gear','carb']" [value]="option"> {{ option }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -50,17 +32,52 @@
         
         
         
+          <mat-list>
+            <mat-list-item>
+              <button mat-flat-button color="primary" (click)="func1()">
+                Remove selected column
+              </button>
+            </mat-list-item>
+          </mat-list>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
           <mat-list>
             <mat-list-item>
-              <mat-label>filter by sepal length</mat-label>
-              <mat-slider  (change)="func2($event)" [max]="10" [min]="3"
-                [step]="0.5">
-              </mat-slider>
+              <mat-slide-toggle  (change)="func2()" [color]="'accent'" [checked]="false" [disabled]="false">
+                Remove mpg column
+              </mat-slide-toggle>
             </mat-list-item>
           </mat-list>
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+          <mat-list>
+            <mat-list-item>
+              <mat-slide-toggle  (change)="func3()" [color]="'accent'" [checked]="false" [disabled]="false">
+                Remove Hp column
+              </mat-slide-toggle>
+            </mat-list-item>
+          </mat-list>
         
         
     </div>

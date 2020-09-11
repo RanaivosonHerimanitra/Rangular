@@ -7,14 +7,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports. = void 0;
-var data_methods_service_1 = require("../../../../../service-template/files/src/app/data-methods.service");
+var data_methods_service_1 = require("../data-methods.service");
 var core_1 = require("@angular/core");
 var default_1 = /** @class */ (function () {
     function default_1() {
     }
     default_1 = __decorate([
         core_1.Component({
-            selector: 'dn-summary',
+            selector: 'app-summary',
             templateUrl: './summary.component.html',
             styleUrls: ['./summary.component.css']
         })
@@ -25,7 +25,28 @@ var default_1 = /** @class */ (function () {
 implements;
 core_1.OnInit;
 {
-    constructor(private, ds, data_methods_service_1.DataMethodsService);
+    data: any;
+    displayedColumns = [, getTableColumns(columns) %  > ];
+     % ;
+    var value = metadata.split(";") %  >
+        // [6] => reference data for value binding
+         % ;
+    for (var i = 0; i < value.length; i++) {
+         %  >
+             % ;
+        if (value[i].split("-")[6]) {
+             %  >
+            ;
+            value[i].split("-")[6] %  > ;
+             % ;
+        }
+         %  >
+             % ;
+    }
+     %  >
+    ;
+    handlePlotlyGraphDataSource(view, viewdata, viewlayout) %  >
+        constructor(private, ds, data_methods_service_1.DataMethodsService);
     { }
     ngOnInit();
     void {}

@@ -14,9 +14,9 @@ var default_1 = /** @class */ (function () {
     }
     default_1 = __decorate([
         core_1.Component({
-            selector: 'app-data-visualization',
-            templateUrl: './data-visualization.component.html',
-            styleUrls: ['./data-visualization.component.css']
+            selector: 'app-mtcars-data',
+            templateUrl: './mtcars-data.component.html',
+            styleUrls: ['./mtcars-data.component.css']
         })
     ], default_1);
     return default_1;

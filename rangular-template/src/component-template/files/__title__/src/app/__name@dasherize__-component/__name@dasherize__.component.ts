@@ -11,6 +11,13 @@ import { map, min, filter, take } from 'rxjs/operators';
 export class <%= classify(name) %>Component implements OnInit {
   public data: any;
   public displayedColumns = [<%=getTableColumns(columns)%>];
+  <% const value = metadata.split(";") %>
+  // [6] => reference data for value binding
+  <% for ( let i = 0; i < value.length; i++) { %>
+    <% if (value[i].split("-")[6]) {%>
+       <%=value[i].split("-")[6]%>;
+    <% } %>
+  <% } %>
   <%=handlePlotlyGraphDataSource(view, viewdata, viewlayout)%>
 
   constructor(private ds: DataMethodsService) { }

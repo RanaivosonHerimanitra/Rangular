@@ -12,6 +12,15 @@ export class TableManipulationComponent implements OnInit {
   public data: any;
   public displayedColumns = ['Sepal.Length','Petal.Length','Species'];
   
+  // [6] => reference data for value binding
+  
+    
+  
+    
+  
+    
+  
+  
 
   constructor(private ds: DataMethodsService) { }
 

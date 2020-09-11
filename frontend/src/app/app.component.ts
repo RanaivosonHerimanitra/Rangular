@@ -8,7 +8,7 @@ import { Router, NavigationStart } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, AfterViewInit {
-  title = 'data-visualization';
+  title = 'mtcars-data';
 
   constructor(private eref: ElementRef, private router: Router) {
   }

@@ -26,6 +26,14 @@ function2 = function() {
   return (iris)
 }
 
+#* return iris dataset for interactive data manipulation
+#* @get /api/mtcars
+function2 = function() {
+  data("mtcars")
+  return (mtcars)
+}
+
+
 #* Return the sum of two numbers
 #* @param a The first number to add
 #* @param b The second number to add

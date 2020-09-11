@@ -14,9 +14,9 @@ var default_1 = /** @class */ (function () {
     }
     default_1 = __decorate([
         core_1.Component({
-            selector: 'app-data-visualization',
-            templateUrl: './data-visualization.component.html',
-            styleUrls: ['./data-visualization.component.css']
+            selector: 'app-mpg-data',
+            templateUrl: './mpg-data.component.html',
+            styleUrls: ['./mpg-data.component.css']
         })
     ], default_1);
     return default_1;
@@ -29,7 +29,6 @@ core_1.OnInit;
     displayedColumns = [, getTableColumns(columns) %  > ];
      % ;
     var value = metadata.split(";") %  >
-        // [6] => reference data for value binding
          % ;
     for (var i = 0; i < value.length; i++) {
          %  >

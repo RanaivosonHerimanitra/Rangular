@@ -10,7 +10,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCardModule} from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatSliderModule } from '@angular/material/slider';
-
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -34,9 +34,10 @@ PlotlyModule.plotlyjs = PlotlyJS;
 import {TableManipulationComponent} from './table-manipulation-component/table-manipulation.component';
 import {SummaryComponent} from './summary-component/summary.component';
 import {DataVisualizationComponent} from './data-visualization-component/data-visualization.component';
+import {MtcarsDataComponent} from './mtcars-data-component/mtcars-data.component';
 
 @NgModule({
-  declarations: [AppComponent, MainNavComponent, TableManipulationComponent,SummaryComponent,DataVisualizationComponent],
+  declarations: [AppComponent, MainNavComponent, TableManipulationComponent,SummaryComponent,DataVisualizationComponent,MtcarsDataComponent],
   imports: [
     AppRoutingModule,
     BrowserModule,
@@ -50,6 +51,7 @@ import {DataVisualizationComponent} from './data-visualization-component/data-vi
     MatSidenavModule,
     MatTableModule,
     MatSliderModule,
+    MatSlideToggleModule,
     MatListModule,
     MatToolbarModule,
     MatFormFieldModule,

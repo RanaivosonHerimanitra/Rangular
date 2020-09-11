@@ -12,6 +12,13 @@ export class DataVisualizationComponent implements OnInit {
   public data: any;
   public displayedColumns = [''];
   
+  // [6] => reference data for value binding
+  
+    
+  
+    
+  
+  
     private x: any[] = [];
     private y: any[] = [];
     private content = { x: this.x, y: this.y, type: 'scatter', mode: 'markers', marker: {color: '+'} }
