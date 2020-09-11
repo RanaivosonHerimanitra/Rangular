@@ -12,7 +12,7 @@ This project will allow R users and developers to get access of the full capabil
 library('devtools')
 devtools::install_github('RanaivosonHerimanitra/Rangular')
 ```
-
+Unable to install? Just download the project and launch `experimental...R`
 
 ## Design and philosophy:
 
