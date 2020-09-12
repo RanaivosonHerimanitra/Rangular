@@ -252,7 +252,7 @@ toggleColumnComponent =  Component$new(url="/mtcars-dataset",
                                        methods = list(
                                          MatSelect = list(data = "api/mtcars",
                                                           event = "",
-                                                          reference = "columnToBeRemoved:string", #[(value)] = "columnToBeRemoved"
+                                                          reference = "columnToBeRemoved:string",
                                                           label = "Select a column to remove",
                                                           callback ="",
                                                           options = names(mtcars)),
