@@ -35,7 +35,7 @@
           <mat-list>
             <mat-list-item>
               <mat-label><%=label%></mat-label>
-              <mat-slider <% if (domEvent) { %> (<%=domEvent%>)="<%=func%>"<% } %> [max]="<%=getSliderOptions(slideroptions)[1]%>" [min]="<%=getSliderOptions(slideroptions)[0]%>"
+              <mat-slider <% if (referenceValue) { %> [(value)]="<%=referenceValue.split(':')[0]%>" <% } %> <% if (domEvent) { %> (<%=domEvent%>)="<%=func%>"<% } %> [max]="<%=getSliderOptions(slideroptions)[1]%>" [min]="<%=getSliderOptions(slideroptions)[0]%>"
                 [step]="<%=getSliderOptions(slideroptions)[2]%>">
               </mat-slider>
             </mat-list-item>
@@ -44,7 +44,7 @@
         <% if (widget === 'Toggle') { %>
           <mat-list>
             <mat-list-item>
-              <mat-slide-toggle <% if (domEvent) { %> (<%=domEvent%>)="<%=func%>"<% } %> [color]="'accent'" [checked]="false" [disabled]="false">
+              <mat-slide-toggle <% if (referenceValue) { %> [(value)]="<%=referenceValue.split(':')[0]%>" <% } %> <% if (domEvent) { %> (<%=domEvent%>)="<%=func%>"<% } %> [color]="'accent'" [checked]="false" [disabled]="false">
                 <%=label%>
               </mat-slide-toggle>
             </mat-list-item>
