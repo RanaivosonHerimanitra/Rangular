@@ -186,7 +186,6 @@ app$buildFrontEnd(directory="{YOUR DIR PACKAGE}",
                                                     cardComponent,
                                                     plotlyComponent,
                                                     toggleColumnComponent))
-
 app$serve("example")
 ```
 
