@@ -68,8 +68,8 @@
       <% if (view === 'mat-card') { %>
       <mat-card>
         <mat-card-header>
-          <mat-card-title>Title</mat-card-title>
-          <mat-card-subtitle>subtitle</mat-card-subtitle>
+          <mat-card-title><%=viewOptions.split(";")[0].split("%").join(" ")%></mat-card-title>
+          <mat-card-subtitle><%=viewOptions.split(";")[1].split("%").join(" ")%></mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
           <div *ngIf="data">

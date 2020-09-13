@@ -72,6 +72,17 @@ extractJsonMetaData = function(dataList) {
   return (paste(metadata,collapse = ";"))
 }
 
+# future view options should handled by this function
+extractViewOptions = function(componentViewOptions) {
+  outputParam = c()
+  for (view in names(componentViewOptions)) {
+    if (view %in% c("title", "subtitle")) {
+      outputParam = c(outputParam, formatLabel(componentViewOptions[view]))
+    }
+  }
+  return (paste(outputParam, collapse = ";"))
+}
+
 stringiFy = function (vecData, sep=";") {
   return (paste(vecData,collapse = sep))
 }
@@ -80,7 +91,7 @@ formatLabel = function (label) {
   return(str_replace_all(label, fixed(" "),"%"))
 }
 
-handlePlotly = function(data) {
+handlePlotlyViewOption = function(data) {
   result = c()
   for (param in names(data)) {
     if (param == "title") {
@@ -132,7 +143,8 @@ removeColumn = function() {
 }
 
 RAngular = R6Class("RAngular", list( components =list(),
-                               buildFrontEnd = function(directory="C:/Users/Admin/Documents/Rangular/", servicePort, name="frontend", components) {
+                               buildFrontEnd = function(directory="C:/Users/Admin/Documents/Rangular/",
+                                                        servicePort, name="frontend", components) {
                                  # generate component as specified by R-user:
                                  setwd(directory)
                                  if (length(components) > 0) {
@@ -163,14 +175,16 @@ RAngular = R6Class("RAngular", list( components =list(),
 
                                      methods = mergeMethods(vecMethods)
                                      metadata = extractJsonMetaData(component$methods)
+                                     viewOptions = extractViewOptions(component$view)
 
                                      system2("schematics",
                                              c("./rangular-template:component-template","--debug=false",
                                                paste0("--title=",name),
                                                paste0("--name=",component$name),
                                                paste0("--view=",component$view$view),
-                                               paste0("--viewdata=", handlePlotly(component$view$data)),
-                                               paste0("--viewlayout=", handlePlotly(component$view$layout)),
+                                               paste0("--viewOptions=", viewOptions),
+                                               paste0("--viewdata=", handlePlotlyViewOption(component$view$data)),
+                                               paste0("--viewlayout=", handlePlotlyViewOption(component$view$layout)),
                                                paste0("--columns=",paste(component$view$columns,collapse = ";")),
                                                paste0("--methods=",methods),
                                                paste0("--metadata=",metadata),
@@ -240,10 +254,10 @@ irisTableComponent = Component$new(url="/",
                                                           options=c("setosa","versicolor","virginica")),
                                          MatSlider = list(data="api/iris",
                                                           label = "filter by sepal length",
-                                                          event ="change",
-                                                          callback= filterSepalLength,
-                                                          arguments="$event",
-                                                          options =c(3,10,0.5))
+                                                          event = "change",
+                                                          callback = filterSepalLength,
+                                                          arguments = "$event",
+                                                          options = c(3,10,0.5))
                                          ))
 data("mtcars")
 toggleColumnComponent =  Component$new(url="/mtcars-dataset",
@@ -273,9 +287,12 @@ toggleColumnComponent =  Component$new(url="/mtcars-dataset",
                                                        arguments=""))
                                        )
 
-component2 = Component$new(url="/cardtable",
+cardComponent = Component$new(url="/cardtable",
                            name="summary",
-                           view=list(view="mat-card", columns = c("Sepal.Length","Petal.Length","Species")),
+                           view=list(view="mat-card",
+                                     columns = c("Sepal.Length","Petal.Length","Species"),
+                                     title="Card table title",
+                                     subtitle = "You can add subtitle as well"),
                            methods= list(MatButton = list(data = "api/iris",
                                                           event = "click",
                                                           label = "click me for minimum",
@@ -317,7 +334,7 @@ app = RAngular$new()
 app$buildFrontEnd(directory="C:/Users/Admin/Documents/Rangular/",
                   servicePort ="7999",
                   name="frontend", components= list(irisTableComponent,
-                                                    component2,
+                                                    cardComponent,
                                                     plotlyComponent,
                                                     toggleColumnComponent))
 app$serve("frontend")

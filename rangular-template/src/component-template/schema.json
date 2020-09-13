@@ -13,6 +13,9 @@
         "view": {
             "type": "string"
         },
+        "viewOptions": {
+            "type": "string"
+        },
         "viewdata": {
             "type": "string"
         },
