@@ -103,10 +103,10 @@ irisTableComponent = Component$new(url="/",
                                                           options=c("setosa","versicolor","virginica")),
                                          MatSlider = list(data="api/iris",
                                                           label = "filter by sepal length",
-                                                          event ="change",
-                                                          callback= filterSepalLength,
-                                                          arguments="$event",
-                                                          options =c(3,10,0.5))
+                                                          event = "change",
+                                                          callback = filterSepalLength,
+                                                          arguments = "$event",
+                                                          options = c(3,10,0.5))
                                          ))
 data("mtcars")
 toggleColumnComponent =  Component$new(url="/mtcars-dataset",
@@ -136,9 +136,12 @@ toggleColumnComponent =  Component$new(url="/mtcars-dataset",
                                                        arguments=""))
                                        )
 
-component2 = Component$new(url="/cardtable",
+cardComponent = Component$new(url="/cardtable",
                            name="summary",
-                           view=list(view="mat-card", columns = c("Sepal.Length","Petal.Length","Species")),
+                           view=list(view="mat-card",
+                                     columns = c("Sepal.Length","Petal.Length","Species"),
+                                     title="Card table title",
+                                     subtitle = "You can add subtitle as well"),
                            methods= list(MatButton = list(data = "api/iris",
                                                           event = "click",
                                                           label = "click me for minimum",
@@ -177,10 +180,10 @@ plotlyComponent = Component$new(url="/visualization",
                                          )
                            ))
 app = RAngular$new()
-app$buildFrontEnd(directory="C:/Users/Admin/Documents/Rangular/",
-                  servicePort ="{YOUR_BACKEND_PORT}",
+app$buildFrontEnd(directory="{YOUR DIR PACKAGE}",
+                  servicePort ="7999",
                   name="example", components= list(irisTableComponent,
-                                                    component2,
+                                                    cardComponent,
                                                     plotlyComponent,
                                                     toggleColumnComponent))
 app$serve("example")
@@ -188,7 +191,7 @@ app$serve("example")
 
 ## Overview of a modern application structure:
 
-A modern javascript application is divided into components. A component defines a way to display its content or view and its controller to handle logic applied to the view. Currently, supported views are `mat-table` (alias table), `mat-card` and `plotly` (via [angular-plotly](https://github.com/plotly/angular-plotly.js)). In the above example, we defined 03 components in 03 different urls. Each component holds its own logic surrounded by methods which control the data. Components have widgets (we aim to support all angular material components). They are used to display the data coming from api endpoint defined by `data`.
+A modern javascript application is divided into components. A component defines a way to display its content or view and its controller to handle logic applied to the view. Currently, supported views are `mat-table` (alias table), `mat-card` and `plotly` (via [angular-plotly](https://github.com/plotly/angular-plotly.js)). In the above example, we defined components in distinct urls. Each component holds its own logic surrounded by methods which control the data. Components have widgets (we aim to support all angular material components). They are used to display the data coming from api endpoint defined by `data`.
 Views are predefined angular components that are used to display the data.
 
 ![alt text](EarlyPreview.PNG "preview")
