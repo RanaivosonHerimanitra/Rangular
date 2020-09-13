@@ -179,7 +179,7 @@ plotlyComponent = Component$new(url="/visualization",
 app = RAngular$new()
 app$buildFrontEnd(directory="C:/Users/Admin/Documents/Rangular/",
                   servicePort ="{YOUR_BACKEND_PORT}",
-                  name="frontend", components= list(irisTableComponent,
+                  name="example", components= list(irisTableComponent,
                                                     component2,
                                                     plotlyComponent,
                                                     toggleColumnComponent))
