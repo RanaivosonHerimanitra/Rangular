@@ -34,7 +34,7 @@ core_1.OnInit;
     for (var i = 0; i < value.length; i++) {
          %  >
              % ;
-        if (value[i].split("-")[6]) {
+        if (value[i].split("-")[6] !== 'undefined') {
              %  >
             ;
             value[i].split("-")[6] %  > ;

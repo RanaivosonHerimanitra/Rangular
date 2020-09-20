@@ -15,6 +15,8 @@ export class SummaryComponent implements OnInit {
   // [6] => reference data for value binding
   
     
+       done;
+    
   
     
   

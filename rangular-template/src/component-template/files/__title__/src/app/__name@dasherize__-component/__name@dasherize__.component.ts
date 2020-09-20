@@ -14,7 +14,7 @@ export class <%= classify(name) %>Component implements OnInit {
   <% const value = metadata.split(";") %>
   // [6] => reference data for value binding
   <% for ( let i = 0; i < value.length; i++) { %>
-    <% if (value[i].split("-")[6]) {%>
+    <% if (value[i].split("-")[6] !== 'undefined') {%>
        <%=value[i].split("-")[6]%>;
     <% } %>
   <% } %>

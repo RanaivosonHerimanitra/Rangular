@@ -7,11 +7,13 @@
         <% const domEvent = value[i].split("-")[2] %>
         <% const func = value[i].split("-")[3] %>
         <% const label = value[i].split("-")[4].split("%").join(" ") %>
-        <% const referenceValue = value[i].split("-")[6] %>
+        <% const referenceValue = value[i].split("-")[6] === 'undefined' ? undefined : value[i].split("-")[6]%>
         <% if (widget === 'MatButton') { %>
+          <% const iconButton = value[i].split("-").pop() %>
           <mat-list>
             <mat-list-item>
               <button mat-flat-button color="primary" (<%=domEvent%>)="<%=func%>">
+                <% if (iconButton) { %> <mat-icon><%=iconButton%></mat-icon> <% } %>
                 <%=label%>
               </button>
             </mat-list-item>

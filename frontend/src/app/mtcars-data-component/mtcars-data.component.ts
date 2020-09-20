@@ -19,6 +19,8 @@ export class MtcarsDataComponent implements OnInit {
     
   
     
+       home;
+    
   
     
   
@@ -32,8 +34,8 @@ export class MtcarsDataComponent implements OnInit {
   }
 
   func0(){return(undefined)}
-func1(){return(this.ds.getDataService('api/mtcars').subscribe((data:any)=>{this.data=data.map(obj=>Object.entries(obj).filter(keyValue=>keyValue[0]!==this.columnToBeRemoved));this.data=this.data.map(obj=>Object.fromEntries(obj));}))}
-func2(){return(this.ds.getDataService('api/mtcars').subscribe((data:any)=>{this.data=data.map(obj=>Object.entries(obj).filter(keyValue=>keyValue[0]!=='mpg'));this.data=this.data.map(obj=>Object.fromEntries(obj));}))}
-func3(){return(this.ds.getDataService('api/mtcars').subscribe((data:any)=>{this.data=data.map(obj=>Object.entries(obj).filter(keyValue=>keyValue[0]!=='hp'));this.data=this.data.map(obj=>Object.fromEntries(obj));}))}
+func1(){return(this.ds.getDataService('api/mtcars').subscribe((data:any)=>{this.data=data.map(obj=>Object.entries(obj).filter(keyValue=>keyValue[0]!==this.columnToBeRemoved));this.data=this.data.map(obj=>Object.fromEntries(obj));this.displayedColumns=Object.keys(this.data[0]);}))}
+func2(){return(this.ds.getDataService('api/mtcars').subscribe((data:any)=>{this.data=data.map(obj=>Object.entries(obj).filter(keyValue=>keyValue[0]!=='mpg'));this.data=this.data.map(obj=>Object.fromEntries(obj));this.displayedColumns=Object.keys(this.data[0]);}))}
+func3(){return(this.ds.getDataService('api/mtcars').subscribe((data:any)=>{this.data=data.map(obj=>Object.entries(obj).filter(keyValue=>keyValue[0]!=='hp'));this.data=this.data.map(obj=>Object.fromEntries(obj));this.displayedColumns=Object.keys(this.data[0]);}))}
 
 }
