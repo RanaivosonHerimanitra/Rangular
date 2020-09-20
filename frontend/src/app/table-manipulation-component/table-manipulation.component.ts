@@ -15,6 +15,8 @@ export class TableManipulationComponent implements OnInit {
   // [6] => reference data for value binding
   
     
+       dns;
+    
   
     
   

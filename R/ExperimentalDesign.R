@@ -37,6 +37,7 @@ extractUrls = function(components) {
   return(str_replace_all(paste(urls, collapse=";"),fixed("/"),""))
 }
 
+# should be renamed differently event arguments and results and cmd options for the schematics
 extractJsonMetaData = function(dataList) {
   widgets = names(dataList)
   metadata = c()
@@ -50,7 +51,8 @@ extractJsonMetaData = function(dataList) {
                          paste0("func",index-1, "(",element$arguments,")"),
                          formatLabel(element$label),
                          paste(element$options,collapse="%"),
-                         element$reference,
+                         handleNullOption(element$reference),
+                         handleNullOption(element$icon),
                          sep="-")
 
       )
@@ -61,7 +63,8 @@ extractJsonMetaData = function(dataList) {
                          element$event,
                          paste0("func",index-1, "(",element$arguments,")"),
                          formatLabel(element$label),
-                         element$reference,
+                         handleNullOption(element$reference),
+                         handleNullOption(element$icon),
                          sep="-")
 
       )
@@ -69,7 +72,13 @@ extractJsonMetaData = function(dataList) {
 
     index = index + 1
   }
+  print(metadata)
   return (paste(metadata,collapse = ";"))
+}
+
+# utils function:
+handleNullOption = function(widgetOption) {
+  return(ifelse(is.null(widgetOption) == TRUE, "undefined", widgetOption))
 }
 
 # future view options should handled by this function
@@ -128,17 +137,17 @@ switchPetal = function(event) {
 }
 
 removeMpgColumn = function() {
-  return("this.ds.getDataService('api/mtcars').subscribe((data: any)=>{ this.data = data.map(obj => Object.entries(obj).filter(keyValue => keyValue[0] !== 'mpg')) % this.data = this.data.map(obj => Object.fromEntries(obj)  )%})"
+  return("this.ds.getDataService('api/mtcars').subscribe((data: any)=>{ this.data = data.map(obj => Object.entries(obj).filter(keyValue => keyValue[0] !== 'mpg')) % this.data = this.data.map(obj => Object.fromEntries(obj)  )% this.displayedColumns = Object.keys(this.data[0])%})"
   )
 }
 
 removeHpColumn = function() {
-  return("this.ds.getDataService('api/mtcars').subscribe((data: any)=>{ this.data = data.map(obj => Object.entries(obj).filter(keyValue => keyValue[0] !== 'hp')) % this.data = this.data.map(obj => Object.fromEntries(obj)  )%})"
+  return("this.ds.getDataService('api/mtcars').subscribe((data: any)=>{ this.data = data.map(obj => Object.entries(obj).filter(keyValue => keyValue[0] !== 'hp')) % this.data = this.data.map(obj => Object.fromEntries(obj)  )% this.displayedColumns = Object.keys(this.data[0])%})"
   )
 }
 
 removeColumn = function() {
-  return("this.ds.getDataService('api/mtcars').subscribe((data: any)=>{ this.data = data.map(obj => Object.entries(obj).filter(keyValue => keyValue[0] !== this.columnToBeRemoved)) % this.data = this.data.map(obj => Object.fromEntries(obj)  )%})"
+  return("this.ds.getDataService('api/mtcars').subscribe((data: any)=>{ this.data = data.map(obj => Object.entries(obj).filter(keyValue => keyValue[0] !== this.columnToBeRemoved)) % this.data = this.data.map(obj => Object.fromEntries(obj)  )% this.displayedColumns = Object.keys(this.data[0])%})"
   )
 }
 
@@ -245,7 +254,8 @@ irisTableComponent = Component$new(url="/",
                                                           event = "click",
                                                           label="order by sepal length",
                                                           callback = orderBySepalLength,
-                                                          arguments=""),
+                                                          arguments="",
+                                                          icon = "dns"),
                                          MatSelect = list(data = "api/iris",
                                                           event = "selectionChange",
                                                           label = "change specy",
@@ -274,7 +284,8 @@ toggleColumnComponent =  Component$new(url="/mtcars-dataset",
                                                           event = "click",
                                                           label="Remove selected column",
                                                           callback = removeColumn,
-                                                          arguments = ""),
+                                                          arguments = "",
+                                                          icon = "home"),
                                          Toggle = list(data ="api/mtcars",
                                                        label="Remove mpg column",
                                                        event ="change",
@@ -297,7 +308,8 @@ cardComponent = Component$new(url="/cardtable",
                                                           event = "click",
                                                           label = "click me for minimum",
                                                           callback = giveMeMin,
-                                                          arguments = ""),
+                                                          arguments = "",
+                                                          icon = "done"),
                                          MatSelect = list(data = "api/iris",
                                                           label ="Select a specy",
                                                           event = "selectionChange",
